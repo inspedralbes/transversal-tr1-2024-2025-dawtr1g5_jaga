@@ -9,7 +9,9 @@
 <body>
     <section class="seccio">
         <div class="contenidor" id="app">
-            <h1 class="titol-centrat">Botiga JAGA</h1>
+            
+            <h1 class="nom-botiga">JAGA</h1>
+            <h2 class="slogan-botiga">On cada partida és una aventura!</h2>
 
             <div class="grid-container">
                 <div class="grid-item" v-for="producte in productes" :key="producte.id">
@@ -24,7 +26,6 @@
                 </div>
             </div>
 
-            
             <div v-if="productes.length === 0">
                 <p class="notificacio">No hi ha productes disponibles.</p>
             </div>

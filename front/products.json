@@ -5,7 +5,8 @@
       "price": 35.99,
       "description": "Un juego de estrategia donde los jugadores colonizan una isla, comercian recursos y construyen asentamientos.",
       "categories": ["Estrategia", "Comercio", "Construcción"],
-      "stock": 12
+      "stock": 12,
+      "image": ""
     },
     {
       "id": 2,
@@ -13,7 +14,8 @@
       "price": 29.99,
       "description": "Un juego narrativo donde los jugadores interpretan imágenes surrealistas para contar historias y adivinar cartas.",
       "categories": ["Creatividad", "Narrativo", "Party"],
-      "stock": 20
+      "stock": 20,
+      "image": ""
     },
     {
       "id": 3,
@@ -21,7 +23,8 @@
       "price": 24.99,
       "description": "Los jugadores construyen ciudades medievales y caminos en este clásico juego de colocación de losetas.",
       "categories": ["Colocación de losetas", "Estrategia", "Medieval"],
-      "stock": 15
+      "stock": 15,
+      "image": ""
     },
     {
       "id": 4,
@@ -29,7 +32,8 @@
       "price": 39.99,
       "description": "Un juego cooperativo donde los jugadores deben trabajar juntos para detener la propagación de enfermedades por todo el mundo.",
       "categories": ["Cooperativo", "Estrategia", "Salud"],
-      "stock": 8
+      "stock": 8,
+      "image": ""
     },
     {
       "id": 5,
@@ -37,7 +41,8 @@
       "price": 31.99,
       "description": "Un juego abstracto de colocación de azulejos en el que los jugadores compiten para decorar un palacio portugués.",
       "categories": ["Abstracto", "Colocación de losetas", "Diseño"],
-      "stock": 10
+      "stock": 10,
+      "image": ""
     }
   ]
   

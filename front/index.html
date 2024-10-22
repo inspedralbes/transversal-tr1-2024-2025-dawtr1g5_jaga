@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <title>Botiga JAGA</title>
 </head>
 <body>
-    <div id="app">
-        <div v-if="products.length > 0">
-            <h1>Botiga JAGA - Productes disponibles</h1>
-            <div class="product" v-for="product in products" :key="product.id">
-                <h2 class="product-title">{{ product.title }}</h2>
-                <p>{{ product.description }}</p>
-                <p class="product-price">{{ product.price }} €</p>
-                <p class="product-stock">Stock: {{ product.stock }}</p>
-                <button class="buy-button" @click="buyProduct(product)">Comprar</button>
+    <section class="section">
+        <div class="container" id="app">
+            <h1 class="title">Botiga JAGA - Productes disponibles</h1>
+            
+            <div class="columns is-multiline">
+                <div class="column is-one-third" v-for="product in products" :key="product.id">
+                    <div class="card">
+                        <div class="card-content">
+                            <h2 class="title is-4">{{ product.title }}</h2>
+                            <p class="subtitle">{{ product.description }}</p>
+                            <p class="has-text-weight-bold">{{ product.price }} €</p>
+                            <p class="has-text-grey">Stock: {{ product.stock }}</p>
+                            <button class="button is-primary is-fullwidth mt-3" @click="buyProduct(product)">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="products.length === 0">
+                <p class="notification is-warning">No hi ha productes disponibles.</p>
             </div>
         </div>
-        <div v-else>
-            <p>No hi ha productes disponibles.</p>
-        </div>
-    </div>
+    </section>
 
     <script src="https://unpkg.com/vue@3.2.0/dist/vue.global.js"></script>
     <script type="module" src="./productes.js"></script>

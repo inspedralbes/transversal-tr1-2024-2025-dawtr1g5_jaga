@@ -116,6 +116,12 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        if(!$product){
+            return response()->json([
+                "message" => "El producto con id: $id no existe",
+                "status" => 404
+            ]);
+        }
         $product->delete();
 
         return response()->json([

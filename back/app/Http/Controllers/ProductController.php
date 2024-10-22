@@ -21,14 +21,5 @@ class ProductController extends Controller
         return view('index', compact('products')); 
     }
 
-    //Inserir un nou producte a la base de dades
-    /*public function store(Request $request): void{
-        $request->validate([
-            "title"=> "",
-            "description"=>"",
-            "price"=> "",
-            "stock"=> "",
-            "url"=> "",
-        ]);
-    }*/
+
 }

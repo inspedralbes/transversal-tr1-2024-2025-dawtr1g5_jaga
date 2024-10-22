@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,10 +15,11 @@ class ProductController extends Controller
     */
 
     //veure tots els productes
-    /*public function index(){
-        $todos = Todo::all(); //
-        return view('.index',);//nom del index
-    }*/
+    public function index()
+    {
+        $products = Product::all(); 
+        return view('index', compact('products')); 
+    }
 
     //Inserir un nou producte a la base de dades
     /*public function store(Request $request): void{

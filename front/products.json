@@ -1,48 +1,56 @@
 [
-    {
-      "id": 1,
-      "title": "Catan",
-      "price": 35.99,
-      "description": "Un juego de estrategia donde los jugadores colonizan una isla, comercian recursos y construyen asentamientos.",
-      "categories": ["Estrategia", "Comercio", "Construcción"],
-      "stock": 12,
-      "image": ""
-    },
-    {
-      "id": 2,
-      "title": "Dixit",
-      "price": 29.99,
-      "description": "Un juego narrativo donde los jugadores interpretan imágenes surrealistas para contar historias y adivinar cartas.",
-      "categories": ["Creatividad", "Narrativo", "Party"],
-      "stock": 20,
-      "image": ""
-    },
-    {
-      "id": 3,
-      "title": "Carcassonne",
-      "price": 24.99,
-      "description": "Los jugadores construyen ciudades medievales y caminos en este clásico juego de colocación de losetas.",
-      "categories": ["Colocación de losetas", "Estrategia", "Medieval"],
-      "stock": 15,
-      "image": ""
-    },
-    {
-      "id": 4,
-      "title": "Pandemic",
-      "price": 39.99,
-      "description": "Un juego cooperativo donde los jugadores deben trabajar juntos para detener la propagación de enfermedades por todo el mundo.",
-      "categories": ["Cooperativo", "Estrategia", "Salud"],
-      "stock": 8,
-      "image": ""
-    },
-    {
-      "id": 5,
-      "title": "Azul",
-      "price": 31.99,
-      "description": "Un juego abstracto de colocación de azulejos en el que los jugadores compiten para decorar un palacio portugués.",
-      "categories": ["Abstracto", "Colocación de losetas", "Diseño"],
-      "stock": 10,
-      "image": ""
-    }
-  ]
-  
+  {
+    "id": 1,
+    "nom": "Catan",
+    "preu": 35.99,
+    "descripcio": "Un joc d'estratègia on els jugadors colonitzen una illa, comercien recursos i construeixen assentaments.",
+    "categories": ["Estratègia", "Comerç", "Construcció"],
+    "stock": 12,
+    "imatge": "https://hobbyshopcr.com/cdn/shop/files/Catancartasminicajacopy.png?v=1694991203&width=1445"
+  },
+  {
+    "id": 2,
+    "nom": "Dixit",
+    "preu": 29.99,
+    "descripcio": "Un joc narratiu on els jugadors interpreten imatges surrealistes per contar històries i endevinar cartes.",
+    "categories": ["Creativitat", "Narratiu", "Party"],
+    "stock": 20,
+    "imatge": "https://serendipiatoys.com/cdn/shop/products/lidi0001_right.png?v=1559589899"
+  },
+  {
+    "id": 3,
+    "nom": "Carcassonne",
+    "preu": 24.99,
+    "descripcio": "Els jugadors construeixen ciutats medievals i camins en aquest clàssic joc de col·locació de llosetes.",
+    "categories": ["Col·locació de llosetes", "Estratègia", "Medieval"],
+    "stock": 15,
+    "imatge": "https://www.ludokubo.com/wp-content/uploads/2020/12/Carcassonne-Mercaderes-y-Puentes-comprar-.jpg"
+  },
+  {
+    "id": 4,
+    "nom": "Pandemic",
+    "preu": 39.99,
+    "descripcio": "Un joc cooperatiu on els jugadors han de treballar junts per aturar la propagació de malalties arreu del món.",
+    "categories": ["Cooperatiu", "Estratègia", "Salut"],
+    "stock": 8,
+    "imatge": "https://media.zacatrus.com/catalog/product/cache/f22f70ef8ee260256901b557cf6bf49a/p/a/pandemic_portada.png"
+  },
+  {
+    "id": 5,
+    "nom": "Azul",
+    "preu": 31.99,
+    "descripcio": "Un joc abstracte de col·locació de rajoles en què els jugadors competeixen per decorar un palau portuguès.",
+    "categories": ["Abstracte", "Col·locació de llosetes", "Disseny"],
+    "stock": 10,
+    "imatge": "https://cdn3.spider.cl/17687-large_default/juego-de-mesa-azul-base-espanol.jpg"
+  },
+  {
+    "id": 6,
+    "nom": "Monopoly",
+    "preu": 49.99,
+    "descripcio": "El clàssic joc de taula on els jugadors compren i venen propietats per guanyar diners i portar els altres a la bancarrota.",
+    "categories": ["Econòmic", "Negoci", "Competitiu"],
+    "stock": 25,
+    "imatge": "https://http2.mlstatic.com/D_NQ_NP_695603-MLU72581298022_112023-O.webp"
+  }
+]

@@ -3,27 +3,45 @@ import { createApp } from 'https://unpkg.com/vue@3.2.0/dist/vue.esm-browser.js';
 const app = createApp({
     data() {
         return {
-            products: [] 
+            productes: [], 
+            productesComprats: [],
+            producteSeleccionat: null, 
+            mostrarMesInfo: false 
         };
     },
     mounted() {
-        fetch('./products.json') 
+        // Carregar els productes del fitxer JSON
+        fetch('./products.json')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Error al carregar els productes');
+                    throw new Error('Error en carregar els productes');
                 }
-                return response.json(); 
+                return response.json();
             })
             .then(data => {
-                this.products = data; 
+                this.productes = data; 
             })
             .catch(error => {
-                console.error('Error:', error); 
+                console.error('Error:', error);
             });
     },
     methods: {
-        buyProduct(product) {
-            alert(`Has comprat ${product.title} per ${product.price} €!`);
+        comprarProducte(producte) {
+            this.productesComprats.push(producte);
+            alert(`Has comprat ${producte.nom} per ${producte.preu} €!`);
+        },
+        alternarInfo(producte) {
+            // Alternar la visualització de la informació addicional
+            if (this.producteSeleccionat === producte.id) {
+                this.mostrarMesInfo = !this.mostrarMesInfo;
+            } else {
+                this.producteSeleccionat = producte.id;
+                this.mostrarMesInfo = true;
+            }
+        },
+        reiniciarProductesComprats() {
+            // Reiniciar la llista de productes comprats
+            this.productesComprats = [];
         }
     }
 });

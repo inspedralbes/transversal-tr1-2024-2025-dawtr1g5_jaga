@@ -10,3 +10,8 @@ Route::get('/', function () {
 Route::get('/back', function () {
     return view('crud');
 });
+
+Route::get('/cart', function () {
+    
+    return view('cart');
+});

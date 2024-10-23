@@ -16,8 +16,8 @@
             <div class="grid-container">
                 <div class="grid-item" v-for="producte in productes" :key="producte.id">
                     <div class="targeta-producte">
-                        <img :src="producte.imatge" :alt="producte.title" class="imatge-producte">
                         <h2 class="nom-producte">{{ producte.title }}</h2>
+                        <img :src="producte.imatge" alt="imatge del joc" class="imatge-producte">
                         <p class="descripcio-producte">{{ producte.description }}</p>
                         <p class="preu-producte">{{ producte.price }} €</p>
                         <p class="stock-producte">Stock: {{ producte.stock }}</p>

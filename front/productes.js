@@ -10,7 +10,6 @@ const app = createApp({
         };
     },
     mounted() {
-        // Carregar els productes del fitxer JSON
         fetch('http://127.0.0.1:8000/api/products')
             .then(response => {
                 if (!response.ok) {

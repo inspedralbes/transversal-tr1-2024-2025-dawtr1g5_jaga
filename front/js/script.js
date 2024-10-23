@@ -9,11 +9,15 @@ fetch(`products.json`)
     console.error('Error al carregar els productes:', error);
 });
 
-function mostrarCarret(productes) {
-    let htmlString = '';
+function mostrarCarret(productes) { 
+    let htmlString = `<div class = "cartHead">
+                        <h1>CART</h1>
+                      </div>`;
     for (let index = 0; index < productes.length; index++) {
-        let product = productes;
-        htmlString += `<h1>${productes}</h1><br>`;
+        let product = productes[index];
+        htmlString += `<h4>${product.title}</h4>`;
     }
+    htmlString += `</div>`;
     document.getElementById('cartContainer').innerHTML = htmlString;
 }
+

@@ -39,24 +39,3 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-  
-  /* Product title style */
-  .productItem h4 {
-    font-size: 18px;
-    margin: 0;
-    color: #555;
-  }
-  
-  /* Product price style */
-  .productPrice {
-    font-size: 18px;
-    color: #28a745;
-    font-weight: bold;
-  }
-  
-  /* Hover effect on product item */
-  .productItem:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleCart.css">
+    <script src="js/script.js" type="module"></script>
+    <title>Cart: Items</title>
+</head>
+<body>
+    <div id="appVue">
+        <div id="cartContainer">
+            <div class="cartHead">
+                <h1>CART</h1>
+            </div>
+            <div class="cartBody">
+                <div class="productItem" v-for="producte in productes.datos" :key="producte.id">
+                    <h4>{{ producte.title }}</h4>
+                    <div class="butons">
+                        <input type="button" value="-" @click="decrement(producte)">
+                        <input type="number" v-model.number="producte.quantitat" min="0" id="quantititatProducte" name="quantititatProducte">
+                        <input type="button" value="+" @click="increment(producte)">
+                    </div>
+                    <p class="preu">€{{ producte.price.toFixed(2) }}</p>
+                </div>
+            </div>
+        </div>
+        <div id="cartContainer">
+            <h4>Total productes</h4>
+            <p v-if="preuTotal.total !== 0">€{{ preuTotal.total.toFixed(2) }}</p>
+        </div>
+    </div>
+</body>
+</html>

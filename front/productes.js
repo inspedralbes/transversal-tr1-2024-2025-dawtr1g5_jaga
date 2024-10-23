@@ -11,7 +11,7 @@ const app = createApp({
     },
     mounted() {
         // Carregar els productes del fitxer JSON
-        fetch('./products.json')
+        fetch('http://127.0.0.1:8000/api/products')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en carregar els productes');
@@ -28,7 +28,7 @@ const app = createApp({
     methods: {
         comprarProducte(producte) {
             this.productesComprats.push(producte);
-            alert(`Has comprat ${producte.nom} per ${producte.preu} €!`);
+            alert(`Has comprat ${producte.title} per ${producte.price} €!`);
         },
         alternarInfo(producte) {
             // Alternar la visualització de la informació addicional

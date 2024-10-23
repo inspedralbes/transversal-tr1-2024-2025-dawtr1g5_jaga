@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Botiga JAGA</title>
+</head>
+<body>
+    <section class="seccio">
+        <div class="contenidor" id="app">
+            
+            <h1 class="nom-botiga">JAGA</h1>
+            <h2 class="slogan-botiga">On cada partida és una aventura!</h2>
+
+            <div class="grid-container">
+                <div class="grid-item" v-for="producte in productes" :key="producte.id">
+                    <div class="targeta-producte">
+                        <h2 class="nom-producte">{{ producte.title }}</h2>
+                        <img :src="producte.imatge" alt="imatge del joc" class="imatge-producte">
+                        <p class="descripcio-producte">{{ producte.description }}</p>
+                        <p class="preu-producte">{{ producte.price }} €</p>
+                        <p class="stock-producte">Stock: {{ producte.stock }}</p>
+                        <button class="boto-comprar" @click="comprarProducte(producte)">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="productes.length === 0">
+                <p class="notificacio">No hi ha productes disponibles.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/vue@3.2.0/dist/vue.global.js"></script>
+    <script type="module" src="./productes.js"></script>
+</body>
+</html>

@@ -1,10 +1,28 @@
-import { createApp, reactive, onBeforeMount } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { createApp, reactive, onBeforeMount, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import { getProducts } from './communicationManager.js';
 
 createApp({
     setup() {
-        const productes =  reactive({datos:[]})
+        const productes =  reactive({datos:[]});
         let preuTotal  = reactive({ total: 0 });
+        let nProductes = ref(0);
+
+        onBeforeMount(async () => {
+            const data = await getProducts();
+            //console.log(data);
+            
+            productes.datos = data;
+
+            // Calcular el preu total de tots els productes dins del carret
+            for (let index = 0; index < productes.datos.length; index++) {
+                productes.datos[index].quantitat = 1;
+                nProductes.value ++;
+                //preuTotal.total += productes.datos[index].price;
+                //console.log(productes.datos[index].price);
+                console.log(preuTotal.total)
+            }
+            calcularTotal();
+        })
         
         function calcularTotal() {
             preuTotal.total = 0;
@@ -13,35 +31,17 @@ createApp({
             });
         }
 
-        onBeforeMount(async () => {
-            const data = await getProducts();
-            console.log(data);
-            
-            productes.datos = data;
-
-            // Calcular el preu total de tots els productes dins del carret
-            for (let index = 0; index < productes.datos.length; index++) {
-                productes.datos[index].quantitat = 1;
-                //preuTotal.total += productes.datos[index].price;
-                //console.log(productes.datos[index].price);
-                console.log(preuTotal.total)
+        function eliminarProducte(producteToRemove) {
+            const index = productes.datos.indexOf(producteToRemove);
+            if (index !== -1) {
+                productes.datos.splice(index, 1);
+                nProductes.value--;
+                calcularTotal(); 
             }
-
-            calcularTotal();
-
-        })
-
+        }
         
         return {
-            productes, preuTotal, calcularTotal
+            productes, preuTotal, calcularTotal, nProductes, eliminarProducte
         };
     }
 }).mount('#appVue');
-
-/*function increment(producte) {
-    cantitat ++;
-}
-
-function increment(producte) {
-    cantitat --;
-}*/

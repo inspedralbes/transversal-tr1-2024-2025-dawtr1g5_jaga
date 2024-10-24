@@ -23,13 +23,23 @@
                         <!--<input type="button" value="+" @click="increment(producte)">-->
                     </div>
                     <p class="preu">€{{ (producte.price * producte.quantitat).toFixed(2) }}</p>
+                    <button class="btnEliminar" @click="eliminarProducte(producte)">X</button>
                 </div>
             </div>
         </div>
         <div id="cartContainer">
-            <h4>Total productes</h4>
-            <p v-if="preuTotal.total !== 0">€{{ preuTotal.total.toFixed(2) }}</p>
-            <input type="button" value="Finalitzar compra" @click="finalitzarCompra" class="butonFinalitzar">
+            <div id="cartDades">
+                <div class="infoTotalProductes">
+                    <h4>Total productes:</h4>
+                    <p id="nProductes">{{ nProductes }} productes</p>
+                </div>
+                <div class="infoPreuTotal">
+                    <p v-if="preuTotal.total !== 0">Total: €{{ preuTotal.total.toFixed(2) }}</p>
+                </div>
+                <div class="finalitzarCompra">
+                    <input type="button" value="Finalitzar compra" @click="finalitzarCompra" class="butonFinalitzar">
+                </div>
+            </div>
         </div>
     </div>
 </body>

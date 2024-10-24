@@ -48,7 +48,7 @@
             <div v-for="producto in infoTotal.datos" :key="producto.id" class="grid-item">
                 <div class="targeta-producte">
                     <h2 class="nom-producte">{{ producto.title }}</h2>
-                    <img :src="producto.image" alt="imatge del joc" class="imatge-producte">
+                    <img src="producto.image" alt="imatge del joc" class="imatge-producte">
                     <p class="descripcio-producte">{{ producto.description }}</p>
                     <p class="preu-producte">{{ producto.price }} €</p>
                     <p class="stock-producte" v-if="producto.stock > 0">Stock disponible: {{ producto.stock }}</p>
@@ -65,9 +65,6 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
-
-
-
     <script type="module" src="./productes.js"></script>
 </body>
 </html>

@@ -1,3 +1,6 @@
+@extends('app')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +17,7 @@
     <form method="POST" action="{{ route('products.store') }}">
         @csrf
         <input type="text" name="title" placeholder="Nom del Joc" required>
-        <input type="text" name="description" placeholder="Descripció" required >
+        <input type="text" name="description" placeholder="Descripció" required>
         <input type="number" name="price" placeholder="Preu" step="0.01" required>
         <input type="number" name="stock" placeholder="Stock" required>
         <button type="submit">Agregar Producto</button>
@@ -25,11 +28,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Descripción</th>
+                <th>Nom</th>
+                <th>Preu</th>
+                <th>Descripció</th>
                 <th>Stock</th>
-                <th>Acciones</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +50,7 @@
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Editar</a>
-                        </td>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -55,3 +58,4 @@
 </body>
 
 </html>
+@endsection

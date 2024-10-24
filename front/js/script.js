@@ -5,6 +5,14 @@ createApp({
     setup() {
         const productes =  reactive({datos:[]})
         let preuTotal  = reactive({ total: 0 });
+
+        let order = {
+            orders: [],
+            orderTotal: {
+                user_id: null,
+                totalAmount: 0
+            }
+        };
         
         onBeforeMount(async () => {
             const data = await getProducts();
@@ -14,15 +22,25 @@ createApp({
 
             // Calcular el preu total de tots els productes dins del carret
             for (let index = 0; index < productes.datos.length; index++) {
-                preuTotal.total += productes.datos[index].price;
-                //console.log(productes.datos[index].price);
-                console.log(preuTotal.total)
-            }
-        })
+                let prod_id = productes.datos[index].id;
+                let prod_quant = productes.datos[index].quantity;
+                let prod_price = productes.datos[index].price;
 
+                order.orders.push({
+                    product_id: prod_id,
+                    quantity: 1,
+                    amount: (prod_price)*1,
+                });
+
+                order.orderTotal.totalAmount += order.orders[index].amount;
+
+            }
+            console.log(order);
+        });
+        
 
         return {
-            productes, preuTotal
+            productes, preuTotal, order
         };
     }
 }).mount('#appVue');

@@ -14,6 +14,5 @@ class Orders extends Model
         'product_id',
         'quantity',
         'amount',
-        'status',
     ];
 }

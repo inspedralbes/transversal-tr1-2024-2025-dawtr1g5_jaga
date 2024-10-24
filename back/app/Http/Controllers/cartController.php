@@ -13,7 +13,13 @@ class cartController extends Controller
      */
     public function index()
     {
-        //
+        $orders = orderfinal::all();
+
+        if (request()->is('api/*')) {
+            return response()->json($orders);
+        }
+
+        // return view('crud', compact('products'));
     }
 
     /**
@@ -24,6 +30,7 @@ class cartController extends Controller
         $orderTotal = orderfinal::create([
             'user_id' => $request->input('orderTotal.user_id'),
             'amount' => $request->input('orderTotal.totalAmount'),
+            'status' => "pendiente",
         ]);
         
         if(!$orderTotal){
@@ -39,7 +46,6 @@ class cartController extends Controller
                 "product_id" => $product['product_id'],
                 "quantity" => $product['quantity'],
                 "amount" => $product['amount'],
-                "status" => "pendiente",
             ]);
         }
 

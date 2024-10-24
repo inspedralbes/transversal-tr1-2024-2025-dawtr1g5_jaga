@@ -13,5 +13,6 @@ class orderfinal extends Model
     protected $fillable = [
         'amount',
         'user_id',
+        'status',
     ];
 }

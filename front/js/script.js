@@ -6,6 +6,13 @@ createApp({
         const productes =  reactive({datos:[]})
         let preuTotal  = reactive({ total: 0 });
         
+        function calcularTotal() {
+            preuTotal.total = 0;
+            productes.datos.forEach(producte => {
+                preuTotal.total += producte.price * producte.quantitat;
+            });
+        }
+
         onBeforeMount(async () => {
             const data = await getProducts();
             console.log(data);
@@ -14,22 +21,27 @@ createApp({
 
             // Calcular el preu total de tots els productes dins del carret
             for (let index = 0; index < productes.datos.length; index++) {
-                preuTotal.total += productes.datos[index].price;
+                productes.datos[index].quantitat = 1;
+                //preuTotal.total += productes.datos[index].price;
                 //console.log(productes.datos[index].price);
                 console.log(preuTotal.total)
             }
+
+            calcularTotal();
+
         })
 
-        /*function increment(producte) {
-            cantitat ++;
-        }
-
-        function increment(producte) {
-            cantitat --;
-        }*/
-
+        
         return {
-            productes, preuTotal
+            productes, preuTotal, calcularTotal
         };
     }
 }).mount('#appVue');
+
+/*function increment(producte) {
+    cantitat ++;
+}
+
+function increment(producte) {
+    cantitat --;
+}*/

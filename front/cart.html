@@ -17,17 +17,19 @@
                 <div class="productItem" v-for="producte in productes.datos" :key="producte.id">
                     <h4>{{ producte.title }}</h4>
                     <div class="butons">
-                        <input type="button" value="-" @click="decrement(producte)">
-                        <input disabled type="number" v-model.number="producte.quantitat" min="1" id="quantititatProducte" name="quantititatProducte">
-                        <input type="button" value="+" @click="increment(producte)">
+                        <label for="quantititatProducte">Cantitat:</label>
+                        <!--<input type="button" value="-" @click="decrement(producte)">-->
+                        <input type="number" v-model.number="producte.quantitat" min="1" id="quantititatProducte" name="quantititatProducte" @input="calcularTotal">
+                        <!--<input type="button" value="+" @click="increment(producte)">-->
                     </div>
-                    <p class="preu">€{{ producte.price.toFixed(2) }}</p>
+                    <p class="preu">€{{ (producte.price * producte.quantitat).toFixed(2) }}</p>
                 </div>
             </div>
         </div>
         <div id="cartContainer">
             <h4>Total productes</h4>
             <p v-if="preuTotal.total !== 0">€{{ preuTotal.total.toFixed(2) }}</p>
+            <input type="button" value="Finalitzar compra" @click="finalitzarCompra" class="butonFinalitzar">
         </div>
     </div>
 </body>

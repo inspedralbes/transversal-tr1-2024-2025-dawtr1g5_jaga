@@ -1,0 +1,41 @@
+[
+  {
+      "id": 1,
+      "title": "Catan",
+      "description": "Un juego de estrategia donde los jugadores colonizan una isla, comercian recursos y construyen asentamientos.",
+      "price": 35.99,
+      "stock": 12
+     
+     
+  },
+  {
+      "id": 2,
+      "title": "Dixit",
+      "description": "Un juego narrativo donde los jugadores interpretan imágenes surrealistas para contar historias y adivinar cartas.",
+      "price": 29.99,
+      "stock": 20
+      
+  },
+  {
+      "id": 3,
+      "title": "Carcassonne",
+      "description": "Los jugadores construyen ciudades medievales y caminos en este clásico juego de colocación de losetas.",
+      "price": 24.99,
+      "stock": 15
+      
+  },
+  {
+      "id": 4,
+      "title": "Pandemic",
+      "description": "Un juego cooperativo donde los jugadores deben trabajar juntos para detener la propagación de enfermedades por todo el mundo.",
+      "price": 39.99,
+      "stock": 8
+  },
+  {
+      "id": 5,
+      "title": "Azul",
+      "description": "Un juego abstracto de colocación de azulejos en el que los jugadores compiten para decorar un palacio portugués.",
+      "price": 31.99,
+      "stock": 10
+  }
+]

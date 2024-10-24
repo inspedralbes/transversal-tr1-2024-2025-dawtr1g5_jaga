@@ -1,0 +1,164 @@
+body{
+    margin: 0;
+}
+
+.navbar{
+    height: 80px;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: white;
+    z-index: 10;
+}
+
+.list > a > li{
+    padding: 5px;
+}
+
+.list > a > li:hover{
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.cart-total{
+    top: -10px;
+    right: -10px;
+    background-color: white;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+}
+
+.no-style{
+    text-decoration: none;
+    list-style: none;
+}
+
+.no-margin{
+    margin: 0;
+}
+
+.font-black{
+    color: black;
+}
+
+.w-full{
+    width: 100%;
+}
+
+.w-30{
+    width: 30%;
+}
+
+.h-full{
+    height: 100%;
+}
+
+.p-sticky{
+    position: sticky;
+    top: 0;
+}
+
+.p-relative{
+    position: relative;
+}
+
+.p-absolute{
+    position: absolute;
+}
+
+.d-flex{
+    display: flex;
+}
+
+.f-center{
+    justify-content: center;
+}
+
+.f-right{
+    justify-content: right;
+}
+
+.f-around{
+    justify-content: space-around;
+}
+
+.f-between{
+    justify-content: space-between;
+}
+
+.align-center{
+    align-items: center;
+    vertical-align: middle;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.btn{
+    background-color: #12b0ee;
+    color: white;
+    font-size: 20px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: #1093c7;
+}
+
+.card{
+    height: 300px;
+    overflow: hidden;
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card > a > .item-img{
+    object-fit: contain;
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+}
+
+.card > .item-info{
+    background-color: #f3f3f3;
+    height: 80px;
+    bottom: 0;
+}
+
+.item-info > .item-price{
+    color: black;
+    bottom: 0;
+    right: 0;
+    margin: 15px;
+}
+
+.item-info > .item-title{
+    margin: 10px;
+}
+
+.item-info > .item-add{
+    color: black;
+    bottom: 0;
+    left: 0;
+    margin: 10px;
+    border: 2px solid #dadada;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    z-index: 200;
+}
+
+.ellipsis{
+    white-space: nowrap;
+    width: 275px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

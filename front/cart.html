@@ -18,7 +18,7 @@
                     <h4>{{ producte.title }}</h4>
                     <div class="butons">
                         <input type="button" value="-" @click="decrement(producte)">
-                        <input type="number" v-model.number="producte.quantitat" min="0" id="quantititatProducte" name="quantititatProducte">
+                        <input disabled type="number" v-model.number="producte.quantitat" min="1" id="quantititatProducte" name="quantititatProducte">
                         <input type="button" value="+" @click="increment(producte)">
                     </div>
                     <p class="preu">€{{ producte.price.toFixed(2) }}</p>

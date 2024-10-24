@@ -8,7 +8,7 @@ createApp({
 
         const productosVisible = ref(false); 
 
-        // Cargar productos desde la API
+        
         onBeforeMount(async () => {
             try {
                 const data = await getProducts(); // Obtengo los productos
@@ -27,12 +27,32 @@ createApp({
             productosVisible.value = false; 
         }
 
+        function addCart(productId) {
+            const product = infoTotal.datos.find(p => p.id === productId); 
+            if (product && product.stock > 0) {
+                totalCart.value += 1; 
+                product.stock -= 1;
+            } else {
+                alert("No hay stock disponible para este producto.");
+            }
+        }
+
+        function removeCart(productId) {
+            const product = infoTotal.datos.find(p => p.id === productId);
+            if (product) {
+                totalCart.value -= 1; 
+                product.stock += 1; 
+            }
+        }
+        
+
         return {
             infoTotal,
             mostrarProductos,
             ocultarProductos, 
             productosVisible,
-            totalCart,
+            addCart,
+            removeCart,
         };
     }
 }).mount('#appVue');

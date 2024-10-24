@@ -3,12 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
     background-attachment: fixed;
-    background-image: url('./wallpaper-mono-de-juegos-agricola-desktop.jpg');
+    background-image: linear-gradient(rgba(78, 74, 74, 0.5), rgba(83, 74, 74, 0.5)), url('./wallpaper-mono-de-juegos-agricola-desktop.jpg');
 }
 
 .seccio {
@@ -209,4 +208,5 @@ body {
 .boto-volver:hover {
     background-color: #c82333;
 }
+
 

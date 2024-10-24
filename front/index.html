@@ -31,8 +31,10 @@
             </div>
             <div class="iconos-header">
                 <i class="fas fa-shopping-cart"></i>
+                <span>{{ totalCart }}</span> 
                 <i class="fas fa-user"></i>
             </div>
+            
         </div>
     
         <div class="slogan">
@@ -40,8 +42,8 @@
         </div>
     
         <button @click="mostrarProductos" class="boto-mostrar-tots">Mostrar Tots els Productes</button>
-        <button v-if="productosVisible" @click="ocultarProductos" class="boto-volver">Volver al Inicio</button>
-    
+        <button v-if="productosVisible" @click="ocultarProductos" class="boto-volver">Tornar a l'inici</button>
+        
         <div class="grid-container" v-if="productosVisible">
             <div v-for="producto in infoTotal.datos" :key="producto.id" class="grid-item">
                 <div class="targeta-producte">
@@ -52,6 +54,7 @@
                     <p class="stock-producte" v-if="producto.stock > 0">Stock disponible: {{ producto.stock }}</p>
                     <p class="stock-producte" v-else style="color: red;">Sense stock</p>
                     <button class="boto-comprar" :disabled="producto.stock === 0" @click="addCart(producto.id)">Comprar</button>
+
                 </div>
             </div>
         </div>

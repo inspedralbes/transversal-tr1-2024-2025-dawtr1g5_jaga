@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="appVue">
+        <nav class="w-full navbar p-sticky">
+            <div class="d-flex f-center align-center h-full">
+                <div class="w-30">
+                    <h1>LOGO ECOMMERCE</h1>
+                </div>
+                <div class="w-30">
+                    <ul class="list d-flex f-around no-style">
+                        <a href="#" class="no-style font-black"><li>Camisetas</li></a>
+                        <a href="#" class="no-style font-black"><li>Pantalones</li></a>
+                        <a href="#" class="no-style font-black"><li>Zapatos</li></a>
+                        <a href="#" class="no-style font-black"><li>Accesorios</li></a>
+                    </ul>
+                </div>
+                <div class="w-30 d-flex f-right">
+                    <img src="img/user.png" width="24px" height="24px">
+                    <div class="p-relative">
+                        <img src="img/shopping-cart.png" width="25px" height="25px" style="margin-left: 20px;">
+                        <div v-if="totalCart > 0" class="cart-total p-absolute d-flex f-center align-center">
+                            <p class="no-margin">{{totalCart}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div v-if="mostrar('portada')" id="portada">
+            <h1 style="text-align: center; margin: 20px;">Bienvenido</h1>
+            <img class="w-full" src="https://primedia.primark.com/i/primark/Wk4_landingPage_23?$homepagebanner-regulardesktop$&fmt=auto">
+            <div class="w-full text-center">
+                <button @click="mostrarDiv('articulos')" class="btn" type="button">Ver artículos</button>
+            </div>
+        </div>
+        <div v-if="mostrar('articulos')" id="articulos">
+            <button @click="mostrarDiv('portada')" type="button" class="">Volver a la
+                portada</button>
+            <div class="d-flex f-center">
+                <div style="display: grid; grid-template-columns: repeat(3, 300px); gap: 10px;">
+                    <div v-for="actual in infoTotal.datos">
+                        <div class="card p-relative">
+                            <a href="#" @click="mostrarDiv('itemInfo')"><img :src="actual.image" class="item-img"></a>
+                                <div class="item-info p-absolute w-full">
+                                    <p class="item-title ellipsis">{{actual.title}}</p>
+                                    <p class="item-price p-absolute">{{actual.price}}€</p>
+                                    <p @click="addCart(actual.id)" class="item-add p-absolute pointer">Add to cart</p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="mostrar('itemInfo')" id="itemInfo">
+            <button @click="mostrarDiv('articulos')">Volver a la tienda</button>
+            <h1>Item Info</h1>
+            <div class="">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+
+        <div v-if="mostrar('checkout')" id="checkout">
+            <button @click="mostrarDiv('articulos')">Volver a la tienda</button>
+            <h1>Checkout</h1>
+        </div>
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="js/action.js"></script>
+</body>
+
+</html>

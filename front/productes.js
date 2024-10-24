@@ -1,48 +1,38 @@
-import { createApp } from 'https://unpkg.com/vue@3.2.0/dist/vue.esm-browser.js';
+import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+import { getProducts } from './communicationManager.js';
 
-const app = createApp({
-    data() {
-        return {
-            productes: [], 
-            productesComprats: [],
-            producteSeleccionat: null, 
-            mostrarMesInfo: false 
-        };
-    },
-    mounted() {
-        fetch('http://127.0.0.1:8000/api/products')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en carregar els productes');
-                }
-                return response.json();
-            })
-            .then(data => {
-                this.productes = data; 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    },
-    methods: {
-        comprarProducte(producte) {
-            this.productesComprats.push(producte);
-            alert(`Has comprat ${producte.title} per ${producte.price} €!`);
-        },
-        alternarInfo(producte) {
-            // Alternar la visualització de la informació addicional
-            if (this.producteSeleccionat === producte.id) {
-                this.mostrarMesInfo = !this.mostrarMesInfo;
-            } else {
-                this.producteSeleccionat = producte.id;
-                this.mostrarMesInfo = true;
+createApp({
+    setup() {
+        let totalCart = ref(0);
+        const infoTotal = reactive({ datos: [] });
+
+        const productosVisible = ref(false); 
+
+        // Cargar productos desde la API
+        onBeforeMount(async () => {
+            try {
+                const data = await getProducts(); // Obtengo los productos
+                console.log(data);
+                infoTotal.datos = data;
+            } catch (error) {
+                console.error("Error al cargar productos:", error);
             }
-        },
-        reiniciarProductesComprats() {
-            // Reiniciar la llista de productes comprats
-            this.productesComprats = [];
-        }
-    }
-});
+        });
 
-app.mount('#app');
+        function mostrarProductos() {
+            productosVisible.value = true; 
+        }
+
+        function ocultarProductos() {
+            productosVisible.value = false; 
+        }
+
+        return {
+            infoTotal,
+            mostrarProductos,
+            ocultarProductos, 
+            productosVisible,
+            totalCart,
+        };
+    }
+}).mount('#appVue');

@@ -20,14 +20,13 @@ createApp({
             }
         })
 
-        function increment(producte) {
+        /*function increment(producte) {
             cantitat ++;
         }
 
         function increment(producte) {
             cantitat --;
-        }
-
+        }*/
 
         return {
             productes, preuTotal

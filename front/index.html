@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Portal del Joc</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu-lateral">
+        <h1>El Portal del Joc</h1>
+        <img src="./file.png" alt="Logo" class="logo">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Admin</a></li>
+        </ul>
+        <div class="footer">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+        </div>
+    </div>
+
+    <section class="seccio" id="appVue">
+        <div class="header">
+            <div class="buscador">
+                <input type="text" placeholder="Buscar...">
+            </div>
+            <div class="iconos-header">
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    
+        <div class="slogan">
+            Sempre hi ha un <span class="highlight">joc perfecte</span> per a cada persona
+        </div>
+    
+        <button @click="mostrarProductos" class="boto-mostrar-tots">Mostrar Tots els Productes</button>
+        <button v-if="productosVisible" @click="ocultarProductos" class="boto-volver">Volver al Inicio</button>
+    
+        <div class="grid-container" v-if="productosVisible">
+            <div v-for="producto in infoTotal.datos" :key="producto.id" class="grid-item">
+                <div class="targeta-producte">
+                    <h2 class="nom-producte">{{ producto.title }}</h2>
+                    <img :src="producto.image" alt="imatge del joc" class="imatge-producte">
+                    <p class="descripcio-producte">{{ producto.description }}</p>
+                    <p class="preu-producte">{{ producto.price }} €</p>
+                    <p class="stock-producte" v-if="producto.stock > 0">Stock disponible: {{ producto.stock }}</p>
+                    <p class="stock-producte" v-else style="color: red;">Sense stock</p>
+                    <button class="boto-comprar" :disabled="producto.stock === 0" @click="addCart(producto.id)">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carga de Bootstrap y Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+
+
+
+    <script type="module" src="./productes.js"></script>
+</body>
+</html>

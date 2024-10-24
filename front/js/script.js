@@ -1,23 +1,28 @@
-fetch(`products.json`)
-.then(response => response.json())
-.then(info => {
-    dadesProductes = info;
-    console.log(dadesProductes);
-    mostrarCarret(dadesProductes);
-})
-.catch(error => {
-    console.error('Error al carregar els productes:', error);
-});
+import { createApp, reactive, onBeforeMount } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { getProducts } from './communicationManager.js';
 
-function mostrarCarret(productes) { 
-    let htmlString = `<div class = "cartHead">
-                        <h1>CART</h1>
-                      </div>`;
-    for (let index = 0; index < productes.length; index++) {
-        let product = productes[index];
-        htmlString += `<h4>${product.title}</h4>`;
+createApp({
+    setup() {
+        const productes =  reactive({datos:[]})
+        let preuTotal  = reactive({ total: 0 });
+        
+        onBeforeMount(async () => {
+            const data = await getProducts();
+            console.log(data);
+            
+            productes.datos = data;
+
+            // Calcular el preu total de tots els productes dins del carret
+            for (let index = 0; index < productes.datos.length; index++) {
+                preuTotal.total += productes.datos[index].price;
+                //console.log(productes.datos[index].price);
+                console.log(preuTotal.total)
+            }
+        })
+
+
+        return {
+            productes, preuTotal
+        };
     }
-    htmlString += `</div>`;
-    document.getElementById('cartContainer').innerHTML = htmlString;
-}
-
+}).mount('#appVue');

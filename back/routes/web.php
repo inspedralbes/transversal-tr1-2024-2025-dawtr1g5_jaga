@@ -15,6 +15,10 @@ Route::get('/crud', function () {
     return view('crud');
 })->name('crud');
 
+Route::get('/comandes', function () {
+    return view('comandes.index');
+})->name('comandes.index');
+
 Route::get('/crud', [ProductController::class, 'index'])->name('crud');
 
 Route::get('/products', [ProductController::class,'index'])->name('products.index');

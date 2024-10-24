@@ -42,11 +42,14 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link {{ str_contains(Route::current()->getName(), 'crud') ? 'active' : '' }}" href="{{ route('crud') }}">CRUD</a>
+                        <a class="nav-link {{ str_contains(Route::current()->getName(), 'crud') ? 'active' : '' }}"
+                            href="{{ route('crud') }}">CRUD</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Comandes</a>
+                        <a class="nav-link {{ str_contains(Route::current()->getName(), 'comandes') ? 'active' : '' }}"
+                            href="{{ route('comandes.index') }}">Comandes</a>
                     </li>
+
                 </ul>
             </div>
         </div>

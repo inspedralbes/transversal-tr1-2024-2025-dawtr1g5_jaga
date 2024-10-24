@@ -3,8 +3,10 @@ import { getProducts } from './communicationManager.js';
 
 createApp({
     setup() {
-        let totalCart = ref(0);
-        const infoTotal = reactive({ datos: [] });
+        const infoTotal = reactive({ datos: [] }); // Datos originaes
+        let cart = reactive({ datos: [] }); // Guarda los productos que quiere comprar
+        let preuTotal  = reactive({ total: 0 }); // Guarda el valor total de los productos
+        let totalCart = ref(0); // Cantidad de los productos
 
         const productosVisible = ref(false); 
 
@@ -17,8 +19,19 @@ createApp({
             } catch (error) {
                 console.error("Error al cargar productos:", error);
             }
+
+            // Calcular el preu total de tots els infoTotal dins del carret
+            for (let index = 0; index < infoTotal.datos.length; index++) {
+                infoTotal.datos[index].quantitat = 1;
+                //totalCart.value ++;
+                //preuTotal.total += infoTotal.datos[index].price;
+                //console.log(infoTotal.datos[index].price);
+                console.log(preuTotal.total)
+            }
+            calcularTotal();
         });
 
+        // functions index html
         function mostrarProductos() {
             productosVisible.value = true; 
         }
@@ -30,6 +43,8 @@ createApp({
         function addCart(productId) {
             const product = infoTotal.datos.find(p => p.id === productId); 
             if (product && product.stock > 0) {
+                cart.datos.push({product});
+                console.log(cart.datos);
                 totalCart.value += 1; 
                 product.stock -= 1;
             } else {
@@ -44,7 +59,26 @@ createApp({
                 product.stock += 1; 
             }
         }
-        
+
+        // functions cart html
+
+        function calcularTotal() {
+            preuTotal.total = 0;
+
+            for (let index = 0; index < cart.datos.length; index++) {
+                const producte = cart.datos[index];
+                preuTotal.total += producte.product.price * producte.product.quantitat; // Calculate the total
+            }
+        }
+
+        function eliminarProducte(producteToRemove) {
+            const index = infoTotal.datos.indexOf(producteToRemove);
+            if (index !== -1) {
+                infoTotal.datos.splice(index, 1);
+                totalCart.value--;
+                calcularTotal(); 
+            }
+        }
 
         return {
             infoTotal,
@@ -53,6 +87,11 @@ createApp({
             productosVisible,
             addCart,
             removeCart,
+            calcularTotal,
+            eliminarProducte,
+            preuTotal,
+            totalCart,
+            cart
         };
     }
 }).mount('#appVue');

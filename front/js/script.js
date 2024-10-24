@@ -3,22 +3,22 @@ import { getProducts } from './communicationManager.js';
 
 createApp({
     setup() {
-        const productes =  reactive({datos:[]});
+        const infoTotal =  reactive({datos:[]});
         let preuTotal  = reactive({ total: 0 });
-        let nProductes = ref(0);
+        let nInfoTotal = ref(0); 
 
         onBeforeMount(async () => {
             const data = await getProducts();
-            //console.log(data);
+            console.log(data);
             
-            productes.datos = data;
+            infoTotal.datos = data;
 
-            // Calcular el preu total de tots els productes dins del carret
-            for (let index = 0; index < productes.datos.length; index++) {
-                productes.datos[index].quantitat = 1;
-                nProductes.value ++;
-                //preuTotal.total += productes.datos[index].price;
-                //console.log(productes.datos[index].price);
+            // Calcular el preu total de tots els infoTotal dins del carret
+            for (let index = 0; index < infoTotal.datos.length; index++) {
+                infoTotal.datos[index].quantitat = 1;
+                nInfoTotal.value ++;
+                //preuTotal.total += infoTotal.datos[index].price;
+                //console.log(infoTotal.datos[index].price);
                 console.log(preuTotal.total)
             }
             calcularTotal();
@@ -26,22 +26,22 @@ createApp({
         
         function calcularTotal() {
             preuTotal.total = 0;
-            productes.datos.forEach(producte => {
+            infoTotal.datos.forEach(producte => {
                 preuTotal.total += producte.price * producte.quantitat;
             });
         }
 
         function eliminarProducte(producteToRemove) {
-            const index = productes.datos.indexOf(producteToRemove);
+            const index = infoTotal.datos.indexOf(producteToRemove);
             if (index !== -1) {
-                productes.datos.splice(index, 1);
-                nProductes.value--;
+                infoTotal.datos.splice(index, 1);
+                nInfoTotal.value--;
                 calcularTotal(); 
             }
         }
         
         return {
-            productes, preuTotal, calcularTotal, nProductes, eliminarProducte
+            infoTotal, preuTotal, calcularTotal, nInfoTotal, eliminarProducte
         };
     }
 }).mount('#appVue');

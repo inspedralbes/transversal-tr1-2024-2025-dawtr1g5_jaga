@@ -6,6 +6,7 @@
     <title>El Portal del Joc</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/styleCart.css">
 </head>
 <body>
     <div class="menu-lateral">
@@ -31,7 +32,7 @@
             </div>
             <div class="iconos-header">
                 <i class="fas fa-shopping-cart"></i>
-                <span>{{ totalCart }}</span> 
+                <!--<span>{{ totalCart }}</span>-->
                 <i class="fas fa-user"></i>
             </div>
             
@@ -55,6 +56,38 @@
                     <p class="stock-producte" v-else style="color: red;">Sense stock</p>
                     <button class="boto-comprar" :disabled="producto.stock === 0" @click="addCart(producto.id)">Comprar</button>
 
+                </div>
+            </div>
+        </div>
+        <div id="cartContainer">
+            <div class="cartHead">
+                <h1>CART</h1>
+            </div>
+            <div class="cartBody">
+                <div class="productItem" v-for="producte in cart.datos" :key="producte.id">
+                    <h4>{{ producte.product.title }}</h4>
+                    <div class="butons">
+                        <label for="quantititatProducte">Cantitat:</label>
+                        <!--<input type="button" value="-" @click="decrement(producte)">-->
+                        <input type="number" v-model.number="producte.product.quantitat" min="1" id="quantititatProducte" name="quantititatProducte" @input="calcularTotal">
+                        <!--<input type="button" value="+" @click="increment(producte)">-->
+                    </div>
+                    <p class="preu">€{{ (producte.product.price * producte.product.quantitat).toFixed(2) }}</p>
+                    <button class="btnEliminar" @click="eliminarProducte(producte)">X</button>
+                </div>
+            </div>
+        </div>
+        <div id="cartContainer">
+            <div id="cartDades">
+                <div class="infoTotalinfoTotal">
+                    <h4>Total infoTotal:</h4>
+                    <p id="ninfoTotal">{{ totalCart }} productes</p>
+                </div>
+                <div class="infoPreuTotal">
+                    <p v-if="preuTotal.total !== 0">Total: €{{ preuTotal.total.toFixed(2) }}</p>
+                </div>
+                <div class="finalitzarCompra">
+                    <input type="button" value="Finalitzar compra" class="butonFinalitzar">
                 </div>
             </div>
         </div>

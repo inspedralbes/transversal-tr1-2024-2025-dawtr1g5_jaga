@@ -14,7 +14,7 @@
                 <h1>CART</h1>
             </div>
             <div class="cartBody">
-                <div class="productItem" v-for="producte in productes.datos" :key="producte.id">
+                <div class="productItem" v-for="producte in infoTotal.datos" :key="producte.id">
                     <h4>{{ producte.title }}</h4>
                     <div class="butons">
                         <label for="quantititatProducte">Cantitat:</label>
@@ -29,15 +29,15 @@
         </div>
         <div id="cartContainer">
             <div id="cartDades">
-                <div class="infoTotalProductes">
-                    <h4>Total productes:</h4>
-                    <p id="nProductes">{{ nProductes }} productes</p>
+                <div class="infoTotalinfoTotal">
+                    <h4>Total infoTotal:</h4>
+                    <p id="ninfoTotal">{{ nInfoTotal }} productes</p>
                 </div>
                 <div class="infoPreuTotal">
                     <p v-if="preuTotal.total !== 0">Total: €{{ preuTotal.total.toFixed(2) }}</p>
                 </div>
                 <div class="finalitzarCompra">
-                    <input type="button" value="Finalitzar compra" @click="finalitzarCompra" class="butonFinalitzar">
+                    <input type="button" value="Finalitzar compra" class="butonFinalitzar">
                 </div>
             </div>
         </div>

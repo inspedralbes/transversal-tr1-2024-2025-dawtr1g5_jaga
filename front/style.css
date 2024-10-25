@@ -3,21 +3,74 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
     background-attachment: fixed;
-    background-image: linear-gradient(rgba(78, 74, 74, 0.5), rgba(83, 74, 74, 0.5)), url('./wallpaper-mono-de-juegos-agricola-desktop.jpg');
+    background-image: linear-gradient(rgba(92, 86, 86, 0.5), rgba(83, 74, 74, 0.5)), url('./wallpaper-mono-de-juegos-agricola-desktop.jpg');
+    padding-top: 100px;
+}
+
+.menu-superior {
+    background-color: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    color: white;
+    font-size: 20px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container h1 {
+    font-size: 36px;
+    color: #f8b400;
+    font-family: 'Lobster', cursive;
+    font-weight: bold;
+    margin: 0 20px 0 0;
+}
+
+.logo-container img.logo {
+    width: 80px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.menu-superior nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+}
+
+.menu-superior nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.menu-superior nav ul li a:hover {
+    color: #f8b400;
 }
 
 .seccio {
-    margin-left: 250px; /* Espacio para el menú lateral */
-    padding: 20px;
+    margin: 0 auto;
     max-width: 1200px;
+    padding: 20px;
     border-radius: 15px;
 }
 
-/* Estilos de cabecera */
 .header {
     display: flex;
     justify-content: space-between;
@@ -26,27 +79,43 @@ body {
 }
 
 .buscador {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-grow: 1;
+    margin-left: 40px;
 }
 
 .buscador input {
-    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 20px;
     border: none;
     border-radius: 20px;
-    width: 300px;
+    font-size: 18px;
+    outline: none;
+    background-color: white;
+    color: #333;
 }
 
 .iconos-header {
     display: flex;
     align-items: center;
     gap: 15px;
+    position: relative;
 }
 
 .iconos-header i {
-    font-size: 24px;
-    cursor: pointer;
+    font-size: 30px;
+    color: white;
+}
+
+.iconos-header span {
+    font-size: 16px;
+    color: #fff;
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    background: red;
+    border-radius: 50%;
+    padding: 2px 5px;
 }
 
 .slogan {
@@ -54,86 +123,66 @@ body {
     font-weight: bold;
     font-size: 90px;
     font-style: italic;
-    color: #f0f0f0; 
+    color: #f0f0f0;
     margin: 20px 0;
 }
 
 .highlight {
-    color: orange; 
+    color: orange;
 }
 
-/* Menú lateral */
-.menu-lateral {
-    background-color: rgba(0, 0, 0, 0.8); 
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: white;
-}
-
-.menu-lateral h1 {
-    font-size: 24px;
-    margin-bottom: 30px;
-    font-weight: bold;
-}
-
-.menu-lateral ul {
-    list-style-type: none;
-}
-
-.menu-lateral ul li {
-    margin: 10px 0;
-}
-
-.menu-lateral ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.menu-lateral a:hover {
-    text-decoration: underline;
-}
-
-.footer {
-    text-align: center;
-}
-
-.footer a {
-    color: white;
-    margin: 0 10px;
-}
-
-/* Botones de control de productos */
-.boto-mostrar-tots {
-    display: left;
+.boto-mostrar-tots, .boto-volver {
+    display: block;
     margin: 20px auto;
     padding: 10px 25px;
     font-size: 1.2rem;
-    background-color: #28a745;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
+.boto-mostrar-tots {
+    background-color: #28a745;
+    color: white;
+}
+
 .boto-mostrar-tots:hover {
     background-color: #218838;
 }
 
-/* Grid de productos */
+.boto-volver {
+    background-color: #dc3545;
+    color: white;
+}
+
+.boto-volver:hover {
+    background-color: #c82333;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
+}
+
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .grid-item {
@@ -142,6 +191,9 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .nom-producte {
@@ -151,8 +203,8 @@ body {
 
 .imatge-producte {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .descripcio-producte {
@@ -172,6 +224,7 @@ body {
 }
 
 .boto-comprar {
+    margin-top: 15px;
     background-color: #ff6600;
     color: white;
     border: none;
@@ -186,27 +239,67 @@ body {
     background-color: #e65c00;
 }
 
-.notificacio {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #888;
+#cartContainer {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: absolute; 
+    right: 10px; 
+    top: 70px; 
+    z-index: 100; 
+    width: 300px;
 }
 
-.boto-volver {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 25px;
-    font-size: 1.2rem;
-    background-color: #dc3545; /* Rojo */
+.cartBody {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.total {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.finalitzarCompra {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.butonFinalitzar {
+    background-color: #007bff;
     color: white;
     border: none;
+    padding: 15px;
+    font-size: 18px;
+    width: 100%;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-.boto-volver:hover {
-    background-color: #c82333;
+.butonFinalitzar:hover {
+    background-color: #0056b3;
 }
 
+.footer {
+    text-align: center;
+}
 
+.footer a {
+    color: white;
+    margin: 0 10px;
+}

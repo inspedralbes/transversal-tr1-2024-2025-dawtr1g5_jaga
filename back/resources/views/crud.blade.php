@@ -8,23 +8,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
-    <h1>Llista de Productes</h1>
-
-    <h2>Afegeix un nou producte</h2>
+    <h3>Llistat de Productes</h3>
+    <br>
+    <h4>Afegeix un nou producte</h4>
     <form method="POST" action="{{ route('products.store') }}">
         @csrf
         <input type="text" name="title" placeholder="Nom del Joc" required>
         <input type="text" name="description" placeholder="Descripció" required>
         <input type="number" name="price" placeholder="Preu" step="0.01" required>
         <input type="number" name="stock" placeholder="Stock" required>
-        <button type="submit">Agregar Producto</button>
+        <button type="submit">Afegir un producte</button>
     </form>
 
-    <h2>Lista de Productos</h2>
-    <table>
+    <br><br>
+
+    <h4>Lista de Productos</h4>
+    <table id="productsTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -55,6 +60,12 @@
             @endforeach
         </tbody>
     </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#productsTable').DataTable();
+        });
+    </script>
 </body>
 
 </html>

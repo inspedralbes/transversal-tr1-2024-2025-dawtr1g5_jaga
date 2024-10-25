@@ -14,9 +14,8 @@
 </head>
 
 <body>
-    <h3>Llistat de Productes</h3>
     <br>
-    <h4>Afegeix un nou producte</h4>
+    <h2>Afegeix un nou producte</h2>
     <form method="POST" action="{{ route('products.store') }}">
         @csrf
         <input type="text" name="title" placeholder="Nom del Joc" required>
@@ -25,10 +24,9 @@
         <input type="number" name="stock" placeholder="Stock" required>
         <button type="submit">Afegir un producte</button>
     </form>
-
     <br><br>
 
-    <h4>Lista de Productos</h4>
+    <h2>Llista De Productes</h2>
     <table id="productsTable">
         <thead>
             <tr>

@@ -79,12 +79,12 @@
         </div>
         <div id="cartContainer">
             <div id="cartDades">
-                <div class="infoTotalinfoTotal">
-                    <h4>Total infoTotal:</h4>
+                <div class="infoTotal">
+                    <h4>Total producte:</h4>
                     <p id="ninfoTotal">{{ totalCart }} productes</p>
                 </div>
                 <div class="infoPreuTotal">
-                    <p v-if="preuTotal.total !== 0">Total: €{{ preuTotal.total.toFixed(2) }}</p>
+                    <p v-if="preuTotal.total">Total: €{{ preuTotal.total.toFixed(2) }}</p>
                 </div>
                 <div class="finalitzarCompra">
                     <input type="button" value="Finalitzar compra" class="butonFinalitzar">

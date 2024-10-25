@@ -1,0 +1,127 @@
+body {
+  background-color: #f0f0f0; 
+}
+
+#cartContainer {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.cartHead h1 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 36px;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.cartBody {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.productItem {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productItem h4 {
+  position: relative;
+  margin: 0;
+  flex: 1;
+}
+
+.butons {
+  display: flex;
+  gap: 5px; 
+}
+
+.butons input[type="button"] {
+  width: 30px;
+  border: none;
+  background-color: #b8b8b8;
+  color: white;
+  padding: 5px; 
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.butons input[type="button"]:hover {
+  background-color: #686868;
+}
+
+.butons input[type="number"] {
+  border: 1px solid rgb(204, 204, 204);
+  width: 40px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+
+.preu {
+  position: relative;
+  margin: 0;
+  width: 90px;
+  text-align: right;
+}
+
+#cartContainer h4, p {
+  margin: 0;
+}
+
+#cartDades {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+}
+
+.butonFinalitzar {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.butonFinalitzar:hover {
+  background-color: #3a743d;
+}
+
+.infoPreuTotal {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.btnEliminar {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+
+.btnEliminar:hover {
+  background-color: darkred; 
+}

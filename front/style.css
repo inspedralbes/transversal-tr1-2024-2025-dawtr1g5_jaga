@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    background-attachment: fixed;
+    background-image: linear-gradient(rgba(78, 74, 74, 0.5), rgba(83, 74, 74, 0.5)), url('./wallpaper-mono-de-juegos-agricola-desktop.jpg');
+}
+
+.seccio {
+    margin-left: 250px; /* Espacio para el menú lateral */
+    padding: 20px;
+    max-width: 1200px;
+    border-radius: 15px;
+}
+
+/* Estilos de cabecera */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.buscador {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.buscador input {
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 300px;
+}
+
+.iconos-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color:#f0f0f0;
+    
+}
+
+.iconos-header i {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.slogan {
+    font-family: fantasy;
+    font-weight: bold;
+    font-size: 90px;
+    font-style: italic;
+    color: #f0f0f0; 
+    margin: 20px 0;
+}
+
+.highlight {
+    color: orange; 
+}
+
+/* Menú lateral */
+.menu-lateral {
+    background-color: rgba(0, 0, 0, 0.8); 
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+}
+
+.menu-lateral h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.menu-lateral ul {
+    list-style-type: none;
+}
+
+.menu-lateral ul li {
+    margin: 10px 0;
+}
+
+.menu-lateral ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.menu-lateral a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+}
+
+.footer a {
+    color: white;
+    margin: 0 10px;
+}
+
+/* Botones de control de productos */
+.boto-mostrar-tots {
+    display: left;
+    margin: 20px auto;
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boto-mostrar-tots:hover {
+    background-color: #218838;
+}
+
+/* Grid de productos */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.grid-item {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.nom-producte {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.imatge-producte {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.descripcio-producte {
+    color: #555;
+    margin: 10px 0;
+}
+
+.preu-producte {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.stock-producte {
+    font-size: 1rem;
+    color: #888;
+}
+
+.boto-comprar {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.boto-comprar:hover {
+    background-color: #e65c00;
+}
+
+.notificacio {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.boto-volver {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boto-volver:hover {
+    background-color: #c82333;
+}
+
+

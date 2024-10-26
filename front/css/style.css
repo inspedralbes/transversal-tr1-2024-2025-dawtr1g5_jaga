@@ -8,7 +8,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
     background-attachment: fixed;
-    background-image: linear-gradient(rgba(92, 86, 86, 0.5), rgba(83, 74, 74, 0.5)), url('./wallpaper-mono-de-juegos-agricola-desktop.jpg');
+    background-image: linear-gradient(rgba(92, 86, 86, 0.5), rgba(83, 74, 74, 0.5)), url('../img/wallpaper-mono-de-juegos-agricola-desktop.jpg');
     padding-top: 100px;
 }
 

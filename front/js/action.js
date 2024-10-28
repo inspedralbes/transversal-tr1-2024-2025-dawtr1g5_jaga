@@ -6,12 +6,13 @@ createApp({
         const infoTotal = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
+        let prodActual = reactive({datos: []})
         let totalCart = ref(0);
+        let quantitat = ref(1);
 
-        const productosVisible = ref(false);
-        const sloganVisible = ref(true);
         let cartVisible = ref(false); // Controla la visibilidad del carrito
-
+        let productVisible = ref(false);
+        let landingVisible = ref(true);
         // Cargar los productos
         onBeforeMount(async () => {
             try {
@@ -20,26 +21,24 @@ createApp({
             } catch (error) {
                 console.error("Error al carregar els productes:", error);
             }
-            calcularTotal();
+            // calcularTotal();
         });
-
-        // Función para mostrar productos
-        function mostrarProductos() {
-            productosVisible.value = true;
-            sloganVisible.value = false;
-            cartVisible.value = false; 
-        }
 
         // Alternar visibilidad del carrito
         function toggleCart() {
             cartVisible.value = !cartVisible.value;
         }
 
-        // Tornar a l'inici
-        function volverAlInicio() {
-            productosVisible.value = false;
-            sloganVisible.value = true;
-            cartVisible.value = false; 
+        //Mostrar pantalla de información del producto
+        function mostrarProd(productId){
+            toggleLandingProd();
+            this.prodActual = infoTotal.datos.find(p => p.id === productId);
+        }
+
+        function toggleLandingProd(){
+            landingVisible.value = !landingVisible.value;
+            productVisible.value = !productVisible.value;
+            quantitat.value = 1;
         }
 
         // Añadir producto al carret
@@ -48,12 +47,12 @@ createApp({
             if (product && product.stock > 0) {
                 const existingProduct = cart.datos.find(p => p.product.id === product.id);
                 if (existingProduct) {
-                    existingProduct.product.quantitat += 1;
+                    existingProduct.product.quantitat += quantitat.value;
                 } else {
-                    cart.datos.push({ product: { ...product, quantitat: 1 } });
+                    cart.datos.push({ product: { ...product, quantitat: quantitat.value } });
+                    totalCart.value += 1;
                 }
-                totalCart.value += 1;
-                product.stock -= 1;
+                //product.stock -= 1; CAMBIARLO PARA QUE SOLO RESTE AL MOMENTO DE PAGAR
                 calcularTotal();
             } else {
                 alert("No hay stock disponible para este producto.");
@@ -72,9 +71,35 @@ createApp({
         function eliminarProducte(producteToRemove) {
             const index = cart.datos.findIndex(p => p.product.id === producteToRemove.product.id);
             if (index !== -1) {
-                totalCart.value -= cart.datos[index].product.quantitat;
+                totalCart.value -= 1;
                 cart.datos.splice(index, 1);
                 calcularTotal();
+            }
+        }
+
+        function increment(productId){
+            const product = infoTotal.datos.find(p => p.id === productId);
+            if(product){
+                const stockActual = product.stock;
+                let cartStock = cart.datos.find(p => p.product.id === productId);
+                if(cartStock){
+                    cartStock = cartStock.product.quantitat;
+                }
+                if(quantitat.value < stockActual){
+                    if(cartStock){
+                        if((quantitat.value + cartStock) < stockActual){
+                            quantitat.value+=1;
+                        }
+                    }else{
+                        quantitat.value+=1;
+                    }
+                }
+            }
+        }
+
+        function decrement(){
+            if(quantitat.value > 1){
+                quantitat.value -= 1;
             }
         }
 
@@ -120,9 +145,7 @@ createApp({
 
         return {
             infoTotal,
-            mostrarProductos,
             toggleCart,
-            volverAlInicio,
             addCart,
             calcularTotal,
             eliminarProducte,
@@ -130,9 +153,15 @@ createApp({
             totalCart,
             cart,
             cartVisible,
-            productosVisible,
-            sloganVisible,
-            finalitzarCompra 
+            productVisible,
+            landingVisible,
+            prodActual,
+            mostrarProd,
+            quantitat,
+            decrement,
+            increment,
+            toggleLandingProd,
+            finalitzarCompra
         };
     }
 }).mount('#appVue');

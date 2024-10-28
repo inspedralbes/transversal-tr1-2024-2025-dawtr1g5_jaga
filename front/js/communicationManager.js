@@ -1,5 +1,5 @@
 export async function getProducts() {
-    const URL = `http://127.0.0.1:8000/api/products`;
+    const URL = `http://tr1g5.daw.inspedralbes.cat/public/api/products`;
     try {
         const response = await fetch(URL);
         if (!response.ok) {

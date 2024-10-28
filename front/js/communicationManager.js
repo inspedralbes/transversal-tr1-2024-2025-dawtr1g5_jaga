@@ -12,3 +12,26 @@ export async function getProducts() {
         return []; 
     }
 }
+
+export async function postOrder(orderData){
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderData),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log("Ordre creada amb èxit:", result);
+        } else {
+            console.error("Error al crear la orden:", response.statusText);
+            alert("Error al crear la orden. Inténtalo de nuevo.");
+        }
+    } catch (error) {
+        console.error("error:", error);
+        alert("Error de red");
+    }
+}

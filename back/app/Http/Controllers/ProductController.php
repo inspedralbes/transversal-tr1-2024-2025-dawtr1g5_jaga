@@ -98,10 +98,19 @@ class ProductController extends Controller
         //     "status" => 200
         // ]);
 
-
-
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
 
+    }
+
+    public function updateStock(Request $request, $id){
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json([
+                "message" => "El producto no existe",
+                "status" => 404
+            ]);
+        }
+        $product->update($request->all());
     }
 
     /**

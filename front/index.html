@@ -38,6 +38,7 @@
                   <li><a href="#">Categories</a></li>
                   <li><a href="#">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
+                  <li><a href="#" @click="toggleLoginRegister">Login/Register</a></li>
                 </ul>
               </div>
             </div>
@@ -141,11 +142,6 @@
       </div>
     </div>
 
-
-
-
-
-
     <!-- Carrito de compras (solo visible si cartVisible es verdadero) -->
     <div id="cartContainer" v-if="cartVisible" class="w-full h-full p-fixed d-flex">
       <div id="cartHeader" class="d-flex align-center">
@@ -155,7 +151,7 @@
       <div id="cartBody">
         <div id="cartItem" class="d-flex align-center j-between" v-for="producte in cart.datos"
           :key="producte.product.id">
-          <div class="d-flex">
+          <div class="d-flex align-center">
             <div class="cartItem-img j-left">
               <img src="./img/svg/image.svg" alt="imageProduct" style="object-fit: cover; width: 100%; height: 100%;">
             </div>
@@ -175,6 +171,32 @@
         <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="finalitzarCompra"/>
       </div>
     </div>
+
+    <div class="registerLogin">
+      <div class="main" id="signup" v-if="registerLoginVisible" >  	
+        <input type="checkbox" id="chk" aria-hidden="true">
+        
+          <div class="signup">
+            <form>
+              <label for="chk" aria-hidden="true" style="color: #f39212;">Register</label>
+              <input type="text" name="txt" placeholder="User name" required="">
+              <input type="email" name="email" placeholder="Email" required="">
+              <input type="password" name="pswd" placeholder="Password" required="">
+              <button>Register</button>
+            </form>
+          </div>
+      
+          <div class="login" id="login">
+            <form>
+              <label for="chk" aria-hidden="true">Login</label>
+              <input type="email" name="email" placeholder="Email" required="">
+              <input type="password" name="pswd" placeholder="Password" required="">
+              <button>Login</button>
+            </form>
+          </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- Carga de Bootstrap y Vue -->

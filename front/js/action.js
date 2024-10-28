@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts } from './communicationManager.js';
+import { getProducts, postOrder } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -11,6 +11,7 @@ createApp({
         let quantitat = ref(1);
 
         let cartVisible = ref(false); // Controla la visibilidad del carrito
+        let registerLoginVisible = ref(false); // Controla la visibilidad del register/login
         let productVisible = ref(false);
         let landingVisible = ref(true);
         // Cargar los productos
@@ -40,6 +41,7 @@ createApp({
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
         }
+        
 
         // Añadir producto al carret
         function addCart(productId) {
@@ -107,40 +109,29 @@ createApp({
         async function finalitzarCompra() {
             const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
                 product_id: producte.product.id,
-                quantify: producte.product.quantitat,
+                quantity: producte.product.quantitat,
                 amount: producte.product.price * producte.product.quantitat
             }));
 
             const orderTotal = { //obj info gnral de la orden
-                user_id: "x",  // reemplazar "x" con el ID real del usuario 
+                user_id: 1,  // reemplazar "x" con el ID real del usuario 
                 totalAmount: preuTotal.total.toFixed(2) //total de la compra ejem:45,9
             };
 
             const orderData = { orders, orderTotal }; //obj q se enviará la servidor
-
-            try {
-                const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(orderData),
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    console.log("Ordre creada amb èxit:", result);
-                    cart.datos = [];
-                    totalCart.value = 0;
-                    calcularTotal();
-                } else {
-                    console.error("Error al crear la orden:", response.statusText);
-                    alert("Error al crear la orden. Inténtalo de nuevo.");
-                }
-            } catch (error) {
-                console.error("error:", error);
-                alert("Error de red");
+            
+            if (postOrder(orderData)) {
+                cart.datos = [];
+                totalCart.value = 0;
+                calcularTotal();
             }
+            
+        }
+
+        // Alternar visibilidad del carrito
+        function toggleLoginRegister() {
+            registerLoginVisible.value = !registerLoginVisible.value;
+            landingVisible.value = !landingVisible.value;
         }
 
         return {
@@ -161,7 +152,9 @@ createApp({
             decrement,
             increment,
             toggleLandingProd,
-            finalitzarCompra
+            finalitzarCompra,
+            toggleLoginRegister,
+            registerLoginVisible
         };
     }
 }).mount('#appVue');

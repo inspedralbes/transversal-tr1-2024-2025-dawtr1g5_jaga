@@ -1,12 +1,12 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder } from './communicationManager.js';
+import { getProducts, postOrder, registerUser, loginUser } from './communicationManager.js';
 
 createApp({
     setup() {
         const infoTotal = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
-        let prodActual = reactive({datos: []})
+        let prodActual = reactive({ datos: [] });
         let totalCart = ref(0);
         let quantitat = ref(1);
 
@@ -14,6 +14,7 @@ createApp({
         let registerLoginVisible = ref(false); // Controla la visibilidad del register/login
         let productVisible = ref(false);
         let landingVisible = ref(true);
+
         // Cargar los productos
         onBeforeMount(async () => {
             try {
@@ -22,7 +23,6 @@ createApp({
             } catch (error) {
                 console.error("Error al carregar els productes:", error);
             }
-            // calcularTotal();
         });
 
         // Alternar visibilidad del carrito
@@ -30,20 +30,19 @@ createApp({
             cartVisible.value = !cartVisible.value;
         }
 
-        //Mostrar pantalla de información del producto
-        function mostrarProd(productId){
+        // Mostrar pantalla de información del producto
+        function mostrarProd(productId) {
             toggleLandingProd();
-            this.prodActual = infoTotal.datos.find(p => p.id === productId);
+            prodActual.datos = infoTotal.datos.find(p => p.id === productId);
         }
 
-        function toggleLandingProd(){
+        function toggleLandingProd() {
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
         }
-        
 
-        // Añadir producto al carret
+        // Añadir producto al carrito
         function addCart(productId) {
             const product = infoTotal.datos.find(p => p.id === productId);
             if (product && product.stock > 0) {
@@ -54,7 +53,6 @@ createApp({
                     cart.datos.push({ product: { ...product, quantitat: quantitat.value } });
                     totalCart.value += 1;
                 }
-                //product.stock -= 1; CAMBIARLO PARA QUE SOLO RESTE AL MOMENTO DE PAGAR
                 calcularTotal();
             } else {
                 alert("No hay stock disponible para este producto.");
@@ -79,82 +77,127 @@ createApp({
             }
         }
 
-        function increment(productId){
+        function increment(productId) {
             const product = infoTotal.datos.find(p => p.id === productId);
-            if(product){
+            if (product) {
                 const stockActual = product.stock;
                 let cartStock = cart.datos.find(p => p.product.id === productId);
-                if(cartStock){
+                if (cartStock) {
                     cartStock = cartStock.product.quantitat;
                 }
-                if(quantitat.value < stockActual){
-                    if(cartStock){
-                        if((quantitat.value + cartStock) < stockActual){
-                            quantitat.value+=1;
+                if (quantitat.value < stockActual) {
+                    if (cartStock) {
+                        if ((quantitat.value + cartStock) < stockActual) {
+                            quantitat.value += 1;
                         }
-                    }else{
-                        quantitat.value+=1;
+                    } else {
+                        quantitat.value += 1;
                     }
                 }
             }
         }
 
-        function decrement(){
-            if(quantitat.value > 1){
+        function decrement() {
+            if (quantitat.value > 1) {
                 quantitat.value -= 1;
             }
         }
 
         // Función para finalizar la compra
         async function finalitzarCompra() {
-            const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
+            const orders = cart.datos.map(producte => ({
                 product_id: producte.product.id,
                 quantity: producte.product.quantitat,
                 amount: producte.product.price * producte.product.quantitat
             }));
 
-            const orderTotal = { //obj info gnral de la orden
+            const orderTotal = {
                 user_id: 1,  // reemplazar "x" con el ID real del usuario 
-                totalAmount: preuTotal.total.toFixed(2) //total de la compra ejem:45,9
+                totalAmount: preuTotal.total.toFixed(2)
             };
 
-            const orderData = { orders, orderTotal }; //obj q se enviará la servidor
+            const orderData = { orders, orderTotal };
             
-            if (postOrder(orderData)) {
+            if (await postOrder(orderData)) {
                 cart.datos = [];
                 totalCart.value = 0;
                 calcularTotal();
             }
-            
         }
 
-        // Alternar visibilidad del carrito
+        // Alternar visibilidad del login/register
         function toggleLoginRegister() {
             registerLoginVisible.value = !registerLoginVisible.value;
             landingVisible.value = !landingVisible.value;
         }
 
+        async function register() {
+            const userData = {
+                name: document.querySelector('input[name="txt"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                password: document.querySelector('input[name="pswd"]').value,
+            };
+        
+            try {
+                const success = await registerUser(userData);
+                if (success) {
+                    alert("Registro exitoso");
+                    registerLoginVisible.value = false;
+                    // Limpiar campos de entrada
+                    document.querySelector('input[name="txt"]').value = '';
+                    document.querySelector('input[name="email"]').value = '';
+                    document.querySelector('input[name="pswd"]').value = '';
+                } else {
+                    alert("Error en el registro");
+                }
+            } catch (error) {
+                alert("Error en el registro: " + error.message);
+            }
+        }
+        
+        async function login() {
+            const userData = {
+                email: document.querySelector('input[name="email"]').value,
+                password: document.querySelector('input[name="pswd"]').value
+            };
+        
+            try {
+                const success = await loginUser(userData);
+                if (success) {
+                    alert("Inicio de sesión exitoso");
+                    registerLoginVisible.value = false;
+                    // Limpiar campos de entrada
+                    document.querySelector('input[name="email"]').value = '';
+                    document.querySelector('input[name="pswd"]').value = '';
+                } else {
+                    alert("Error en el inicio de sesión");
+                }
+            } catch (error) {
+                alert("Error en el inicio de sesión: " + error.message);
+            }
+        }
+        
+
         return {
-            infoTotal,
             toggleCart,
+            toggleLoginRegister,
+            finalitzarCompra,
             addCart,
-            calcularTotal,
+            increment,
+            decrement,
             eliminarProducte,
-            preuTotal,
-            totalCart,
-            cart,
-            cartVisible,
+            toggleLandingProd,
             productVisible,
             landingVisible,
-            prodActual,
-            mostrarProd,
             quantitat,
-            decrement,
-            increment,
-            toggleLandingProd,
-            finalitzarCompra,
-            toggleLoginRegister,
-            registerLoginVisible
+            totalCart,
+            preuTotal,
+            cart,
+            infoTotal,
+            registerLoginVisible,
+            register,
+            login,
+            mostrarProd
         };
     }
 }).mount('#appVue');

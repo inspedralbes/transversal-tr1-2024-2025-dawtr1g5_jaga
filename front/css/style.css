@@ -586,5 +586,17 @@ nav {
 
 
 @media (min-width: 600px) {
-    
+    .desk-none{
+        display: none !important;
+    }
+    .portada {
+        height: 350px;
+    }
+
+    .portada img{
+        margin-top: -130px;
+    }
+    .sobreportada{
+        
+    }
 }

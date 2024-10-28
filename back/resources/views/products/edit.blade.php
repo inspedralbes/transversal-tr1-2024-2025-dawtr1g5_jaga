@@ -10,13 +10,13 @@
 <body>
     <h1>Editar Producto</h1>
 
-    <form method="POST" action="{{ route('products.update', $order->id) }}">
+    <form method="POST" action="{{ route('products.update', $product->id) }}">
         @csrf
         @method('PUT')
-        <input type="text" name="title" value="{{ $order->title }}" required>
-        <input type="text" name="description" value="{{ $order->description }}" required>
-        <input type="number" name="price" value="{{ $order->price }}" step="0.01" required>
-        <input type="number" name="stock" value="{{ $order->stock }}" required>
+        <input type="text" name="title" value="{{ $product->title }}" required>
+        <input type="text" name="description" value="{{ $product->description }}" required>
+        <input type="number" name="price" value="{{ $product->price }}" step="0.01" required>
+        <input type="number" name="stock" value="{{ $product->stock }}" required>
         <button type="submit">Actualizar Producto</button>
     </form>
 </body>

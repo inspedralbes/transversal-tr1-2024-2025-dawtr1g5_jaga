@@ -587,7 +587,7 @@ nav {
 }
 
 .main{
-    margin-top: 50%;
+    margin-top: 20vh;
 	width: 100%;
     height: 80vh;
 	overflow: hidden;
@@ -643,10 +643,10 @@ button:hover{
 	background: #0c2b75;
 }
 .login{
-	height: 1000px;
+	height: 100vh;
 	background: #f39212;
 	border-radius: 60% / 10%;
-	transform: translateY(-25vh);
+	transform: translateY(-20vh);
 	transition: .8s ease-in-out;
 }
 .login label{
@@ -654,7 +654,7 @@ button:hover{
 }
 
 #chk:checked ~ .login{
-	transform: translateY(-95vh);
+	transform: translateY(-80vh);
 }
 #chk:checked ~ .login label{
 	transform: scale(1);	

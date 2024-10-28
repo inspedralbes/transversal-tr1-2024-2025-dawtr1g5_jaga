@@ -11,6 +11,7 @@ createApp({
         let quantitat = ref(1);
 
         let cartVisible = ref(false); // Controla la visibilidad del carrito
+        let registerLoginVisible = ref(false); // Controla la visibilidad del register/login
         let productVisible = ref(false);
         let landingVisible = ref(true);
         // Cargar los productos
@@ -40,6 +41,7 @@ createApp({
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
         }
+        
 
         // Añadir producto al carret
         function addCart(productId) {
@@ -143,6 +145,12 @@ createApp({
             }
         }
 
+        // Alternar visibilidad del carrito
+        function toggleLoginRegister() {
+            registerLoginVisible.value = !registerLoginVisible.value;
+            landingVisible.value = !landingVisible.value;
+        }
+
         return {
             infoTotal,
             toggleCart,
@@ -161,7 +169,9 @@ createApp({
             decrement,
             increment,
             toggleLandingProd,
-            finalitzarCompra
+            finalitzarCompra,
+            toggleLoginRegister,
+            registerLoginVisible
         };
     }
 }).mount('#appVue');

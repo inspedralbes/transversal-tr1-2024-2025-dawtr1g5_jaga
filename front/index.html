@@ -22,7 +22,7 @@
       <nav class="w-full">
         <div class="d-flex" style="height: 60px;">
           <div class="px-10 w-full d-flex align-center j-between">
-            <div id="menu" class="w-33">
+            <div id="menu" class="w-33 desk-none">
               <label for="menu_burger">
                 <img src="./img/svg/menu.svg" alt="menu" width="30px">
               </label>
@@ -91,6 +91,40 @@
         </div>
       </div>
 
+
+      <div id="categories-container mobile-none" style="background-color: #e65c00">
+        <div class="categories-grid mobile-none">
+          <div class="category-item mobile-none">Categoria 1</div>
+          <div class="category-item mobile-none">Categoria 2</div>
+          <div class="category-item mobile-none">Categoria 3</div>
+          <div class="category-item mobile-none">Categoria 4</div>
+          <div class="category-item mobile-none">Categoria 5</div>
+          <div class="category-item mobile-none"></div>
+        </div>
+      </div>
+
+      <div class="d-flex j-center align-center mobile-none products" style="flex-direction: column;">
+        <div class="filter d-flex" style="margin-top: 5%;">
+          [FILTROS DE BUSQUEDA]
+        </div>
+        <div class="d-grid containProducts">
+          <div class="contItem p-relative" v-for="producto in infoTotal.datos" :key="producto.id">
+            <div class="d-flex j-center" @click="mostrarProd(producto.id)">
+              <img src="./img/svg/image.svg" alt="imageProd" width="110px">
+            </div>
+            <div class="d-flex infProd" style="flex-direction: column; margin-top: -15px;">
+              <div style="padding: 3px; margin-top: 20px;" @click="mostrarProd(producto.id)">
+                <p class="titleItem no-margin">{{producto.title}}</p>
+                <p class="priceItem no-margin">€{{producto.price}}</p>
+              </div>
+              <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0"
+                @click="addCart(producto.id)">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
       <div class="d-flex j-center align-center desk-none" style="flex-direction: column;">
         <div class="filter d-flex">
           [FILTROS DE BUSQUEDA]
@@ -105,7 +139,8 @@
                 <p class="titleItem no-margin">{{producto.title}}</p>
                 <p class="priceItem no-margin">€{{producto.price}}</p>
               </div>
-              <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0" @click="addCart(producto.id)">Add to cart</button>
+              <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0"
+                @click="addCart(producto.id)">Add to cart</button>
             </div>
           </div>
         </div>
@@ -135,14 +170,11 @@
             <input type="number" name="cant" :value="quantitat" class="contador" readonly>
             <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
           </div>
-          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button> 
+          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button>
           <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
         </div>
       </div>
     </div>
-
-
-
 
 
 
@@ -172,7 +204,7 @@
       </div>
       <div id="cartFooter" class="p-absolute w-full d-flex j-between align-center">
         <p>Total: €{{ preuTotal.total.toFixed(2) }}</p>
-        <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="finalitzarCompra"/>
+        <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="finalitzarCompra" />
       </div>
     </div>
   </section>

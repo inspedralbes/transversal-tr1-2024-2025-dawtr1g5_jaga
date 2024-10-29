@@ -584,19 +584,125 @@ nav {
 
 /* --------------------------------------------------------- */
 
+/* UTILIZAR MOBILE-NONE EN AQUELLAS COSAS QUE APAREZCAN EN DESKTOP Y NO QUERAMOS QUE APAREZCAN EN MOBILE */
+.mobile-none {
+    display: none !important;
+}
 
 @media (min-width: 600px) {
-    .desk-none{
+
+    /* UTILIZAR DESK-NONE EN AQUELLAS COSAS QUE APAREZCAN EN MOVIL Y NO QUERAMOS QUE APAREZCAN EN ORDENADOR */
+    .desk-none {
         display: none !important;
     }
-    .portada {
-        height: 350px;
+
+    .mobile-none {
+        display: flex !important;
     }
 
-    .portada img{
-        margin-top: -130px;
+    body {
+        background-color: white;
     }
-    .sobreportada{
+
+    .portada {
+        height: 330px;
+    }
+
+    .portada img {
+        margin-top: -180px;
+    }
+
+    #sobreportada p {
+        margin-top: 5px;
+        font-size: 50px;
+        line-height: 1;
+    }
+
+    #categories-container {
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(1fr));
+        gap: 40px;
+        margin: 40px;
+    }
+
+    .category-item {
+        background-color: #222121;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        justify-content: center;
+        width: 100%;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .category-item:hover {
+        background-color: #da810e;
+    }
+
+    .products {
+        background-color: white;
+    }
+
+    .containProducts {
+        grid-template-columns: repeat(3, 200px);
+        gap: 150px;
+        justify-items: center;
+        align-items: center;
+        margin: 15px 0;
         
     }
+
+    .contItem {
+        height: 200px;
+        width: 300px;
+        border: 1px solid rgb(201, 201, 201);
+    
+    }
+    
+    .infProd{
+        align-items: center;
+    }
+
+    .titleItem{
+        display: inline;
+        margin-right: 10px;
+        
+    }
+    .priceItem{
+        display: inline;
+    }
+
+    .bodyProd {
+        display: flex; /* Cambia a flexbox */
+        flex-direction: row; /* Organiza en fila */
+      }
+    
+      .containImage {
+        width: 40%; /* Ancho de la imagen */
+        margin-right: 20px; /* Espacio entre la imagen y el contenido */
+      }
+    
+      .product-info {
+        width: 60%; /* Ancho del contenido */
+      }
+
+      .footerProd {
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid black;
+        bottom: 0;
+        left: 0;
+        height: 60px;
+        padding: 10px;
+        box-sizing: border-box;
+        background-color: white;
+    }
+    
 }

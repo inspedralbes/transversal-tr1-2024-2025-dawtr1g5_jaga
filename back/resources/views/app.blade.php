@@ -47,7 +47,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ str_contains(Route::current()->getName(), 'comandes') ? 'active' : '' }}"
-                            href="{{ route('comandes.index') }}">Comandes</a>
+                            href="{{ route('index') }}">Comandes</a>
                     </li>
 
                 </ul>

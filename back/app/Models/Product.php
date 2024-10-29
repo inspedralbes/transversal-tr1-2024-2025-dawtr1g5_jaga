@@ -16,4 +16,10 @@ class Product extends Model
         'stock',
         // 'url',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class);
+    }
+
 }

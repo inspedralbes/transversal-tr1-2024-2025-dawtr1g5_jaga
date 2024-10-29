@@ -19,7 +19,7 @@ class cartController extends Controller
             return response()->json($orders);
         }
 
-        // return view('crud', compact('products'));
+        return view('index', compact('orders'));
     }
 
     /**
@@ -32,14 +32,14 @@ class cartController extends Controller
             'amount' => $request->input('orderTotal.totalAmount'),
             'status' => "pendiente",
         ]);
-        
-        if(!$orderTotal){
+
+        if (!$orderTotal) {
             return response()->json([
                 "message" => "Error al crear la orden",
                 "status" => 404
             ]);
         }
-        
+
         foreach ($request->orders as $product) {
             Orders::create([
                 "order_id" => $orderTotal->id,

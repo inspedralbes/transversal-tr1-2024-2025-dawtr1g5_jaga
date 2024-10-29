@@ -12,18 +12,20 @@
                 <th>ID</th>
                 <th>order ID</th>
                 <th>Product ID</th>
+                <th>Nom producte</th>
                 <th>Quantitat</th>
                 <th>Preu</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($orders as $order)
+            @foreach ($products as $product)
                 <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->order_id }}</td>
-                    <td>{{ $order->product_id }}</td>
-                    <td>{{ $order->quantity }}</td>
-                    <td>{{ $order->amount }}</td>                    
+                    <td>{{ $product->id }}</td>
+                    <td>{{ $product->order_id }}</td>
+                    <td>{{ $product->product_id }}</td>
+                    <td>{{ $product->product->title ?? 'Desconegut' }}</td>                 
+                    <td>{{ $product->quantity }}</td>
+                    <td>{{ $product->amount }}</td>                    
                 </tr>
             @endforeach
 

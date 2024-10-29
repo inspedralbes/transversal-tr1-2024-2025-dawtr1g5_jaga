@@ -29,7 +29,9 @@
                     <td>{{ $order->amount }}</td>
                     <td>{{ $order->user_id }}</td>
                     <td>{{ $order->status }}</td>
-                    
+                    <td>
+                        <a href="{{ route('comandes', $order->id) }}" class="btn btn-warning">Veure Desglossament</a>
+                    </td>
                 </tr>
             @endforeach
 

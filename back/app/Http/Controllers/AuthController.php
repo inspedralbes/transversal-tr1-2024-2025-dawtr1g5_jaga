@@ -7,10 +7,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log; 
 
 class AuthController extends Controller
 {
-    // Registro de usuario
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -32,28 +32,33 @@ class AuthController extends Controller
         return response()->json(['message' => 'Usuario registrado exitosamente', 'user' => $user], 201);
     }
 
-    // Inicio de sesión
     public function login(Request $request)
     {
-        Log::info('Email recibido:', ['email' => $request->input('email')]);
-        Log::info('Password recibido:', ['password' => $request->input('password')]);
+        Log::info('Intentando iniciar sesión con:', [
+            'email' => $request->input('email'), 
+            'password' => $request->input('password')
+        ]);
 
         $credentials = $request->only('email', 'password');
-
+        
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            Log::info('Inicio de sesión exitoso:', ['user' => $user]);
             return response()->json(['message' => 'Inicio de sesión exitoso', 'user' => $user], 200);
         }
 
-        return response()->json([
-            'message' => 'Credenciales incorrectas'
-        ], 401);
+        if (!Auth::attempt($credentials)) {
+            Log::warning("Intento de login fallido. Credenciales incorrectas:", ['email' => $request->input('email')]);
+            return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        }
+        
     }
 
-    // Cierre de sesión
     public function logout(Request $request)
     {
         Auth::logout();
+        Log::info('Usuario desconectado.');
         return response()->json(['message' => 'Usuario desconectado exitosamente'], 200);
     }
 }
+

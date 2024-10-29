@@ -3,6 +3,7 @@ import { getProducts, postOrder, registerUser, loginUser } from './communication
 
 createApp({
     setup() {
+        // Declarar reactive y ref para manejar el estado del login
         const infoTotal = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
@@ -10,10 +11,14 @@ createApp({
         let totalCart = ref(0);
         let quantitat = ref(1);
 
-        let cartVisible = ref(false); // Controla la visibilidad del carrito
-        let registerLoginVisible = ref(false); // Controla la visibilidad del register/login
+        let cartVisible = ref(false);
+        let registerLoginVisible = ref(false);
         let productVisible = ref(false);
         let landingVisible = ref(true);
+
+        // Refs para email y password del login
+        const loginEmail = ref('');
+        const loginPassword = ref('');
 
         // Cargar los productos
         onBeforeMount(async () => {
@@ -21,7 +26,7 @@ createApp({
                 const data = await getProducts();
                 infoTotal.datos = data;
             } catch (error) {
-                console.error("Error al carregar els productes:", error);
+                console.error("Error al cargar los productos:", error);
             }
         });
 
@@ -130,7 +135,7 @@ createApp({
             registerLoginVisible.value = !registerLoginVisible.value;
             landingVisible.value = !landingVisible.value;
         }
-
+        //Registre d'usuari
         async function register() {
             const userData = {
                 name: document.querySelector('input[name="txt"]').value,
@@ -143,7 +148,9 @@ createApp({
                 if (success) {
                     alert("Registro exitoso");
                     registerLoginVisible.value = false;
-                    // Limpiar campos de entrada
+                    landingVisible.value = true; 
+                    registerLoginVisible.value = false;
+
                     document.querySelector('input[name="txt"]').value = '';
                     document.querySelector('input[name="email"]').value = '';
                     document.querySelector('input[name="pswd"]').value = '';
@@ -154,30 +161,56 @@ createApp({
                 alert("Error en el registro: " + error.message);
             }
         }
+        //Fer Login
+        async function login() {
+            const userData = {
+                email: loginEmail.value,
+                password: loginPassword.value
+            };
         
-        // action.js
-async function login() {
-    const userData = {
-        email: document.querySelector('input[name="email"]').value,
-        password: document.querySelector('input[name="pswd"]').value
-    };
+            try {
+                const success = await loginUser(userData);
+                if (success) {
+                    alert("Inicio de sesión exitoso");
+                    registerLoginVisible.value = false;
+                    landingVisible.value = true; 
+                    registerLoginVisible.value = false;
 
-    try {
-        const success = await loginUser(userData);
-        if (success) {
-            alert("Inicio de sesión exitoso");
-            registerLoginVisible.value = false;
-            // Limpiar campos de entrada
-            document.querySelector('input[name="email"]').value = '';
-            document.querySelector('input[name="pswd"]').value = '';
-        } else {
-            // Mensaje ya mostrado desde loginUser en caso de error
+                    loginEmail.value = '';
+                    loginPassword.value = '';
+                } else {
+                    alert("Usuario o contraseña incorrectos.");
+                }
+            } catch (error) {
+                console.error("Error en el inicio de sesión:", error);
+                alert("Error inesperado en el inicio de sesión.");
+            }
         }
-    } catch (error) {
-        console.error("Error en el inicio de sesión:", error);
-        alert("Error inesperado en el inicio de sesión.");
-    }
-}
+
+        async function logout() {
+            try {
+                const response = await fetch("http://127.0.0.1:8000/api/logout", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
+        
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message); 
+                } else {
+                    const error = await response.json();
+                    alert("Error al cerrar sesión: " + error.message);
+                }
+            } catch (error) {
+                console.error("Error en la solicitud de logout:", error);
+                alert("Error de red al intentar cerrar sesión.");
+            }
+        }
+        
+        
+        
         return {
             toggleCart,
             toggleLoginRegister,
@@ -197,7 +230,10 @@ async function login() {
             registerLoginVisible,
             register,
             login,
-            mostrarProd
+            loginEmail, 
+            loginPassword, 
+            mostrarProd,
+            logout
         };
     }
 }).mount('#appVue');

@@ -49,20 +49,19 @@ export async function registerUser(userData) {
 
         if (response.ok) {
             const result = await response.json();
-            console.log("Usuario registrado exitosamente:", result); // Mensaje de confirmación
-            return true; // Indica éxito
+            console.log("Usuario registrado exitosamente:", result); 
+            return true; 
         } else {
             const error = await response.json();
             console.error("Error en el registro:", error);
-            return false; // Indica fallo
+            return false; 
         }
     } catch (error) {
         console.error("Error de red:", error);
-        return false; // Indica fallo
+        return false; 
     }
 }
 
-// communicationManager.js
 export async function loginUser(userData) {
     const URL = "http://127.0.0.1:8000/api/login";
     try {
@@ -74,22 +73,25 @@ export async function loginUser(userData) {
             body: JSON.stringify(userData),
         });
 
+        console.log("Respuesta del servidor:", response);
+
         if (response.ok) {
             const result = await response.json();
-            console.log("Inicio de sesión exitoso:", result);
-            return true; // Inicio de sesión exitoso
+            console.log("Inicio de sesión exitoso:", result, userData);
+            return true;
         } else {
             const errorData = await response.json();
             console.error("Error en el inicio de sesión:", errorData.message);
             alert(errorData.message || "Error en el inicio de sesión");
-            return false; // Error en la autenticación
+            return false;
         }
     } catch (error) {
         console.error("Error de red:", error);
         alert("Error de red. No se pudo completar el inicio de sesión.");
-        return false; // Error de red
+        return false;
     }
 }
+
 
 
 export async function logoutUser() {
@@ -99,26 +101,21 @@ export async function logoutUser() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                // Incluye cualquier token si se usa autenticación basada en token
-                // Ejemplo: "Authorization": `Bearer ${token}`
             },
         });
-
         if (response.ok) {
             console.log("Cierre de sesión exitoso");
-            // Aquí puedes eliminar el token o limpiar datos de sesión del usuario si corresponde
-            // Ejemplo: localStorage.removeItem('token');
-            return true; // Indica éxito
+            return true; 
         } else {
             const errorData = await response.json();
             console.error("Error en el cierre de sesión:", errorData.message);
             alert(errorData.message || "Error en el cierre de sesión");
-            return false; // Indica fallo
+            return false; 
         }
     } catch (error) {
         console.error("Error de red:", error);
         alert("Error de red");
-        return false; // Indica fallo
+        return false; 
     }
 }
 

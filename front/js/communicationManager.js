@@ -62,10 +62,9 @@ export async function registerUser(userData) {
     }
 }
 
-
-
+// communicationManager.js
 export async function loginUser(userData) {
-    const URL = "http://127.0.0.1:8000/api/login"; 
+    const URL = "http://127.0.0.1:8000/api/login";
     try {
         const response = await fetch(URL, {
             method: "POST",
@@ -78,19 +77,20 @@ export async function loginUser(userData) {
         if (response.ok) {
             const result = await response.json();
             console.log("Inicio de sesión exitoso:", result);
-            return result;
+            return true; // Inicio de sesión exitoso
         } else {
             const errorData = await response.json();
             console.error("Error en el inicio de sesión:", errorData.message);
             alert(errorData.message || "Error en el inicio de sesión");
-            return null; 
+            return false; // Error en la autenticación
         }
     } catch (error) {
         console.error("Error de red:", error);
-        alert("Error de red");
-        return null; 
+        alert("Error de red. No se pudo completar el inicio de sesión.");
+        return false; // Error de red
     }
 }
+
 
 export async function logoutUser() {
     const URL = "http://127.0.0.1:8000/api/logout"; 

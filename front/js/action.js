@@ -155,31 +155,29 @@ createApp({
             }
         }
         
-        async function login() {
-            const userData = {
-                email: document.querySelector('input[name="email"]').value,
-                password: document.querySelector('input[name="pswd"]').value
-            };
-        
-            try {
-                const success = await loginUser(userData);
-                if (success) {
-                    alert("Inicio de sesión exitoso");
-                    registerLoginVisible.value = false;
-                    // Limpiar campos de entrada
-                    document.querySelector('input[name="email"]').value = '';
-                    document.querySelector('input[name="pswd"]').value = '';
-                } else {
-                    alert("Error en el inicio de sesión");
-                }
-            } catch (error) {
-                alert("Error en el inicio de sesión: " + error.message);
-            }
+        // action.js
+async function login() {
+    const userData = {
+        email: document.querySelector('input[name="email"]').value,
+        password: document.querySelector('input[name="pswd"]').value
+    };
+
+    try {
+        const success = await loginUser(userData);
+        if (success) {
+            alert("Inicio de sesión exitoso");
+            registerLoginVisible.value = false;
+            // Limpiar campos de entrada
+            document.querySelector('input[name="email"]').value = '';
+            document.querySelector('input[name="pswd"]').value = '';
+        } else {
+            // Mensaje ya mostrado desde loginUser en caso de error
         }
-
-        
-        
-
+    } catch (error) {
+        console.error("Error en el inicio de sesión:", error);
+        alert("Error inesperado en el inicio de sesión.");
+    }
+}
         return {
             toggleCart,
             toggleLoginRegister,

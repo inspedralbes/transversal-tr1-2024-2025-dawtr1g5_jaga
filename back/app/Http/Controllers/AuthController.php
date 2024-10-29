@@ -35,6 +35,9 @@ class AuthController extends Controller
     // Inicio de sesión
     public function login(Request $request)
     {
+        Log::info('Email recibido:', ['email' => $request->input('email')]);
+        Log::info('Password recibido:', ['password' => $request->input('password')]);
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
@@ -42,7 +45,9 @@ class AuthController extends Controller
             return response()->json(['message' => 'Inicio de sesión exitoso', 'user' => $user], 200);
         }
 
-        return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        return response()->json([
+            'message' => 'Credenciales incorrectas'
+        ], 401);
     }
 
     // Cierre de sesión

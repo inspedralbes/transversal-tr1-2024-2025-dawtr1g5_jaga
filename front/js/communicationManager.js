@@ -35,3 +35,57 @@ export async function postOrder(orderData){
         alert("Error de red");
     }
 }
+
+export async function registerUser(userData) {
+    const URL = "http://127.0.0.1:8000/api/register"; 
+    try {
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            return true; // Indica éxito
+        } else {
+            const error = await response.json();
+            console.error("Error en el registro:", error);
+            return false; // Indica fallo
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        return false; // Indica fallo
+    }
+}
+
+
+export async function loginUser(userData) {
+    const URL = "http://127.0.0.1:8000/api/login"; 
+    try {
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log("Inicio de sesión exitoso:", result);
+            return result;
+        } else {
+            const errorData = await response.json();
+            console.error("Error en el inicio de sesión:", errorData.message);
+            alert(errorData.message || "Error en el inicio de sesión");
+            return null; 
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        alert("Error de red");
+        return null; 
+    }
+}

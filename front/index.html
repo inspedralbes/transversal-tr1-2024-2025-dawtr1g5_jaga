@@ -180,7 +180,7 @@
         
         <div class="signup">
           <form @submit.prevent="register"> <!-- Cambiado para prevenir el comportamiento predeterminado -->
-            <label for="chk" aria-hidden="true" style="color: #f39212;">Register</label>
+            <label class="labelReg"  for="chk" aria-hidden="true" style="color: #f39212;">Register</label>
             <input type="text" name="txt" placeholder="User name" required="">
             <input type="email" name="email" placeholder="Email" required="">
             <input type="password" name="pswd" placeholder="Password" required="">
@@ -189,7 +189,7 @@
         </div>
       
         <div class="login" id="login">
-          <form @submit.prevent="login">
+          <form @submit.prevent="login"> <!-- Cambiado para prevenir el comportamiento predeterminado -->
             <label for="chk" aria-hidden="true">Login</label>
             <input type="email" name="email" placeholder="Email" required="">
             <input type="password" name="pswd" placeholder="Password" required="">

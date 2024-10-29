@@ -49,6 +49,7 @@ export async function registerUser(userData) {
 
         if (response.ok) {
             const result = await response.json();
+            console.log("Usuario registrado exitosamente:", result); // Mensaje de confirmación
             return true; // Indica éxito
         } else {
             const error = await response.json();
@@ -60,6 +61,7 @@ export async function registerUser(userData) {
         return false; // Indica fallo
     }
 }
+
 
 
 export async function loginUser(userData) {
@@ -89,3 +91,35 @@ export async function loginUser(userData) {
         return null; 
     }
 }
+
+export async function logoutUser() {
+    const URL = "http://127.0.0.1:8000/api/logout"; 
+    try {
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                // Incluye cualquier token si se usa autenticación basada en token
+                // Ejemplo: "Authorization": `Bearer ${token}`
+            },
+        });
+
+        if (response.ok) {
+            console.log("Cierre de sesión exitoso");
+            // Aquí puedes eliminar el token o limpiar datos de sesión del usuario si corresponde
+            // Ejemplo: localStorage.removeItem('token');
+            return true; // Indica éxito
+        } else {
+            const errorData = await response.json();
+            console.error("Error en el cierre de sesión:", errorData.message);
+            alert(errorData.message || "Error en el cierre de sesión");
+            return false; // Indica fallo
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        alert("Error de red");
+        return false; // Indica fallo
+    }
+}
+
+

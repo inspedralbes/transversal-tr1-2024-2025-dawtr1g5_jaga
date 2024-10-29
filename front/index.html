@@ -39,6 +39,8 @@
                   <li><a href="#">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
                   <li><a href="#" @click="toggleLoginRegister">Login/Register</a></li>
+                  <li><a href="#" @click="ferLogout">Logout</a></li>
+
                 </ul>
               </div>
             </div>
@@ -182,16 +184,16 @@
             <input type="text" name="txt" placeholder="User name" required="">
             <input type="email" name="email" placeholder="Email" required="">
             <input type="password" name="pswd" placeholder="Password" required="">
-            <button type="submit" id="registerButton">Registrar:</button> <!-- Cambiado el ID para el botón -->
+            <button type="submit" id="registerButton">Registrar</button> <!-- Cambiado el ID para el botón -->
           </form>
         </div>
       
         <div class="login" id="login">
-          <form @submit.prevent="login"> <!-- Cambiado para prevenir el comportamiento predeterminado -->
+          <form @submit.prevent="login">
             <label for="chk" aria-hidden="true">Login</label>
             <input type="email" name="email" placeholder="Email" required="">
             <input type="password" name="pswd" placeholder="Password" required="">
-            <button type="submit" id="loginButton">Iniciar Sesión</button> <!-- Cambiado el ID para el botón -->
+            <button type="submit" id="loginButton">Iniciar Sesión</button> 
           </form>
         </div>
       </div>

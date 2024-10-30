@@ -3,7 +3,6 @@ import { getProducts, postOrder, registerUser, loginUser, logoutUser, searchProd
 
 createApp({
     setup() {
-        // Declarar reactive y ref para manejar el estado del login
         const infoTotal = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
@@ -19,11 +18,9 @@ createApp({
         let landingVisible = ref(true);
         let searchVisible = ref(false);
 
-        // Refs para email y password del login
         const loginEmail = ref('');
         const loginPassword = ref('');
 
-        // Cargar los productos
         onBeforeMount(async () => {
             try {
                 const data = await getProducts();
@@ -33,12 +30,10 @@ createApp({
             }
         });
 
-        // Alternar visibilidad del carrito
         function toggleCart() {
             cartVisible.value = !cartVisible.value;
         }
 
-        // Mostrar pantalla de información del producto
         function mostrarProd(productId) {
             toggleLandingProd();
             prodActual.datos = infoTotal.datos.find(p => p.id === productId);
@@ -50,7 +45,6 @@ createApp({
             quantitat.value = 1;
         }
 
-        // Añadir producto al carrito
         function addCart(productId) {
             const product = infoTotal.datos.find(p => p.id === productId);
             if (product && product.stock > 0) {
@@ -67,7 +61,6 @@ createApp({
             }
         }
 
-        // Calcular el total del carrito
         function calcularTotal() {
             preuTotal.total = 0;
             cart.datos.forEach(producte => {
@@ -75,7 +68,6 @@ createApp({
             });
         }
 
-        // Eliminar producto del carrito
         function eliminarProducte(producteToRemove) {
             const index = cart.datos.findIndex(p => p.product.id === producteToRemove.product.id);
             if (index !== -1) {
@@ -111,47 +103,41 @@ createApp({
             }
         }
 
-        // Función para finalizar la compra
         async function finalitzarCompra() {
-            if (cart.datos) {
-                const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
-                    product_id: producte.product.id,
-                    quantity: producte.product.quantitat,
-                    amount: producte.product.price * producte.product.quantitat
-                }));
+            const orders = cart.datos.map(producte => ({
+                product_id: producte.product.id,
+                quantity: producte.product.quantitat,
+                amount: producte.product.price * producte.product.quantitat
+            }));
 
-    // Obteniendo el ID del usuario desde localStorage o de alguna otra forma
-    const userId = localStorage.getItem('userId') || 1; // Usar 1 como default si no hay ID
-    const orderTotal = {
-        user_id: userId,
-        totalAmount: preuTotal.total.toFixed(2)
-    };
+            const userId = localStorage.getItem('userId') || 1;
+            const orderTotal = {
+                user_id: userId,
+                totalAmount: preuTotal.total.toFixed(2)
+            };
 
-    const orderData = { orders, orderTotal };
-    const token = localStorage.getItem('token'); // Obtener el token del localStorage
+            const orderData = { orders, orderTotal };
+            const token = localStorage.getItem('token');
 
-    try {
-        const success = await postOrder(orderData, token); // Pasar el token a la función postOrder
-
-        if (success) {
-            cart.datos = []; // Limpiar el carrito
-            totalCart.value = 0; // Reiniciar el total del carrito
-            calcularTotal(); // Recalcular el total
-            alert("Pedido realizado con éxito");
+            try {
+                const success = await postOrder(orderData, token);
+                if (success) {
+                    cart.datos = [];
+                    totalCart.value = 0;
+                    calcularTotal();
+                    alert("Pedido realizado con éxito");
+                }
+            } catch (error) {
+                console.error("Error de red:", error);
+                alert("Error de red al intentar realizar la compra.");
+            }
         }
-    } catch (error) {
-        console.error("Error de red:", error);
-        alert("Error de red al intentar realizar la compra.");
-    }
-}
 
-
-        // Alternar visibilidad del login/register
         function toggleLoginRegister() {
             registerLoginVisible.value = !registerLoginVisible.value;
             landingVisible.value = !landingVisible.value;
         }
-        //Registre d'usuari
+
         async function register() {
             const userData = {
                 name: document.querySelector('input[name="txt"]').value,
@@ -165,7 +151,6 @@ createApp({
                     alert("Registro exitoso");
                     registerLoginVisible.value = false;
                     landingVisible.value = true; 
-                    registerLoginVisible.value = false;
 
                     document.querySelector('input[name="txt"]').value = '';
                     document.querySelector('input[name="email"]').value = '';
@@ -177,7 +162,7 @@ createApp({
                 alert("Error en el registro: " + error.message);
             }
         }
-        //Fer Login
+
         async function login() {
             const userData = {
                 email: loginEmail.value,
@@ -189,8 +174,7 @@ createApp({
                 if (success) {
                     alert("Inicio de sesión exitoso");
                     registerLoginVisible.value = false;
-                    landingVisible.value = true; 
-                    registerLoginVisible.value = false;
+                    landingVisible.value = true;
 
                     loginEmail.value = '';
                     loginPassword.value = '';
@@ -222,18 +206,20 @@ createApp({
                 }
                 await searchProd(query.value)
                 .then(response => response.json())
-                .then(data => queryProducts = data);
-                if(queryProducts.length != 0){
-                    queryProducts.forEach((prod)=>{
+                .then(data => queryProducts.value = data);
+                
+                if(queryProducts.value.length != 0){
+                    queryProducts.value.forEach((prod)=>{
                         console.log(prod.title);
                     });
                 }else{
-                    console.log("No s'ha trobat cap producte");
+                    console.log("No se encontró ningún producto");
                 }
             }else{
                 searchVisible.value = false;
             }
-        
+        }
+
         return {
             toggleCart,
             toggleLoginRegister,
@@ -264,7 +250,8 @@ createApp({
             finalitzarCompra,
             buscarProd,
             query,
-            searchVisible
+            searchVisible,
+            queryProducts
         };
     }
 }).mount('#appVue');

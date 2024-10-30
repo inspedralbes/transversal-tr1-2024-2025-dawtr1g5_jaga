@@ -153,8 +153,6 @@ export async function logoutUser() {
 }
 
 
-
-
 export async function searchProd(query){
     const URL = "http://127.0.0.1:8000/api/productsearch?query="+query;
     const response = await fetch(URL);

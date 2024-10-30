@@ -123,7 +123,6 @@
           </div>
         </div>
       </div>
-    </div>
 
       <div class="d-flex j-center align-center desk-none" style="flex-direction: column;">
         <div class="filter d-flex">
@@ -152,38 +151,38 @@
         <img src="./img/svg/arrow.svg" alt="cart" width="25px" height="25px" @click="toggleLandingProd">
         <p class="no-margin w-full">Informació del producte</p>
       </div>
+
       <div class="bodyProd" style="padding: 20px;">
-        <div class="containImage d-flex j-center w-full">
+        <div class="containImage d-flex j-center">
           <img src="./img/svg/image.svg" alt="imageProd">
         </div>
-        <div class="">
+        <div class="infoDet">
           <p v-if="prodActual.stock >= 20">Disponible</p>
           <p v-else>Últimas unidades</p>
           <p class="titleProd no-margin">{{prodActual.title}}</p>
           <p class="priceProd no-margin">€{{prodActual.price}}</p>
           <p>Descripció</p>
           <p>{{prodActual.description}}</p>
-        </div>        
+          <div class="d-flex align-center j-between w-full mobile-none">
+            <div class="cantidadTotal d-flex mobile-none w-33 j-center">
+              <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
+              <input type="number" name="cant" :value="quantitat" class="contador" readonly>
+              <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
+            </div>
+            <button class="btn-addProd mobile-none" @click="addCart(prodActual.id)">Add to cart</button>
+          </div>
+        </div>
         <div class="d-flex align-center j-between w-full p-fixed footerProd desk-none">
-          <div class="cantidadTotal d-flex align-center">
+          <div class="cantidadTotal d-flex align-center desk-none">
             <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
             <input type="number" name="cant" :value="quantitat" class="contador" readonly>
             <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
           </div>
-          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button>
+          <button class="btn-addProd desk-none" @click="addCart(prodActual.id)">Add to cart</button>
           <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
         </div>
-        <div class="d-flex align-center p-fixed footerProd">
-          <div class="cantidadTotal d-flex align-center">
-            <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
-            <input type="number" name="cant" :value="quantitat" class="contador" readonly>
-            <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
-          </div>
-          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button>
-          <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
-        </div>
-
       </div>
+      
     </div>
 
 

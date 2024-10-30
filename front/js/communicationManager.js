@@ -1,5 +1,5 @@
 export async function getProducts() {
-    const URL = `http://tr1g5.daw.inspedralbes.cat/public/api/products`;
+    const URL = `http://127.0.0.1:8000/api/products`;
     try {
         const response = await fetch(URL);
         if (!response.ok) {
@@ -154,3 +154,9 @@ export async function logoutUser() {
 
 
 
+
+export async function searchProd(query){
+    const URL = "http://127.0.0.1:8000/api/productsearch?query="+query;
+    const response = await fetch(URL);
+    return response;
+}

@@ -53,7 +53,7 @@
               </label>
               <input type="checkbox" name="search" id="search">
               <div class="d-flex j-center align-center buscador">
-                <input type="text" name="inputbuscar" id="inputbuscar" placeholder="Buscar producto...">
+                <input type="text" v-model="query" @input="buscarProd" id="inputbuscar" placeholder="Buscar producto...">
               </div>
               <div class="carrito">
                 <img src="./img/svg/cart.svg" alt="cart" @click="toggleCart" width="30px" style="margin-left: 10px;">
@@ -61,6 +61,11 @@
               </div>
             </div>
           </div>
+        </div>
+        <div v-if="searchVisible" class="w-full p-absolute containerSearch">
+          <div class="w-full" style="background-color: red; min-height: 50px; margin-bottom: 10px;"></div>
+          <div class="w-full" style="background-color: red; min-height: 50px; margin-bottom: 10px;"></div>
+          <div class="w-full" style="background-color: red; min-height: 50px; margin-bottom: 10px;"></div>
         </div>
       </nav>
     </header>
@@ -125,8 +130,9 @@
           <img src="./img/svg/image.svg" alt="imageProd">
         </div>
         <div class="">
-          <p v-if="prodActual.stock >= 20">Disponible</p>
-          <p v-else>Últimas unidades</p>
+          <p v-if="prodActual.stock >= 10">Disponible</p>
+          <p v-else-if="prodActual.stock > 0">Últimas unidades ({{prodActual.stock}})</p>
+          <p v-else>No disponible</p>
           <p class="titleProd no-margin">{{prodActual.title}}</p>
           <p class="priceProd no-margin">€{{prodActual.price}}</p>
           <p>Descripció</p>

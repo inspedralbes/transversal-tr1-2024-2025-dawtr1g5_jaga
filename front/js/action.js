@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, registerUser, loginUser, logoutUser } from './communicationManager.js';
+import { getProducts, postOrder, registerUser, loginUser, logoutUser, searchProd } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -10,11 +10,14 @@ createApp({
         let prodActual = reactive({ datos: [] });
         let totalCart = ref(0);
         let quantitat = ref(1);
+        let query = ref('');
+        let queryProducts = ref([]);
 
         let cartVisible = ref(false);
         let registerLoginVisible = ref(false);
         let productVisible = ref(false);
         let landingVisible = ref(true);
+        let searchVisible = ref(false);
 
         // Refs para email y password del login
         const loginEmail = ref('');
@@ -41,7 +44,7 @@ createApp({
             prodActual.datos = infoTotal.datos.find(p => p.id === productId);
         }
 
-        function toggleLandingProd() {
+        function toggleLandingProd()  {
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
@@ -82,7 +85,7 @@ createApp({
             }
         }
 
-        function increment(productId) {
+        function increment(productId)  {
             const product = infoTotal.datos.find(p => p.id === productId);
             if (product) {
                 const stockActual = product.stock;
@@ -102,19 +105,20 @@ createApp({
             }
         }
 
-        function decrement() {
-            if (quantitat.value > 1) {
+        function decrement()  {
+            if  (quantitat.value > 1)  {
                 quantitat.value -= 1;
             }
         }
 
         // Función para finalizar la compra
-async function finalitzarCompra() {
-    const orders = cart.datos.map(producte => ({
-        product_id: producte.product.id,
-        quantity: producte.product.quantitat,
-        amount: producte.product.price * producte.product.quantitat
-    }));
+        async function finalitzarCompra() {
+            if (cart.datos) {
+                const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
+                    product_id: producte.product.id,
+                    quantity: producte.product.quantitat,
+                    amount: producte.product.price * producte.product.quantitat
+                }));
 
     // Obteniendo el ID del usuario desde localStorage o de alguna otra forma
     const userId = localStorage.getItem('userId') || 1; // Usar 1 como default si no hay ID
@@ -210,6 +214,25 @@ async function finalitzarCompra() {
                 alert("Error de red al intentar cerrar sesión.");
             }
         }
+
+        async function buscarProd() {
+            if(query.value.length >= 2){
+                if(!searchVisible.value){
+                    searchVisible.value = true;
+                }
+                await searchProd(query.value)
+                .then(response => response.json())
+                .then(data => queryProducts = data);
+                if(queryProducts.length != 0){
+                    queryProducts.forEach((prod)=>{
+                        console.log(prod.title);
+                    });
+                }else{
+                    console.log("No s'ha trobat cap producte");
+                }
+            }else{
+                searchVisible.value = false;
+            }
         
         return {
             toggleCart,
@@ -233,7 +256,15 @@ async function finalitzarCompra() {
             loginEmail, 
             loginPassword, 
             mostrarProd,
-            logout
+            logout,
+            quantitat,
+            decrement,
+            increment,
+            toggleLandingProd,
+            finalitzarCompra,
+            buscarProd,
+            query,
+            searchVisible
         };
     }
 }).mount('#appVue');

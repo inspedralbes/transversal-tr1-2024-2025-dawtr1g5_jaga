@@ -15,4 +15,9 @@ class orderfinal extends Model
         'user_id',
         'status',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'order_id', 'id');
+    }
 }

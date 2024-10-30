@@ -102,15 +102,19 @@ class ProductController extends Controller
 
     }
 
-    public function updateStock(Request $request, $id){
-        $product = Product::find($id);
-        if (!$product) {
+    public function updateStock($product){
+        $productBBDD = Product::find($product['product_id']);
+        if (!$productBBDD) {
             return response()->json([
                 "message" => "El producto no existe",
                 "status" => 404
             ]);
         }
-        $product->update($request->all());
+
+        $stockAnterior = $productBBDD->stock;
+        $stockNuevo = $stockAnterior - $product['quantity'];
+        $productBBDD->update(['stock' => $stockNuevo]);
+        // return $productBBDD->stock;
     }
 
     /**

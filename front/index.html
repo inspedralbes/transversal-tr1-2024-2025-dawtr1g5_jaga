@@ -122,8 +122,9 @@
           <img src="./img/svg/image.svg" alt="imageProd">
         </div>
         <div class="">
-          <p v-if="prodActual.stock >= 20">Disponible</p>
-          <p v-else>Últimas unidades</p>
+          <p v-if="prodActual.stock >= 10">Disponible</p>
+          <p v-else-if="prodActual.stock > 0">Últimas unidades ({{prodActual.stock}})</p>
+          <p v-else>No disponible</p>
           <p class="titleProd no-margin">{{prodActual.title}}</p>
           <p class="priceProd no-margin">€{{prodActual.price}}</p>
           <p>Descripció</p>

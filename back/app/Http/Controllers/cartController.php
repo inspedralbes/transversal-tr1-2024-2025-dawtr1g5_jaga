@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\orderfinal;
 use App\Models\Orders;
+use App\Http\Controllers\ProductController;
 
 class cartController extends Controller
 {
@@ -27,6 +28,8 @@ class cartController extends Controller
      */
     public function create(Request $request)
     {
+        $productController = new ProductController();
+
         $orderTotal = orderfinal::create([
             'user_id' => $request->input('orderTotal.user_id'),
             'amount' => $request->input('orderTotal.totalAmount'),
@@ -47,11 +50,14 @@ class cartController extends Controller
                 "quantity" => $product['quantity'],
                 "amount" => $product['amount'],
             ]);
+
+            $response = $productController -> updateStock($product);
         }
 
         return response()->json([
             "final order" => $orderTotal,
-            "status" => 200
+            "status" => 200,
+            // "stockNuevo" => $response
         ]);
     }
 

@@ -163,8 +163,8 @@
           <p class="priceProd no-margin">€{{prodActual.price}}</p>
           <p>Descripció</p>
           <p>{{prodActual.description}}</p>
-        </div>
-        <div class="d-flex align-center j-between w-full p-fixed footerProd">
+        </div>        
+        <div class="d-flex align-center j-between w-full p-fixed footerProd desk-none">
           <div class="cantidadTotal d-flex align-center">
             <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
             <input type="number" name="cant" :value="quantitat" class="contador" readonly>
@@ -173,6 +173,16 @@
           <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button>
           <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
         </div>
+        <div class="d-flex align-center p-fixed footerProd">
+          <div class="cantidadTotal d-flex align-center">
+            <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
+            <input type="number" name="cant" :value="quantitat" class="contador" readonly>
+            <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
+          </div>
+          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button>
+          <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
+        </div>
+
       </div>
     </div>
 

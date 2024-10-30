@@ -112,9 +112,20 @@
         </div>
       </div>
 
-      <div class="categories">
-        <div>
-          
+      <!--Categories-->
+      <div class="d-flex j-center align-center" style="flex-direction: column;">
+        <div class="d-grid containCategories">
+          <div class="contCateg p-relative" v-for="category in categories.datos" :key="category.id">
+            <div class="d-flex j-center">
+              <img src="./img/svg/image.svg" alt="imageProd">
+            </div>
+            <div class="d-flex" style="flex-direction: column; margin-top: -1vh;">
+              <div style="padding: 10px;">
+                <p class="titleCateg no-margin">{{category.category}}</p>
+                <p class="priceItem no-margin">Ver productos</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -188,7 +199,7 @@
             <input type="text" name="txt" placeholder="User name" required="">
             <input type="email" name="email" placeholder="Email" required="">
             <input type="password" name="pswd" placeholder="Password" required="">
-            <button type="submit" id="registerButton">Registrar:</button> <!-- Cambiado el ID para el botón -->
+            <button type="submit" id="registerButton">Registrar</button> <!-- Cambiado el ID para el botón -->
           </form>
         </div>
       

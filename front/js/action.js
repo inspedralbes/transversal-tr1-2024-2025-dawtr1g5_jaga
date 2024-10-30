@@ -1,9 +1,10 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, registerUser, loginUser } from './communicationManager.js';
+import { getProducts, getCategories, postOrder, registerUser, loginUser } from './communicationManager.js';
 
 createApp({
     setup() {
         const infoTotal = reactive({ datos: [] });
+        const categories = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
         let prodActual = reactive({ datos: [] });
@@ -19,9 +20,13 @@ createApp({
         onBeforeMount(async () => {
             try {
                 const data = await getProducts();
+                const dataCateg = await getCategories();
                 infoTotal.datos = data;
+                categories.datos = dataCateg;
+                console.log(infoTotal);
+                console.log(categories);
             } catch (error) {
-                console.error("Error al carregar els productes:", error);
+                console.error("Error al carregar les dades del JSON", error);
             }
         });
 
@@ -183,7 +188,6 @@ createApp({
                 alert("Error en el inicio de sesión: " + error.message);
             }
         }
-        
 
         return {
             toggleCart,
@@ -205,7 +209,8 @@ createApp({
             register,
             login,
             mostrarProd,
-            toggleInici
+            toggleInici,
+            categories
         };
     }
 }).mount('#appVue');

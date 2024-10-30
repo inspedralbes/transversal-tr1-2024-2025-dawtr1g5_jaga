@@ -16,6 +16,7 @@ createApp({
         let registerLoginVisible = ref(false);
         let productVisible = ref(false);
         let landingVisible = ref(true);
+        let searchInputVisible = ref(false);
         let searchVisible = ref(false);
 
         const loginEmail = ref('');
@@ -36,13 +37,20 @@ createApp({
 
         function mostrarProd(productId) {
             toggleLandingProd();
-            prodActual.datos = infoTotal.datos.find(p => p.id === productId);
+            toggleSearch();
+            this.prodActual = infoTotal.datos.find(p => p.id === productId);
         }
 
         function toggleLandingProd()  {
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
+        }
+
+        function toggleSearch(){
+            searchInputVisible.value = !searchInputVisible.value;
+            query.value = '';
+            queryProducts.value = [];
         }
 
         function addCart(productId) {
@@ -207,14 +215,13 @@ createApp({
                 await searchProd(query.value)
                 .then(response => response.json())
                 .then(data => queryProducts.value = data);
-                
-                if(queryProducts.value.length != 0){
-                    queryProducts.value.forEach((prod)=>{
-                        console.log(prod.title);
-                    });
-                }else{
-                    console.log("No se encontró ningún producto");
-                }
+                // if(queryProducts.length != 0){
+                //     queryProducts.forEach((prod)=>{
+                //         console.log(prod.title);
+                //     });
+                // }else{
+                //     console.log("No s'ha trobat cap producte");
+                // }
             }else{
                 searchVisible.value = false;
             }
@@ -251,7 +258,9 @@ createApp({
             buscarProd,
             query,
             searchVisible,
-            queryProducts
+            queryProducts,
+            toggleSearch,
+            searchInputVisible,
         };
     }
 }).mount('#appVue');

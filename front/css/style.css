@@ -88,20 +88,16 @@ nav {
     top: 60px;
     left: 0;
     width: 100%;
-    height: 0;
+    height: 60px;
     background-color: #e4880f;
     overflow: hidden;
     transition: height 0.3s ease-in-out;
     z-index: 100;
 }
 
-#search {
-    display: none;
-}
-
-#search:checked+.buscador {
+/* #search:checked+.buscador {
     height: 60px;
-}
+} */
 
 #inputbuscar {
     width: 80%;
@@ -581,6 +577,31 @@ nav {
 }
 
 /* --------------------------------------------------------- */
+
+/* ------------------------Buscador------------------------- */
+
+.containerSearch{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    top: 60px;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+    z-index: 2;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.418);
+    z-index: 1;
+}
+
 
 /* --------------------------------------------------------- */
 

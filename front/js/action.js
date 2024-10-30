@@ -104,7 +104,7 @@ createApp({
 
         // Función para finalizar la compra
         async function finalitzarCompra() {
-            if (!cart.datos) {
+            if (cart.datos) {
                 const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
                     product_id: producte.product.id,
                     quantity: producte.product.quantitat,

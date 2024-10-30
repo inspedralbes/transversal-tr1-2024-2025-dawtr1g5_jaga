@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <section class="seccio" id="appVue">
+  <section id="appVue">
     <header>
       <nav class="w-full">
         <div class="d-flex" style="height: 60px;">
@@ -163,8 +163,8 @@
           <p class="priceProd no-margin">€{{prodActual.price}}</p>
           <p>Descripció</p>
           <p>{{prodActual.description}}</p>
-          <div class="d-flex align-center j-between w-full mobile-none">
-            <div class="cantidadTotal d-flex mobile-none w-33 j-center">
+          <div class="d-flex align-center j-between mobile-none">
+            <div class="cantidadTotal d-flex mobile-none j-center">
               <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
               <input type="number" name="cant" :value="quantitat" class="contador" readonly>
               <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>

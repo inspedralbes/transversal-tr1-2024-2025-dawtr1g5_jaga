@@ -618,16 +618,11 @@ nav {
         line-height: 1;
     }
 
-    #categories-container {
-        margin-top: 10px;
-    }
-
     .categories-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(1fr));
         gap: 40px;
-        margin: 40px;
-        margin-top: 10px;
+        padding: 20px;
     }
 
     .category-item {
@@ -683,27 +678,19 @@ nav {
 
     .bodyProd {
         display: flex;
-        flex-direction: row;
-    }
-
-    .containImage {
-        width: 40%;
-        margin-right: 20px;
     }
 
     .product-info {
         width: 60%;
     }
 
-    .infoDet{
+    .infoDet {
         margin: 40px;
     }
 
     .containImage {
-        height: 400px;
-        width: 600px;
-        margin: 40px;
-        margin-top: auto;
+        min-height: 450px;
+        min-width: 450px;
     }
 
     .contador {
@@ -711,7 +698,24 @@ nav {
         height: 20px;
         border: none;
         text-align: center;
-        font-size: 4px;
+        font-size: 20px;
         margin: 0 10px;
     }
+
+    .cantidadTotal {
+        border: 1px solid #dbdbdb;
+        height: 40px;
+        width: auto;
+        align-items: center;
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
 }

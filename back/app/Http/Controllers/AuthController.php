@@ -12,25 +12,21 @@ use Illuminate\Support\Facades\Log;
 class AuthController extends Controller
 {
     public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
+{
+    // Validar el request...
+    
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
+    // Generar un token
+    $token = $user->createToken('token_name')->plainTextToken;
 
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->email,
-            'password' => Hash::make($request->password), 
-        ]);
+    return response()->json(['user' => $user, 'token' => $token], 201);
+}
 
-        return response()->json(['message' => 'Usuario registrado exitosamente', 'user' => $user], 201);
-    }
 
     public function login(Request $request)
 {

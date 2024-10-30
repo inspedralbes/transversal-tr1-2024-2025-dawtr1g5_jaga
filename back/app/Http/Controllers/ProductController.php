@@ -98,10 +98,23 @@ class ProductController extends Controller
         //     "status" => 200
         // ]);
 
-
-
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
 
+    }
+
+    public function updateStock($product){
+        $productBBDD = Product::find($product['product_id']);
+        if (!$productBBDD) {
+            return response()->json([
+                "message" => "El producto no existe",
+                "status" => 404
+            ]);
+        }
+
+        $stockAnterior = $productBBDD->stock;
+        $stockNuevo = $stockAnterior - $product['quantity'];
+        $productBBDD->update(['stock' => $stockNuevo]);
+        // return $productBBDD->stock;
     }
 
     /**

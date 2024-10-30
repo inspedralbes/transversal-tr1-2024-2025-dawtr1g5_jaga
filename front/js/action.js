@@ -6,7 +6,7 @@ createApp({
         const infoTotal = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
-        let prodActual = reactive({datos: []})
+        let prodActual = reactive({ datos: [] })
         let totalCart = ref(0);
         let quantitat = ref(1);
 
@@ -30,12 +30,12 @@ createApp({
         }
 
         //Mostrar pantalla de información del producto
-        function mostrarProd(productId){
+        function mostrarProd(productId) {
             toggleLandingProd();
             this.prodActual = infoTotal.datos.find(p => p.id === productId);
         }
 
-        function toggleLandingProd(){
+        function toggleLandingProd() {
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
@@ -52,7 +52,6 @@ createApp({
                     cart.datos.push({ product: { ...product, quantitat: quantitat.value } });
                     totalCart.value += 1;
                 }
-                //product.stock -= 1; CAMBIARLO PARA QUE SOLO RESTE AL MOMENTO DE PAGAR
                 calcularTotal();
             } else {
                 alert("No hay stock disponible para este producto.");
@@ -77,53 +76,62 @@ createApp({
             }
         }
 
-        function increment(productId){
+        function increment(productId) {
             const product = infoTotal.datos.find(p => p.id === productId);
-            if(product){
+            if (product) {
                 const stockActual = product.stock;
                 let cartStock = cart.datos.find(p => p.product.id === productId);
-                if(cartStock){
+                if (cartStock) {
                     cartStock = cartStock.product.quantitat;
                 }
-                if(quantitat.value < stockActual){
-                    if(cartStock){
-                        if((quantitat.value + cartStock) < stockActual){
-                            quantitat.value+=1;
+                if (quantitat.value < stockActual) {
+                    if (cartStock) {
+                        if ((quantitat.value + cartStock) < stockActual) {
+                            quantitat.value += 1;
                         }
-                    }else{
-                        quantitat.value+=1;
+                    } else {
+                        quantitat.value += 1;
                     }
                 }
             }
         }
 
-        function decrement(){
-            if(quantitat.value > 1){
+        function decrement() {
+            if (quantitat.value > 1) {
                 quantitat.value -= 1;
             }
         }
 
         // Función para finalizar la compra
         async function finalitzarCompra() {
-            const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
-                product_id: producte.product.id,
-                quantity: producte.product.quantitat,
-                amount: producte.product.price * producte.product.quantitat
-            }));
+            if (!cart.datos) {
+                const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
+                    product_id: producte.product.id,
+                    quantity: producte.product.quantitat,
+                    amount: producte.product.price * producte.product.quantitat
+                }));
 
-            const orderTotal = { //obj info gnral de la orden
-                user_id: 1,  // reemplazar "x" con el ID real del usuario 
-                totalAmount: preuTotal.total.toFixed(2) //total de la compra ejem:45,9
-            };
+                const orderTotal = { //obj info gnral de la orden
+                    user_id: 1,  // reemplazar "x" con el ID real del usuario 
+                    totalAmount: preuTotal.total.toFixed(2) //total de la compra ejem:45,9
+                };
 
-            const orderData = { orders, orderTotal }; //obj q se enviará la servidor
-            
-            if (postOrder(orderData)) {
-                cart.datos = [];
-                totalCart.value = 0;
-                calcularTotal();
+                const orderData = { orders, orderTotal }; //obj q se enviará la servidor
+
+                if (postOrder(orderData)) {
+                    orders.forEach((prod) => {
+                        let productoEncontrado = infoTotal.datos.find(p => p.id === prod.product_id);
+                        productoEncontrado.stock -= prod.quantity;
+                    })
+                    cart.datos = [];
+                    totalCart.value = 0;
+                    calcularTotal();
+                    toggleCart();
+                    toggleLandingProd();
+                }
+            }else{
+                alert("La cistella està buida");
             }
-            
         }
 
         return {

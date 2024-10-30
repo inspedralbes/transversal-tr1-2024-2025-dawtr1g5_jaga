@@ -13,26 +13,31 @@ export async function getProducts() {
     }
 }
 
-export async function postOrder(orderData){
+export async function postOrder(orderData, token) {
     try {
         const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // Incluir el token en la cabecera
             },
             body: JSON.stringify(orderData),
         });
 
         if (response.ok) {
             const result = await response.json();
-            console.log("Ordre creada amb èxit:", result);
+            console.log("Orden creada con éxito:", result);
+            return true; // Retornar true si la orden fue creada exitosamente
         } else {
-            console.error("Error al crear la orden:", response.statusText);
-            alert("Error al crear la orden. Inténtalo de nuevo.");
+            const errorData = await response.json();
+            console.error("Error al crear la orden:", errorData.message);
+            alert("Error al crear la orden: " + errorData.message);
+            return false; // Retornar false si hubo un error
         }
     } catch (error) {
-        console.error("error:", error);
-        alert("Error de red");
+        console.error("Error de red:", error);
+        alert("Error de red al intentar crear la orden.");
+        return false; // Retornar false en caso de error
     }
 }
 
@@ -49,15 +54,27 @@ export async function registerUser(userData) {
 
         if (response.ok) {
             const result = await response.json();
-            console.log("Usuario registrado exitosamente:", result); 
+            console.log("Usuario registrado exitosamente:", result);
+            if (result.token) {
+                localStorage.setItem('token', result.token);
+                console.log("Token almacenado:", result.token);
+            } else {
+                console.error("El token no está definido en la respuesta");
+            }
+            
+            // Mostrar el contenido de localStorage
+            console.log("Contenido de localStorage:", localStorage);
+
             return true; 
         } else {
-            const error = await response.json();
-            console.error("Error en el registro:", error);
+            const errorBody = await response.text();
+            console.error("Error en el registro:", errorBody);
+            alert("Error en el registro. Respuesta del servidor: " + errorBody);
             return false; 
         }
     } catch (error) {
         console.error("Error de red:", error);
+        alert("Error de red. No se pudo completar el registro.");
         return false; 
     }
 }
@@ -73,11 +90,21 @@ export async function loginUser(userData) {
             body: JSON.stringify(userData),
         });
 
-        console.log("Respuesta del servidor:", response);
-
         if (response.ok) {
             const result = await response.json();
-            console.log("Inicio de sesión exitoso:", result, userData);
+            console.log("Inicio de sesión exitoso:", result);
+
+            // Almacenar el token en localStorage
+            if (result.token) {
+                localStorage.setItem('token', result.token);
+                console.log("Token almacenado:", result.token);
+            } else {
+                console.error("El token no está definido en la respuesta");
+            }
+            
+            // Mostrar el contenido de localStorage
+            console.log("Contenido de localStorage:", localStorage);
+
             return true;
         } else {
             const errorData = await response.json();
@@ -92,19 +119,25 @@ export async function loginUser(userData) {
     }
 }
 
-
-
 export async function logoutUser() {
     const URL = "http://127.0.0.1:8000/api/logout"; 
     try {
+        // Obtenemos el token del localStorage
+        const token = localStorage.getItem('token');
+
         const response = await fetch(URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                // Incluir el token en el header para la autenticación
+                "Authorization": `Bearer ${token}`
             },
         });
+
         if (response.ok) {
             console.log("Cierre de sesión exitoso");
+            // Eliminar el token del localStorage
+            localStorage.removeItem('token');
             return true; 
         } else {
             const errorData = await response.json();
@@ -118,5 +151,6 @@ export async function logoutUser() {
         return false; 
     }
 }
+
 
 

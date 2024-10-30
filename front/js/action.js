@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, registerUser, loginUser } from './communicationManager.js';
+import { getProducts, postOrder, registerUser, loginUser, logoutUser } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -109,26 +109,38 @@ createApp({
         }
 
         // Función para finalizar la compra
-        async function finalitzarCompra() {
-            const orders = cart.datos.map(producte => ({
-                product_id: producte.product.id,
-                quantity: producte.product.quantitat,
-                amount: producte.product.price * producte.product.quantitat
-            }));
+async function finalitzarCompra() {
+    const orders = cart.datos.map(producte => ({
+        product_id: producte.product.id,
+        quantity: producte.product.quantitat,
+        amount: producte.product.price * producte.product.quantitat
+    }));
 
-            const orderTotal = {
-                user_id: 1,  // reemplazar "x" con el ID real del usuario 
-                totalAmount: preuTotal.total.toFixed(2)
-            };
+    // Obteniendo el ID del usuario desde localStorage o de alguna otra forma
+    const userId = localStorage.getItem('userId') || 1; // Usar 1 como default si no hay ID
+    const orderTotal = {
+        user_id: userId,
+        totalAmount: preuTotal.total.toFixed(2)
+    };
 
-            const orderData = { orders, orderTotal };
-            
-            if (await postOrder(orderData)) {
-                cart.datos = [];
-                totalCart.value = 0;
-                calcularTotal();
-            }
+    const orderData = { orders, orderTotal };
+    const token = localStorage.getItem('token'); // Obtener el token del localStorage
+
+    try {
+        const success = await postOrder(orderData, token); // Pasar el token a la función postOrder
+
+        if (success) {
+            cart.datos = []; // Limpiar el carrito
+            totalCart.value = 0; // Reiniciar el total del carrito
+            calcularTotal(); // Recalcular el total
+            alert("Pedido realizado con éxito");
         }
+    } catch (error) {
+        console.error("Error de red:", error);
+        alert("Error de red al intentar realizar la compra.");
+    }
+}
+
 
         // Alternar visibilidad del login/register
         function toggleLoginRegister() {
@@ -189,27 +201,15 @@ createApp({
 
         async function logout() {
             try {
-                const response = await fetch("http://127.0.0.1:8000/api/logout", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
-        
-                if (response.ok) {
-                    const result = await response.json();
-                    alert(result.message); 
-                } else {
-                    const error = await response.json();
-                    alert("Error al cerrar sesión: " + error.message);
+                const success = await logoutUser();
+                if (success) {
+                    alert("Has cerrado sesión correctamente.");
                 }
             } catch (error) {
                 console.error("Error en la solicitud de logout:", error);
                 alert("Error de red al intentar cerrar sesión.");
             }
         }
-        
-        
         
         return {
             toggleCart,

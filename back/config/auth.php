@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
+        'guard' => env('AUTH_GUARD', 'web'), // Cambia esto a 'api' si es necesario
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
@@ -31,13 +31,18 @@ return [
     | users are actually retrieved out of your database or other storage
     | system used by the application. Typically, Eloquent is utilized.
     |
-    | Supported: "session"
+    | Supported: "session", "token", "passport"
     |
     */
 
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver' => 'sanctum', // Asegúrate de usar 'sanctum' para la API
             'provider' => 'users',
         ],
     ],

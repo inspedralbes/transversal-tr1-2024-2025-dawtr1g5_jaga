@@ -33,7 +33,8 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
+{
+    try {
         Log::info('Intentando iniciar sesión con:', [
             'email' => $request->input('email'), 
             'password' => $request->input('password')
@@ -43,22 +44,26 @@ class AuthController extends Controller
         
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
             Log::info('Inicio de sesión exitoso:', ['user' => $user]);
-            return response()->json(['message' => 'Inicio de sesión exitoso', 'user' => $user], 200);
+            return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => $token], 200);
         }
 
-        if (!Auth::attempt($credentials)) {
-            Log::warning("Intento de login fallido. Credenciales incorrectas:", ['email' => $request->input('email')]);
-            return response()->json(['message' => 'Credenciales incorrectas'], 401);
-        }
+        Log::warning("Intento de login fallido. Credenciales incorrectas:", ['email' => $request->input('email')]);
+        return response()->json(['message' => 'Credenciales incorrectas'], 401);
         
+    } catch (\Exception $e) {
+        Log::error('Error durante el inicio de sesión: ' . $e->getMessage());
+        return response()->json(['message' => 'Error en el servidor'], 500);
     }
+}
+
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        $user = Auth::user();
+        $user->tokens()->delete(); // Revocar todos los tokens
         Log::info('Usuario desconectado.');
         return response()->json(['message' => 'Usuario desconectado exitosamente'], 200);
     }
 }
-

@@ -30,16 +30,29 @@ createApp({
             cartVisible.value = !cartVisible.value;
         }
 
-        // Mostrar pantalla de información del producto
-        function mostrarProd(productId) {
-            toggleLandingProd();
-            prodActual.datos = infoTotal.datos.find(p => p.id === productId);
+        // Alternar visibilidad del login/register
+        function toggleLoginRegister() {
+            registerLoginVisible.value = !registerLoginVisible.value;
+            landingVisible.value = !landingVisible.value;
+            document.getElementById('menu_burger').checked = false;
         }
 
         function toggleLandingProd() {
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
+        }
+
+        function toggleInici() {
+            registerLoginVisible.value = false;
+            landingVisible.value = true;
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        // Mostrar pantalla de información del producto
+        function mostrarProd(productId) {
+            toggleLandingProd();
+            prodActual.datos = infoTotal.datos.find(p => p.id === productId);
         }
 
         // Añadir producto al carrito
@@ -125,12 +138,6 @@ createApp({
             }
         }
 
-        // Alternar visibilidad del login/register
-        function toggleLoginRegister() {
-            registerLoginVisible.value = !registerLoginVisible.value;
-            landingVisible.value = !landingVisible.value;
-        }
-
         async function register() {
             const userData = {
                 name: document.querySelector('input[name="txt"]').value,
@@ -197,7 +204,8 @@ createApp({
             registerLoginVisible,
             register,
             login,
-            mostrarProd
+            mostrarProd,
+            toggleInici
         };
     }
 }).mount('#appVue');

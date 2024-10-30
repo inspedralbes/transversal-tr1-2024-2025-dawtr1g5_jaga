@@ -34,11 +34,11 @@
                   </label>
                 </div>
                 <ul class="nav-list">
-                  <li><a href="#">Inici</a></li>
+                  <li><a href="#" @click="toggleInici">Inici</a></li>
                   <li><a href="#">Categories</a></li>
                   <li><a href="#">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
-                  <li><a href="#" @click="toggleLoginRegister">Login/Register</a></li>
+                  <li><a href="#register" @click="toggleLoginRegister">Register/Login</a></li>
                 </ul>
               </div>
             </div>
@@ -94,7 +94,7 @@
 
       <div class="d-flex j-center align-center" style="flex-direction: column;">
         <div class="filter d-flex">
-          [FILTROS DE BUSQUEDA]
+          <p class="no-margin" style="font-weight: 600;">[FILTROS DE BUSQUEDA]</p>
         </div>
         <div class="d-grid containProducts">
           <div class="contItem p-relative" v-for="producto in infoTotal.datos" :key="producto.id">
@@ -109,6 +109,12 @@
               <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0" @click="addCart(producto.id)">Add to cart</button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="categories">
+        <div>
+          
         </div>
       </div>
     </div>

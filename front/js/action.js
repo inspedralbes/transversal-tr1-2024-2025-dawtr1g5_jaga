@@ -224,6 +224,7 @@ createApp({
                 // }
             }else{
                 searchVisible.value = false;
+                queryProducts.value = [];
             }
         }
 

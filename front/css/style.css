@@ -582,6 +582,19 @@ nav {
 
 /* --------------------------------------------------------- */
 
+/* ------------------------Buscador------------------------- */
+
+.containerSearch{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: white;
+    top: 120px;
+    left: 0;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+}
+
+
 /* --------------------------------------------------------- */
 
 

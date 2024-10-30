@@ -36,25 +36,8 @@ export async function postOrder(orderData){
     }
 }
 
-// export async function updateStock(X, idProd){
-//     try {
-//         const response = await fetch("http://tr1g5.daw.inspedralbes.cat/public/api/updateStock/"+idProd, {
-//             method: "PUT",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(X),
-//         });
-
-//         if (response.ok) {
-//             const result = await response.json();
-//             console.log("Stock actualitzat amb èxit:", result);
-//         } else {
-//             console.error("Error al actualizar el stock:", response.statusText);
-//             alert("Error al actualizar el stock.");
-//         }
-//     } catch (error) {
-//         console.error("error:", error);
-//         alert("Error");
-//     }
-// }
+export async function searchProd(query){
+    const URL = "http://127.0.0.1:8000/api/productsearch?query="+query;
+    const response = await fetch(URL);
+    return response;
+}

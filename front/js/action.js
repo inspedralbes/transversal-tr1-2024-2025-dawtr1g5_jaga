@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder } from './communicationManager.js';
+import { getProducts, postOrder, searchProd } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -9,10 +9,13 @@ createApp({
         let prodActual = reactive({ datos: [] })
         let totalCart = ref(0);
         let quantitat = ref(1);
+        let query = ref('');
+        let queryProducts = ref([]);
 
         let cartVisible = ref(false); // Controla la visibilidad del carrito
         let productVisible = ref(false);
         let landingVisible = ref(true);
+        let searchVisible = ref(false);
         // Cargar los productos
         onBeforeMount(async () => {
             try {
@@ -129,8 +132,28 @@ createApp({
                     toggleCart();
                     toggleLandingProd();
                 }
-            }else{
+            } else {
                 alert("La cistella està buida");
+            }
+        }
+
+        async function buscarProd() {
+            if(query.value.length >= 2){
+                if(!searchVisible.value){
+                    searchVisible.value = true;
+                }
+                await searchProd(query.value)
+                .then(response => response.json())
+                .then(data => queryProducts = data);
+                if(queryProducts.length != 0){
+                    queryProducts.forEach((prod)=>{
+                        console.log(prod.title);
+                    });
+                }else{
+                    console.log("No s'ha trobat cap producte");
+                }
+            }else{
+                searchVisible.value = false;
             }
         }
 
@@ -152,7 +175,10 @@ createApp({
             decrement,
             increment,
             toggleLandingProd,
-            finalitzarCompra
+            finalitzarCompra,
+            buscarProd,
+            query,
+            searchVisible
         };
     }
 }).mount('#appVue');

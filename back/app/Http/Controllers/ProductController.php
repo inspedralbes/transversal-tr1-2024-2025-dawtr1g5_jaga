@@ -62,6 +62,18 @@ class ProductController extends Controller
         }
     }
 
+    public function search(Request $request){
+        $query = $request->input('query');
+
+        if($query){
+            $products = Product::where('title','LIKE',"%{$query}%")->get();
+        }else{
+            $products = "No existeix cap producte amb aquest nom";
+        }
+
+        return response()->json($products);
+    }
+
     /**
      * Update the specified resource in storage.
      */

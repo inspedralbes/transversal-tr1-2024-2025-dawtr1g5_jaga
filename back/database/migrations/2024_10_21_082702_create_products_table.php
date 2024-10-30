@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->float('price');
             $table->integer('stock');
-            // $table->string('url');
+            $table->string('fotoURL')->nullable();;
             $table->timestamps();
         });
     }

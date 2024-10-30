@@ -15,6 +15,7 @@ createApp({
         let cartVisible = ref(false); // Controla la visibilidad del carrito
         let productVisible = ref(false);
         let landingVisible = ref(true);
+        let searchInputVisible = ref(false);
         let searchVisible = ref(false);
         // Cargar los productos
         onBeforeMount(async () => {
@@ -35,6 +36,7 @@ createApp({
         //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
             toggleLandingProd();
+            toggleSearch();
             this.prodActual = infoTotal.datos.find(p => p.id === productId);
         }
 
@@ -42,6 +44,12 @@ createApp({
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
+        }
+
+        function toggleSearch(){
+            searchInputVisible.value = !searchInputVisible.value;
+            query.value = '';
+            queryProducts.value = [];
         }
 
         // Añadir producto al carret
@@ -144,14 +152,14 @@ createApp({
                 }
                 await searchProd(query.value)
                 .then(response => response.json())
-                .then(data => queryProducts = data);
-                if(queryProducts.length != 0){
-                    queryProducts.forEach((prod)=>{
-                        console.log(prod.title);
-                    });
-                }else{
-                    console.log("No s'ha trobat cap producte");
-                }
+                .then(data => queryProducts.value = data);
+                // if(queryProducts.length != 0){
+                //     queryProducts.forEach((prod)=>{
+                //         console.log(prod.title);
+                //     });
+                // }else{
+                //     console.log("No s'ha trobat cap producte");
+                // }
             }else{
                 searchVisible.value = false;
             }
@@ -178,7 +186,10 @@ createApp({
             finalitzarCompra,
             buscarProd,
             query,
-            searchVisible
+            searchVisible,
+            queryProducts,
+            toggleSearch,
+            searchInputVisible,
         };
     }
 }).mount('#appVue');

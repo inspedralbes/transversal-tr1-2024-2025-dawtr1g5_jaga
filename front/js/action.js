@@ -36,14 +36,19 @@ createApp({
         }
 
         function mostrarProd(productId) {
-            toggleLandingProd();
-            toggleSearch();
+            if(!productVisible.value){
+                toggleLandingProd();
+            }
+            if(searchInputVisible.value){
+                toggleSearch();
+            }
             this.prodActual = infoTotal.datos.find(p => p.id === productId);
         }
 
         function toggleLandingProd()  {
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
+            
             quantitat.value = 1;
         }
 
@@ -243,6 +248,7 @@ createApp({
             totalCart,
             preuTotal,
             cart,
+            cartVisible,
             infoTotal,
             registerLoginVisible,
             register,

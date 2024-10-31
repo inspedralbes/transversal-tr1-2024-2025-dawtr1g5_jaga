@@ -47,7 +47,8 @@
             <div id="icons" class="d-flex w-33 j-right">
               <img @click="toggleSearch" src="./img/svg/search.svg" alt="buscar" width="30px">
               <div v-if="searchInputVisible" class="d-flex j-center align-center buscador">
-                <input type="text" v-model="query" @input="buscarProd" id="inputbuscar" placeholder="Buscar producto...">
+                <input type="text" v-model="query" @input="buscarProd" id="inputbuscar"
+                  placeholder="Buscar producto...">
               </div>
               <div class="carrito">
                 <img src="./img/svg/cart.svg" alt="cart" @click="toggleCart" width="30px" style="margin-left: 10px;">
@@ -59,7 +60,8 @@
         <div v-if="searchInputVisible" class="p-relative">
           <div @click="toggleSearch" class="overlay"></div>
           <div class="w-full p-absolute containerSearch">
-            <div v-for="prod in queryProducts" :key="prod.id" @click="mostrarProd(prod.id)" class="w-full" style="background-color: rgb(255, 255, 255); min-height: 50px;border-bottom: 1px solid black;">
+            <div v-for="prod in queryProducts" :key="prod.id" @click="mostrarProd(prod.id)" class="w-full"
+              style="background-color: rgb(255, 255, 255); min-height: 50px;border-bottom: 1px solid black;">
               <div class="d-flex align-center">
                 <div class="d-flex align-center">
                   <img src="./img/svg/image.svg" alt="imageProduct" height="80px">
@@ -118,7 +120,8 @@
                 <p class="titleItem no-margin">{{producto.title}}</p>
                 <p class="priceItem no-margin">€{{producto.price}}</p>
               </div>
-              <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0" @click="addCart(producto.id)">Add to cart</button>
+              <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0"
+                @click="addCart(producto.id)">Add to cart</button>
             </div>
           </div>
         </div>
@@ -149,7 +152,7 @@
             <input type="number" name="cant" :value="quantitat" class="contador" readonly>
             <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
           </div>
-          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button> 
+          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button>
           <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
         </div>
       </div>
@@ -186,7 +189,31 @@
       </div>
       <div id="cartFooter" class="p-absolute w-full d-flex j-between align-center">
         <p>Total: €{{ preuTotal.total.toFixed(2) }}</p>
-        <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="finalitzarCompra"/>
+        <!-- <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="finalitzarCompra" /> -->
+        <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="showCheckout" />
+      </div>
+    </div>
+
+    <!-- Formulario con datos del usuario que compra -->
+    <div v-if="checkoutVisible" id="checkoutLanding" class="d-flex f-column align-center j-center">
+      <div class="d-flex align-center w-full header">
+        <img src="./img/svg/arrow.svg" alt="cart" @click="backToCart" width="25px" height="25px">
+        <p class="no-margin p-absolute">Information detail</p>
+      </div>
+      <button>Iniciar sesión</button>
+      <p>-------- o --------</p>
+      <div class="d-flex f-column w-full" id="infoCheckout">
+        <label for="fullnameCustomer">Full name</label>
+        <input type="text" id="nameCustomer" class="px-10" v-model="nameCustomer" placeholder="Your full name">
+        <label for="emailCustomer">Email</label>
+        <input type="text" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Enter your email">
+        <label for="phoneCustomer">Phone number</label>
+        <input type="number" id="phoneCustomer" class="px-10" v-model="phoneCustomer" placeholder="Enter your phone number">
+        <label class="d-flex align-center w-33" style="margin-top: -10px;">
+          <input type="checkbox" v-model="isGift" name="isGift" id="isGift">
+          <p>Is a gift?</p>
+        </label>
+        <button @click="finalitzarCompra">Comprar</button>
       </div>
     </div>
   </section>

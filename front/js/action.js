@@ -12,11 +12,18 @@ createApp({
         let query = ref('');
         let queryProducts = ref([]);
 
+        let fullnameCustomer = ref('');
+        let emailCustomer = ref('');
+        let phoneCustomer = ref('');
+        let isGift = ref(false);
+
         let cartVisible = ref(false); // Controla la visibilidad del carrito
         let productVisible = ref(false);
         let landingVisible = ref(true);
         let searchInputVisible = ref(false);
         let searchVisible = ref(false);
+        let checkoutVisible = ref(false);
+        let ticketVisible = ref(false);
         // Cargar los productos
         onBeforeMount(async () => {
             try {
@@ -35,8 +42,12 @@ createApp({
 
         //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
-            toggleLandingProd();
-            toggleSearch();
+            if(!productVisible.value){
+                toggleLandingProd();
+            }
+            if(searchInputVisible.value){
+                toggleSearch();
+            }
             this.prodActual = infoTotal.datos.find(p => p.id === productId);
         }
 
@@ -50,6 +61,22 @@ createApp({
             searchInputVisible.value = !searchInputVisible.value;
             query.value = '';
             queryProducts.value = [];
+        }
+
+        function backToCart(){
+            cartVisible.value = true;
+            checkoutVisible.value = false;
+            landingVisible.value = true;
+        }
+
+        function showCheckout(){
+            if(cart.datos.length > 0){
+                cartVisible.value = false;
+                landingVisible.value = false;
+                checkoutVisible.value = true;
+            }else{
+                alert("Cart is empty");
+            }
         }
 
         // Añadir producto al carret
@@ -115,7 +142,7 @@ createApp({
 
         // Función para finalizar la compra
         async function finalitzarCompra() {
-            if (cart.datos) {
+            if (cart.datos.length > 0) {
                 const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
                     product_id: producte.product.id,
                     quantity: producte.product.quantitat,
@@ -137,10 +164,10 @@ createApp({
                     cart.datos = [];
                     totalCart.value = 0;
                     calcularTotal();
-                    toggleCart();
-                    if(!landingVisible){
-                        toggleLandingProd();
-                    }
+                    cartVisible.value = false;
+                    checkoutVisible.value = false;
+                    ticketVisible.value = true;
+                    // landingVisible.value = true;
                 }
             } else {
                 alert("La cistella està buida");
@@ -192,6 +219,14 @@ createApp({
             queryProducts,
             toggleSearch,
             searchInputVisible,
+            fullnameCustomer,
+            emailCustomer,
+            phoneCustomer,
+            isGift,
+            showCheckout,
+            checkoutVisible,
+            backToCart,
+            ticketVisible,
         };
     }
 }).mount('#appVue');

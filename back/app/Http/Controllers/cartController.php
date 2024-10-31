@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\orderfinal;
 use App\Models\Orders;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
 
 class cartController extends Controller
 {
@@ -29,9 +30,10 @@ class cartController extends Controller
     public function create(Request $request)
     {
         $productController = new ProductController();
+        $user = Auth::user();
 
         $orderTotal = orderfinal::create([
-            'user_id' => $request->input('orderTotal.user_id'),
+            'user_id' => $user->id,
             'amount' => $request->input('orderTotal.totalAmount'),
             'status' => "pendiente",
         ]);
@@ -51,7 +53,7 @@ class cartController extends Controller
                 "amount" => $product['amount'],
             ]);
 
-            $response = $productController -> updateStock($product);
+            $productController -> updateStock($product);
         }
 
         return response()->json([

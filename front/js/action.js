@@ -138,7 +138,9 @@ createApp({
                     totalCart.value = 0;
                     calcularTotal();
                     toggleCart();
-                    toggleLandingProd();
+                    if(!landingVisible){
+                        toggleLandingProd();
+                    }
                 }
             } else {
                 alert("La cistella està buida");

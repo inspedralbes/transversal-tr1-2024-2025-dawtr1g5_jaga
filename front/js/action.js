@@ -123,17 +123,16 @@ createApp({
                 amount: producte.product.price * producte.product.quantitat
             }));
 
-            const userId = localStorage.getItem('userId') || 1;
+            // const userId = localStorage.getItem('userId') || 1;
             const orderTotal = {
-                user_id: userId,
+                // user_id: userId,
                 totalAmount: preuTotal.total.toFixed(2)
             };
 
             const orderData = { orders, orderTotal };
-            const token = localStorage.getItem('token');
 
             try {
-                const success = await postOrder(orderData, token);
+                const success = await postOrder(orderData);
                 if (success) {
                     cart.datos = [];
                     totalCart.value = 0;

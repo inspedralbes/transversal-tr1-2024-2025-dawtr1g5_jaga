@@ -13,7 +13,8 @@ export async function getProducts() {
     }
 }
 
-export async function postOrder(orderData, token) {
+export async function postOrder(orderData) {
+    const token = localStorage.getItem('token');
     try {
         const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
             method: "POST",

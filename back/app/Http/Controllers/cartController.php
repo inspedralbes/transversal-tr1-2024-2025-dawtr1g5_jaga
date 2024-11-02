@@ -33,6 +33,11 @@ class cartController extends Controller
         $orderTotal = orderfinal::create([
             'user_id' => $request->input('orderTotal.user_id'),
             'amount' => $request->input('orderTotal.totalAmount'),
+            'fullname' => $request->input('orderTotal.fullname'),
+            'email' => $request->input('orderTotal.email'),
+            'phone' => $request->input('orderTotal.phone'),
+            'gift' => $request->input('orderTotal.gift'),
+            'uuid' => $request->input('orderTotal.uuid'),
             'status' => "pendiente",
         ]);
 

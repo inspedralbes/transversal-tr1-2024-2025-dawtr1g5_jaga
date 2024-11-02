@@ -497,7 +497,6 @@ nav {
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-
 }
 
 #infoCheckout input{
@@ -510,7 +509,7 @@ nav {
 
 .header{
     background-color: white;
-    position: absolute;
+    position: fixed;
     height: 40px;
     top: 0;
     left: 0;

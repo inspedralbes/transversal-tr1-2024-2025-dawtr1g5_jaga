@@ -13,6 +13,8 @@ export async function getProducts() {
     }
 }
 
+let aux;
+
 export async function postOrder(orderData){
     try {
         const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
@@ -26,15 +28,20 @@ export async function postOrder(orderData){
         if (response.ok) {
             const result = await response.json();
             console.log("Ordre creada amb èxit:", result);
+            return true;
         } else {
             console.error("Error al crear la orden:", response.statusText);
             alert("Error al crear la orden. Inténtalo de nuevo.");
+            return false;
         }
     } catch (error) {
         console.error("error:", error);
         alert("Error de red");
+        return false;
     }
 }
+
+export let orderId = aux; //AVERIGUAR COMO ENVIARLO AL FRONT
 
 export async function searchProd(query){
     const URL = "http://127.0.0.1:8000/api/productsearch?query="+query;

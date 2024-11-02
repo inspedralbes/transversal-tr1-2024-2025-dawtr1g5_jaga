@@ -50,8 +50,8 @@
                 <input type="text" v-model="query" @input="buscarProd" id="inputbuscar"
                   placeholder="Buscar producto...">
               </div>
-              <div class="carrito">
-                <img src="./img/svg/cart.svg" alt="cart" @click="toggleCart" width="30px" style="margin-left: 10px;">
+              <div class="carrito" style="margin-left: 10px;" @click="toggleCart">
+                <img src="./img/svg/cart.svg" alt="cart" width="30px">
                 <span v-if="totalCart > 0">{{ totalCart }}</span>
               </div>
             </div>
@@ -158,11 +158,6 @@
       </div>
     </div>
 
-
-
-
-
-
     <!-- Carrito de compras (solo visible si cartVisible es verdadero) -->
     <div id="cartContainer" v-if="cartVisible" class="w-full h-full p-fixed d-flex">
       <div id="cartHeader" class="d-flex align-center">
@@ -204,11 +199,12 @@
       <p>-------- o --------</p>
       <div class="d-flex f-column w-full" id="infoCheckout">
         <label for="fullnameCustomer">Full name</label>
-        <input type="text" id="nameCustomer" class="px-10" v-model="nameCustomer" placeholder="Your full name">
+        <input type="text" id="fullnameCustomer" class="px-10" v-model="fullnameCustomer" placeholder="Your full name">
         <label for="emailCustomer">Email</label>
-        <input type="text" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Enter your email">
+        <input type="email" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Enter your email">
         <label for="phoneCustomer">Phone number</label>
-        <input type="number" id="phoneCustomer" class="px-10" v-model="phoneCustomer" placeholder="Enter your phone number">
+        <input type="number" id="phoneCustomer" class="px-10" v-model="phoneCustomer"
+          placeholder="Enter your phone number">
         <label class="d-flex align-center w-33" style="margin-top: -10px;">
           <input type="checkbox" v-model="isGift" name="isGift" id="isGift">
           <p>Is a gift?</p>
@@ -216,6 +212,12 @@
         <button @click="finalitzarCompra">Comprar</button>
       </div>
     </div>
+    <div v-if="ticketVisible" class="w-full d-flex j-center align-center f-column">
+      <p>OrderID: {{orderId}}</p>
+      <img :src="barcodeOrder" alt="Barcode Scan">
+      <input type="button" value="Volver al inicio" @click="backToHome">
+    </div>
+
   </section>
 
   <!-- Carga de Bootstrap y Vue -->
@@ -224,6 +226,11 @@
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
   <script type="module" src="js/action.js"></script>
+
+  <script src="https://unpkg.com/vue@3"></script><!-- Vue.js is required -->
+  <script src="https://unpkg.com/jsbarcode@3/dist/JsBarcode.all.min.js"></script><!-- JsBarcode is required -->
+  <script src="https://unpkg.com/@chenfengyuan/vue-barcode@2"></script>
+
 </body>
 
 </html>

@@ -13,6 +13,11 @@ class orderfinal extends Model
     protected $fillable = [
         'amount',
         'user_id',
+        'fullname',
+        'email',
+        'phone',
+        'gift',
+        'uuid',
         'status',
     ];
 

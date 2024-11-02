@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd } from './communicationManager.js';
+import { getProducts, postOrder, searchProd, orderId } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -16,6 +16,8 @@ createApp({
         let emailCustomer = ref('');
         let phoneCustomer = ref('');
         let isGift = ref(false);
+        let orderId = ref('');
+        let barcodeOrder = ref('');
 
         let cartVisible = ref(false); // Controla la visibilidad del carrito
         let productVisible = ref(false);
@@ -24,6 +26,9 @@ createApp({
         let searchVisible = ref(false);
         let checkoutVisible = ref(false);
         let ticketVisible = ref(false);
+        let preCheckoutVisible = ref(true);
+        let postCheckoutVisible = ref(false);
+
         // Cargar los productos
         onBeforeMount(async () => {
             try {
@@ -42,10 +47,10 @@ createApp({
 
         //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
-            if(!productVisible.value){
+            if (!productVisible.value) {
                 toggleLandingProd();
             }
-            if(searchInputVisible.value){
+            if (searchInputVisible.value) {
                 toggleSearch();
             }
             this.prodActual = infoTotal.datos.find(p => p.id === productId);
@@ -57,24 +62,31 @@ createApp({
             quantitat.value = 1;
         }
 
-        function toggleSearch(){
+        function backToHome() {
+            landingVisible.value = true;
+            checkoutVisible.value = false;
+            ticketVisible.value = false;
+        }
+
+        function toggleSearch() {
             searchInputVisible.value = !searchInputVisible.value;
             query.value = '';
             queryProducts.value = [];
         }
 
-        function backToCart(){
+        function backToCart() {
             cartVisible.value = true;
             checkoutVisible.value = false;
             landingVisible.value = true;
         }
 
-        function showCheckout(){
-            if(cart.datos.length > 0){
+        function showCheckout() {
+            if (cart.datos.length > 0) {
                 cartVisible.value = false;
                 landingVisible.value = false;
+                productVisible.value = false;
                 checkoutVisible.value = true;
-            }else{
+            } else {
                 alert("Cart is empty");
             }
         }
@@ -142,6 +154,9 @@ createApp({
 
         // Función para finalizar la compra
         async function finalitzarCompra() {
+            orderId.value = generarUUID();
+            barcodeOrder.value = 'https://barcode.tec-it.com/barcode.ashx?data='+orderId.value+'&code=Code128&translate-esc=on';
+
             if (cart.datos.length > 0) {
                 const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
                     product_id: producte.product.id,
@@ -151,7 +166,12 @@ createApp({
 
                 const orderTotal = { //obj info gnral de la orden
                     user_id: 1,  // reemplazar "x" con el ID real del usuario 
-                    totalAmount: preuTotal.total.toFixed(2) //total de la compra ejem:45,9
+                    totalAmount: preuTotal.total.toFixed(2), //total de la compra ejem:45,9
+                    fullname: fullnameCustomer.value,
+                    email: emailCustomer.value,
+                    phone: phoneCustomer.value,
+                    gift: isGift.value,
+                    uuid: orderId.value
                 };
 
                 const orderData = { orders, orderTotal }; //obj q se enviará la servidor
@@ -161,27 +181,44 @@ createApp({
                         let productoEncontrado = infoTotal.datos.find(p => p.id === prod.product_id);
                         productoEncontrado.stock -= prod.quantity;
                     })
+
+                    //Resetear todos los valores
                     cart.datos = [];
                     totalCart.value = 0;
                     calcularTotal();
+                    fullnameCustomer.value = '';
+                    emailCustomer.value = '';
+                    phoneCustomer.value = '';
+                    isGift.value = false;
                     cartVisible.value = false;
                     checkoutVisible.value = false;
+                    landingVisible.value = false; //Para mostrar la pantalla del checkout mejor
                     ticketVisible.value = true;
-                    // landingVisible.value = true;
                 }
             } else {
                 alert("La cistella està buida");
             }
         }
 
+        function generarUUID() {
+            const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let resultado = '';
+            for (let i = 0; i < 8; i++) {
+                const indice = Math.floor(Math.random() * caracteres.length);
+                resultado += caracteres.charAt(indice);
+            }
+
+            return resultado;
+        }        
+
         async function buscarProd() {
-            if(query.value.length >= 2){
-                if(!searchVisible.value){
+            if (query.value.length >= 2) {
+                if (!searchVisible.value) {
                     searchVisible.value = true;
                 }
                 await searchProd(query.value)
-                .then(response => response.json())
-                .then(data => queryProducts.value = data);
+                    .then(response => response.json())
+                    .then(data => queryProducts.value = data);
                 // if(queryProducts.length != 0){
                 //     queryProducts.forEach((prod)=>{
                 //         console.log(prod.title);
@@ -189,7 +226,7 @@ createApp({
                 // }else{
                 //     console.log("No s'ha trobat cap producte");
                 // }
-            }else{
+            } else {
                 searchVisible.value = false;
             }
         }
@@ -227,6 +264,11 @@ createApp({
             checkoutVisible,
             backToCart,
             ticketVisible,
+            orderId,
+            barcodeOrder,
+            preCheckoutVisible,
+            postCheckoutVisible,
+            backToHome,
         };
     }
 }).mount('#appVue');

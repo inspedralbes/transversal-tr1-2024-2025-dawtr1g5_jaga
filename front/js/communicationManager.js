@@ -16,7 +16,7 @@ export async function getProducts() {
 let aux;
 
 export async function postOrder(orderData){
-    try {
+    // try {
         const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
             method: "POST",
             headers: {
@@ -34,11 +34,11 @@ export async function postOrder(orderData){
             alert("Error al crear la orden. Inténtalo de nuevo.");
             return false;
         }
-    } catch (error) {
-        console.error("error:", error);
-        alert("Error de red");
-        return false;
-    }
+    // } catch (error) {
+    //     console.error("error:", error);
+    //     alert("Error de red");
+    //     return false;
+    // }
 }
 
 export let orderId = aux; //AVERIGUAR COMO ENVIARLO AL FRONT

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\orderfinal;
 use App\Models\Orders;
+use App\Mail\OrderSend;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Mail;
 
 class cartController extends Controller
 {
@@ -56,8 +58,11 @@ class cartController extends Controller
                 "amount" => $product['amount'],
             ]);
 
-            $response = $productController -> updateStock($product);
+            $productController -> updateStock($product);
         }
+
+        Mail::to($orderTotal->email)->send(new OrderSend($orderTotal));
+        //CAMBIAR ESTA LINEA PARA QUE EL TO: SEA EL USUARIO AUTENTICADO
 
         return response()->json([
             "final order" => $orderTotal,

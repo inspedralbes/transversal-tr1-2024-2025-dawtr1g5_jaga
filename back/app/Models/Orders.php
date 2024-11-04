@@ -15,4 +15,15 @@ class Orders extends Model
         'quantity',
         'amount',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(OrderFinal::class, 'order_id', 'id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
 }

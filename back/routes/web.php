@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\cartController;
+use App\Http\Controllers\comandaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,10 +18,12 @@ Route::get('/crud', function () {
 })->name('crud');
 
 Route::get('/comandes', function () {
-    return view('comandes.index');
-})->name('comandes.index');
+    return view('index');
+})->name('index');
 
 Route::get('/crud', [ProductController::class, 'index'])->name('crud');
+Route::get('/orders', [cartController::class, 'index'])->name('index');
+Route::get('/comandes/{id}', [ComandaController::class, 'show'])->name('comandes');
 
 Route::get('/products', [ProductController::class,'index'])->name('products.index');
 Route::post('/products', [ProductController::class,'store'])->name('products.store');

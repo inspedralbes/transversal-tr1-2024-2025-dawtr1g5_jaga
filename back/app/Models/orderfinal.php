@@ -13,6 +13,16 @@ class orderfinal extends Model
     protected $fillable = [
         'amount',
         'user_id',
+        'fullname',
+        'email',
+        'phone',
+        'gift',
+        'uuid',
         'status',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'order_id', 'id');
+    }
 }

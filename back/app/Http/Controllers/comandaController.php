@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\orderfinal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-
-
-// app/Http/Controllers/ComandaController.php
-
-use App\Models\Orders;
 
 class comandaController extends Controller
 {
     public function index()
     {
-        $orders = Orders::with('product')->get();
+        $orders = orderfinal::with('orders')->get();
         return view('index', compact('orders'));
     }
 
@@ -28,5 +21,16 @@ class comandaController extends Controller
         return view('comandes', compact('products'));
     }
 
-}
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string|in:pendent,preparat,rebutjat,entregat',
+        ]);
 
+        $order = orderfinal::findOrFail($id);
+        $order->status = $request->input('status');
+        $order->save();
+
+        return redirect()->route('comandes.index')->with('success', 'Estado de la comanda actualizado correctament.');
+    }
+}

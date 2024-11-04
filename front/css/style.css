@@ -493,6 +493,15 @@ nav {
     background-color: #e65c00;
 }
 
+.btn-disabled{
+    background-color: #adadad;
+    border: none;
+    height: 25px;
+    margin-bottom: 0;
+    color: white;
+    font-weight: bold;
+}
+
 #checkoutLanding{
     width: 100%;
     box-sizing: border-box;

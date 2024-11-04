@@ -38,6 +38,7 @@
                   <li><a href="#">Categories</a></li>
                   <li><a href="#">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
+                  <li><a href="#">My orders</a></li>
                 </ul>
               </div>
             </div>
@@ -153,8 +154,8 @@
                 <p class="titleItem no-margin">{{producto.title}}</p>
                 <p class="priceItem no-margin">€{{producto.price}}</p>
               </div>
-              <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0"
-                @click="addCart(producto.id)">Add to cart</button>
+              <button class="w-full btn-add p-absolute" v-if="producto.stock > 0" style="bottom: 0;" @click="addCart(producto.id)">Add to cart</button>
+              <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Add to cart</button>
             </div>
           </div>
         </div>
@@ -256,6 +257,7 @@
         <button @click="finalitzarCompra">Comprar</button>
       </div>
     </div>
+
     <div v-if="ticketVisible" class="w-full d-flex j-center align-center f-column">
       <p>OrderID: {{orderId}}</p>
       <img :src="barcodeOrder" alt="Barcode Scan">

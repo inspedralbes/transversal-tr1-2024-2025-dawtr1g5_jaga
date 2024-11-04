@@ -9,7 +9,7 @@
         <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     </head>
     
-    <div class="container">
+    <div>
         <h1>Llista de Comandes</h1>
         <table>
             <thead>

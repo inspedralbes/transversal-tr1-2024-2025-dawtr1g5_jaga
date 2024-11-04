@@ -38,7 +38,7 @@
                   <li><a href="#">Categories</a></li>
                   <li><a href="#">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
-                  <li><a href="#">My orders</a></li>
+                  <li><input type="button" value="My orders" @click="toggleMyOrders"></li>
                 </ul>
               </div>
             </div>
@@ -77,6 +77,32 @@
         </div>
       </nav>
     </header>
+
+    <div class="p-absolute w-full" style="top: 0;">
+      <div v-if="MyOrdersVisible" id="MyOrdersLanding" class="d-flex f-column p-relative align-center j-center" style="z-index: 1000;">
+        <div class="d-flex align-center w-full header" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+          <img src="./img/svg/arrow.svg" alt="cart" @click="toggleMyOrders" width="25px" height="25px">
+          <p class="no-margin p-absolute">My orders</p>
+        </div>
+        <div class="w-full" style="margin-top: 50px; height: 100vh; background-color: white; padding: 10px; box-sizing: border-box;">
+          <div v-for="order in myOrders.datos" :key="order.id" class="d-flex j-center w-full containerItem">
+            <div class="w-full" style="padding: 10px;">
+              <p class="no-margin">Order ID: #{{order.uuid}}</p>
+              <p class="no-margin" style="font-size: 12px;">
+                Status: 
+                <span v-if="order.status == 'pendiente'" style="background-color: rgb(255, 207, 145); padding: 0px 2px;">
+                  Pendiente
+                </span>
+                <span v-if="order.status == 'preparado'" style="background-color: rgb(204, 255, 145); padding: 0px 2px;">
+                  Preparado
+                </span>
+              </p>
+              <p class="no-margin" style="font-size: 15px; margin-top: 10px;">Total: {{order.amount}}€</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div v-if="landingVisible">
       <div class="portada p-relative">
@@ -154,7 +180,8 @@
                 <p class="titleItem no-margin">{{producto.title}}</p>
                 <p class="priceItem no-margin">€{{producto.price}}</p>
               </div>
-              <button class="w-full btn-add p-absolute" v-if="producto.stock > 0" style="bottom: 0;" @click="addCart(producto.id)">Add to cart</button>
+              <button class="w-full btn-add p-absolute" v-if="producto.stock > 0" style="bottom: 0;"
+                @click="addCart(producto.id)">Add to cart</button>
               <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Add to cart</button>
             </div>
           </div>
@@ -200,7 +227,7 @@
           <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
         </div>
       </div>
-      
+
     </div>
 
     <!-- Carrito de compras (solo visible si cartVisible es verdadero) -->
@@ -210,7 +237,7 @@
         <p class="p-absolute">Cistella</p>
       </div>
       <div id="cartBody">
-        <div id="cartItem" class="d-flex align-center j-between" v-for="producte in cart.datos"
+        <div class="d-flex align-center j-between containerItem" v-for="producte in cart.datos"
           :key="producte.product.id">
           <div class="d-flex align-center">
             <div class="cartItem-img j-left">

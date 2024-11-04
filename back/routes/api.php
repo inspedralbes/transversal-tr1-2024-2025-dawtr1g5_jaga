@@ -19,3 +19,4 @@ Route::get('/productsearch',[ProductController::class, 'search']);
 
 Route::get('/orders', [CartController::class, 'index']);
 Route::post('/createOrder', [CartController::class, 'create']);
+Route::get('/myOrders', [CartController::class, 'show']);

@@ -1,9 +1,10 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd, orderId } from './communicationManager.js';
+import { getProducts, postOrder, searchProd, getMyOrders } from './communicationManager.js';
 
 createApp({
     setup() {
         const infoTotal = reactive({ datos: [] });
+        const myOrders = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
         let prodActual = reactive({ datos: [] })
@@ -28,12 +29,17 @@ createApp({
         let ticketVisible = ref(false);
         let preCheckoutVisible = ref(true);
         let postCheckoutVisible = ref(false);
+        let MyOrdersVisible = ref(false);
 
         // Cargar los productos
         onBeforeMount(async () => {
             try {
+                let user_id = 2;
                 const data = await getProducts();
+                const orders = await getMyOrders(user_id);
+                console.log(orders);
                 infoTotal.datos = data;
+                myOrders.datos = orders;
             } catch (error) {
                 console.error("Error al carregar els productes:", error);
             }
@@ -43,6 +49,10 @@ createApp({
         // Alternar visibilidad del carrito
         function toggleCart() {
             cartVisible.value = !cartVisible.value;
+        }
+
+        function toggleMyOrders() {
+            MyOrdersVisible.value = !MyOrdersVisible.value;
         }
 
         //Mostrar pantalla de información del producto
@@ -233,6 +243,7 @@ createApp({
 
         return {
             infoTotal,
+            myOrders,
             toggleCart,
             addCart,
             calcularTotal,
@@ -269,6 +280,9 @@ createApp({
             preCheckoutVisible,
             postCheckoutVisible,
             backToHome,
+            toggleMyOrders,
+            MyOrdersVisible,
+            myOrders,
         };
     }
 }).mount('#appVue');

@@ -36,7 +36,7 @@
                         <td>{{ $order->fullname }}</td>
                         <td>{{ $order->email }}</td>
                         <td>{{ $order->phone }}</td>
-                        <td>{{ $order->gift }}</td>
+                        <td>{{ $order->gift ? 'Si' : 'No' }}</td>
                         <td>{{ $order->uuid }}</td>
                         <td>{{ $order->status }}</td>
                         <td>

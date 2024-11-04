@@ -126,7 +126,8 @@ createApp({
             // const userId = localStorage.getItem('userId') || 1;
             const orderTotal = {
                 // user_id: userId,
-                totalAmount: preuTotal.total.toFixed(2)
+                totalAmount: preuTotal.total.toFixed(2),
+                
             };
 
             const orderData = { orders, orderTotal };
@@ -261,6 +262,7 @@ createApp({
             increment,
             toggleLandingProd,
             finalitzarCompra,
+            calcularTotal,
             buscarProd,
             query,
             searchVisible,

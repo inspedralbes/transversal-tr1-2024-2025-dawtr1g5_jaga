@@ -171,16 +171,10 @@
         <div class="containImage d-flex j-center">
           <img src="./img/svg/image.svg" alt="imageProd">
         </div>
-<<<<<<< HEAD
-        <div class="infoDet">
-          <p v-if="prodActual.stock >= 20">Disponible</p>
-          <p v-else>Últimas unidades</p>
-=======
         <div class="infoDet">
           <p v-if="prodActual.stock >= 10">Disponible</p>
           <p v-else-if="prodActual.stock > 0">Últimas unidades ({{prodActual.stock}})</p>
           <p v-else>No disponible</p>
->>>>>>> dev
           <p class="titleProd no-margin">{{prodActual.title}}</p>
           <p class="priceProd no-margin">€{{prodActual.price}}</p>
           <p>Descripció</p>
@@ -200,22 +194,14 @@
             <input type="number" name="cant" :value="quantitat" class="contador" readonly>
             <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
           </div>
-<<<<<<< HEAD
           <button class="btn-addProd desk-none" @click="addCart(prodActual.id)">Add to cart</button>
-=======
-          <button class="btn-addProd" @click="addCart(prodActual.id)">Add to cart</button>
->>>>>>> dev
+
           <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
         </div>
       </div>
       
     </div>
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> dev
     <!-- Carrito de compras (solo visible si cartVisible es verdadero) -->
     <div id="cartContainer" v-if="cartVisible" class="w-full h-full p-fixed d-flex">
       <div id="cartHeader" class="d-flex align-center">
@@ -242,9 +228,6 @@
       </div>
       <div id="cartFooter" class="p-absolute w-full d-flex j-between align-center">
         <p>Total: €{{ preuTotal.total.toFixed(2) }}</p>
-<<<<<<< HEAD
-        <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="finalitzarCompra" />
-=======
         <!-- <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="finalitzarCompra" /> -->
         <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="showCheckout" />
       </div>
@@ -255,7 +238,6 @@
       <div class="d-flex align-center w-full header">
         <img src="./img/svg/arrow.svg" alt="cart" @click="backToCart" width="25px" height="25px">
         <p class="no-margin p-absolute">Information detail</p>
->>>>>>> dev
       </div>
       <button>Iniciar sesión</button>
       <p>-------- o --------</p>

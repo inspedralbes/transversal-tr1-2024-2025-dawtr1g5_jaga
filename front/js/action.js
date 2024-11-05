@@ -31,6 +31,7 @@ createApp({
         let registerLoginVisible = ref(false);
         const loginEmail = ref('');
         const loginPassword = ref('');
+        let quiSomVisible = ref(false);
 
         // Cargar los productos
         onBeforeMount(async () => {
@@ -92,6 +93,11 @@ createApp({
             } else {
                 alert("Cart is empty");
             }
+        }
+
+        function toggleQuiSom() {
+            quiSomVisible.value = !quiSomVisible.value;  
+            landingVisible.value = !landingVisible.value;  
         }
 
         // Añadir producto al carret
@@ -365,6 +371,8 @@ createApp({
             loginEmail, 
             loginPassword,
             logout,
+            quiSomVisible,
+            toggleQuiSom,
         };
     }
 }).mount('#appVue');

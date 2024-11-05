@@ -901,6 +901,31 @@ input[type=number] {
       font-size: 14px;
     }
   }
+  .qui-som-section {
+    background-color: white; /* Fondo blanco */
+    position: fixed; /* O absolute, dependiendo del diseño */
+    top: 0; /* Ajusta según sea necesario */
+    left: 0; /* Ajusta según sea necesario */
+    width: 100%; /* Asegúrate de que ocupa el ancho completo */
+    height: 100%; /* Asegúrate de que ocupa el alto completo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegúrate de que está por encima de otros elementos */
+    /* Otros estilos según sea necesario */
+  }
+  
+  
+  .btn-close {
+    margin-top: 20px; /* Espacio para el botón */
+    background-color: #f39212; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  }
+  
+  
 
   
   

@@ -38,6 +38,8 @@
                   <li><a href="#">Categories</a></li>
                   <li><a href="#">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
+                  <li><a href="#" @click="toggleLoginRegister">Login/Register</a></li>
+                  <li><a href="#" @click="logout">Logout</a></li>
                   <li><a href="#">My orders</a></li>
                 </ul>
               </div>
@@ -240,6 +242,33 @@
         <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="showCheckout" />
       </div>
     </div>
+    <!-- Registre -->
+    <div class="registerLogin">
+      <div class="main" id="signup" v-if="registerLoginVisible">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        
+        <div class="signup">
+          <form @submit.prevent="register"> 
+            <label class="labelReg" for="chk" aria-hidden="true" style="color: #f39212;">Register</label>
+            <input type="text" name="txt" placeholder="User name" required="">
+            <input type="email" name="email" placeholder="Email" required="">
+            <input type="password" name="pswd" placeholder="Password" required="">
+            <button type="submit" id="registerButton">Registrar</button> 
+          </form>
+        </div>
+      
+        <div class="login" id="login">
+          <form @submit.prevent="login"> 
+            <label class="labelReg" for="chk" aria-hidden="true">Login</label>
+            <input type="email" v-model="loginEmail" placeholder="Email" required="">
+            <input type="password" v-model="loginPassword" placeholder="Password" required="">
+            <button type="submit" id="loginButton">Iniciar Sesión</button> 
+          </form>
+        </div>
+        
+      </div>
+    </div>
+
 
     <!-- Formulario con datos del usuario que compra -->
     <div v-if="checkoutVisible" id="checkoutLanding" class="d-flex f-column align-center j-center">

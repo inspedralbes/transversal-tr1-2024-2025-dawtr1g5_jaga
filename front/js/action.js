@@ -210,7 +210,9 @@ createApp({
             login,
             mostrarProd,
             toggleInici,
-            categories
+            categories,
+            cartVisible,
+            prodActual
         };
     }
 }).mount('#appVue');

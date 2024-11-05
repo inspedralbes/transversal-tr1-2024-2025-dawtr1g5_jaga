@@ -36,9 +36,9 @@
                 <ul class="nav-list">
                   <li><a href="#">Inici</a></li>
                   <li><a href="#">Categories</a></li>
-                  <li><a href="#">Qui som</a></li>
+                  <li><a href="#" @click="toggleQuiSom">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
-                  <li><a href="#" @click="toggleLoginRegister">Login/Register</a></li>
+                  <li><a href="#" @click="toggleLoginRegister">Register/Login</a></li>
                   <li><a href="#" @click="logout">Logout</a></li>
                   <li><a href="#">My orders</a></li>
                 </ul>
@@ -268,6 +268,15 @@
           </div>
           
         </div>
+      </div>
+    </div>
+    
+    <div v-if="quiSomVisible" class="qui-som-section">
+      <div class="qui-som-container">
+        <h2>Qui Som</h2>
+        <p>Som quatre fundadors que vam crear aquest projecte de botiga en línia de jocs de taula per a totes les edats.</p>
+        <p>El nostre horari d'atenció al client és de dilluns a divendres, de 9:00h a 13:00h i de 17:00h a 19:00h.</p>
+        <button @click="toggleQuiSom" class="btn-close">Tornar a l'inici</button>
       </div>
     </div>
     

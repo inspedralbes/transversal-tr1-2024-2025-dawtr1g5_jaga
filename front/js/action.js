@@ -98,7 +98,6 @@ createApp({
         function toggleQuiSom() {
             quiSomVisible.value = !quiSomVisible.value;  
             landingVisible.value = !landingVisible.value;  
-            this.registerLoginVisible = false; 
         }
 
         // Añadir producto al carret

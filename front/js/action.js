@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd, orderId } from './communicationManager.js';
+import { getProducts, postOrder, searchProd, orderId, registerUser, loginUser, logoutUser} from './communicationManager.js';
 
 createApp({
     setup() {
@@ -28,6 +28,9 @@ createApp({
         let ticketVisible = ref(false);
         let preCheckoutVisible = ref(true);
         let postCheckoutVisible = ref(false);
+        let registerLoginVisible = ref(false);
+        const loginEmail = ref('');
+        const loginPassword = ref('');
 
         // Cargar los productos
         onBeforeMount(async () => {
@@ -230,6 +233,92 @@ createApp({
                 searchVisible.value = false;
             }
         }
+        function toggleLoginRegister() {
+            registerLoginVisible.value = !registerLoginVisible.value;
+            landingVisible.value = !landingVisible.value;
+        }
+        async function register() {
+            const userData = {
+                name: document.querySelector('input[name="txt"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                password: document.querySelector('input[name="pswd"]').value,
+            };
+        
+            try {
+                const success = await registerUser(userData);
+                if (success) {
+                    alert("Registro exitoso");
+                    registerLoginVisible.value = false;
+                    landingVisible.value = true; 
+
+                    document.querySelector('input[name="txt"]').value = '';
+                    document.querySelector('input[name="email"]').value = '';
+                    document.querySelector('input[name="pswd"]').value = '';
+                } else {
+                    alert("Error en el registro");
+                }
+            } catch (error) {
+                alert("Error en el registro: " + error.message);
+            }
+        }
+
+        async function login() {
+            const userData = {
+                email: loginEmail.value,
+                password: loginPassword.value
+            };
+        
+            try {
+                const success = await loginUser(userData);
+                if (success) {
+                    alert("Inicio de sesión exitoso");
+                    registerLoginVisible.value = false;
+                    landingVisible.value = true;
+
+                    loginEmail.value = '';
+                    loginPassword.value = '';
+                } else {
+                    alert("Usuario o contraseña incorrectos.");
+                }
+            } catch (error) {
+                console.error("Error en el inicio de sesión:", error);
+                alert("Error inesperado en el inicio de sesión.");
+            }
+        }
+
+        async function logout() {
+            try {
+                const success = await logoutUser();
+                if (success) {
+                    alert("Has cerrado sesión correctamente.");
+                }
+            } catch (error) {
+                console.error("Error en la solicitud de logout:", error);
+                alert("Error de red al intentar cerrar sesión.");
+            }
+        }
+
+        async function buscarProd() {
+            if(query.value.length >= 2){
+                if(!searchVisible.value){
+                    searchVisible.value = true;
+                }
+                await searchProd(query.value)
+                .then(response => response.json())
+                .then(data => queryProducts.value = data);
+                // if(queryProducts.length != 0){
+                //     queryProducts.forEach((prod)=>{
+                //         console.log(prod.title);
+                //     });
+                // }else{
+                //     console.log("No s'ha trobat cap producte");
+                // }
+            }else{
+                searchVisible.value = false;
+                queryProducts.value = [];
+            }
+        }
+
 
         return {
             infoTotal,
@@ -269,6 +358,13 @@ createApp({
             preCheckoutVisible,
             postCheckoutVisible,
             backToHome,
+            toggleLoginRegister,
+            registerLoginVisible,
+            register,
+            login,
+            loginEmail, 
+            loginPassword,
+            logout,
         };
     }
 }).mount('#appVue');

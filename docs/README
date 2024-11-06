@@ -25,7 +25,18 @@ El projecte Botiga "Racó del Joc" que som el GRUP05 té com a objectiu crear un
 - Base de Dades i API: Laravel s'encarrega de gestionar les connexions i operacions amb la base de dades MySQL, on es guarden les dades de productes, comandes i usuaris.
 - Panell d'Administració: L'administrador utilitza vistes especials del frontend que permeten la gestió de dades mitjançant crides a l'API del backend, que facilita la gestió completa dels recursos.
 
+📑 Llistat d'endpoints de l'API de backend   
 
+Mètode	   Endpoint	            Descripció  
+GET	    /api/products  	        Retorna tots els productes
+GET	    /api/products/{id}	    Retorna un producte específic
+POST	/api/products	        Crea un nou producte (admin)
+PUT	    /api/products/{id}	    Actualitza un producte existent
+DELETE	/api/products/{id}	    Elimina un producte (admin)
+POST	/api/orders	            Crea una nova comanda
+GET	    /api/orders/{id}	    Retorna els detalls d'una comanda
+POST	/api/users/register  	Registra un nou usuari
+POST	/api/users/login	    Autentica un usuari
 
 
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +18,25 @@ class ProductsSeeder extends Seeder
     {
         $json = File::get('database/data/products.json');
         $data = json_decode($json);
-        foreach( $data as $product ) {
-            Product::create(array(
-                'id' => $product->id,
-                'title' => $product->title,
-                'description' => $product->description,
-                'price' => $product->price,
-                'stock' => $product->stock,
-            ));
+
+        foreach( $data as $productData ) {
+            
+            $product = Product::create([
+                'id' => $productData->id,
+                'title' => $productData->title,
+                'description' => $productData->description,
+                'price' => $productData->price,
+                'stock' => $productData->stock,
+            ]);
+
+            foreach ($productData->categories as $categoryName) {
+                $category = Category::firstOrCreate([
+                    'category' => $categoryName
+                ]);
+
+                // Conecta las tablas de category y de product
+                $product->categories()->attach($category->id);
+            }
         }
     }
 }

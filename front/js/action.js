@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd, orderId, registerUser, loginUser, logoutUser} from './communicationManager.js';
+import { getProducts, postOrder, searchProd, orderId, registerUser, loginUser, logoutUser, getCategories } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -32,6 +32,9 @@ createApp({
         const loginEmail = ref('');
         const loginPassword = ref('');
         let quiSomVisible = ref(false);
+
+        const categories = reactive ({ datos: [] });
+        let categoriesVisible = ref(false);
 
         // Cargar los productos
         onBeforeMount(async () => {
@@ -97,7 +100,8 @@ createApp({
 
         function toggleQuiSom() {
             quiSomVisible.value = !quiSomVisible.value;  
-            landingVisible.value = !landingVisible.value;  
+            landingVisible.value = !landingVisible.value;
+            document.getElementById('menu_burger').checked = false;
         }
 
         // Añadir producto al carret
@@ -242,6 +246,7 @@ createApp({
         function toggleLoginRegister() {
             registerLoginVisible.value = !registerLoginVisible.value;
             landingVisible.value = !landingVisible.value;
+            document.getElementById('menu_burger').checked = false;
         }
         async function register() {
             const userData = {
@@ -302,6 +307,7 @@ createApp({
                 console.error("Error en la solicitud de logout:", error);
                 alert("Error de red al intentar cerrar sesión.");
             }
+            document.getElementById('menu_burger').checked = false;
         }
 
         async function buscarProd() {

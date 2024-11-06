@@ -13,6 +13,21 @@ export async function getProducts() {
     }
 }
 
+export async function getCategories() {
+    const URL = `http://127.0.0.1:8000/api/categories`;
+    try {
+        const response = await fetch(URL);
+        if (!response.ok) {
+            throw new Error("Error");
+        }
+        const categories = await response.json();
+        return categories;
+    } catch (error) {
+        console.error("Error al carregar les categories:", error);
+        return []; 
+    }
+}
+
 let aux;
 
 export async function postOrder(orderData){

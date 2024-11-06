@@ -928,3 +928,20 @@ input[type=number] {
   .margin-left {
     margin-left: 25px;
   }
+
+  .containCategories {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+
+.contCateg {
+    box-shadow: 0px 0px 10px;
+    width: 125px;
+    height: 200px;
+
+}
+  

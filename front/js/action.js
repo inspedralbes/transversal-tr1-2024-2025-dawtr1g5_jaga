@@ -40,7 +40,9 @@ createApp({
         onBeforeMount(async () => {
             try {
                 const data = await getProducts();
+                const dataCateg = await getCategories();
                 infoTotal.datos = data;
+                categories.datos = dataCateg;
             } catch (error) {
                 console.error("Error al carregar els productes:", error);
             }
@@ -379,6 +381,7 @@ createApp({
             logout,
             quiSomVisible,
             toggleQuiSom,
+            categories
         };
     }
 }).mount('#appVue');

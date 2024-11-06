@@ -17,6 +17,8 @@ Route::post('/products', [ProductController::class,'store']);
 Route::get('/products/{id}', [ProductController::class,'show']);
 Route::put('/products/{id}', [ProductController::class,'update']);
 Route::delete('/products/{id}', [ProductController::class,'destroy']);
+Route::put('/updateStock/{id}',[ProductController::class,'updateStock']);
+Route::get('/productsearch',[ProductController::class, 'search']);
 
 Route::get('/orders', [CartController::class, 'index']);
 Route::post('/createOrder', [CartController::class, 'create']);

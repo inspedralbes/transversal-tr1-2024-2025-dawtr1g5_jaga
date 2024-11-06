@@ -62,6 +62,18 @@ class ProductController extends Controller
         }
     }
 
+    public function search(Request $request){
+        $query = $request->input('query');
+
+        if($query){
+            $products = Product::where('title','LIKE',"%{$query}%")->get();
+        }else{
+            $products = "No existeix cap producte amb aquest nom";
+        }
+
+        return response()->json($products);
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -98,10 +110,23 @@ class ProductController extends Controller
         //     "status" => 200
         // ]);
 
-
-
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
 
+    }
+
+    public function updateStock($product){
+        $productBBDD = Product::find($product['product_id']);
+        if (!$productBBDD) {
+            return response()->json([
+                "message" => "El producto no existe",
+                "status" => 404
+            ]);
+        }
+
+        $stockAnterior = $productBBDD->stock;
+        $stockNuevo = $stockAnterior - $product['quantity'];
+        $productBBDD->update(['stock' => $stockNuevo]);
+        // return $productBBDD->stock;
     }
 
     /**

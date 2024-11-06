@@ -47,7 +47,7 @@
             <div id="logo" class="w-33 d-flex j-center">
               <img src="./img/lettermarkwhite.png">
             </div>
-            <div id="icons" class="d-flex w-33 j-right">
+            <div id="icons" class="d-flex w-33 margin-left">
               <img @click="toggleSearch" src="./img/svg/search.svg" alt="buscar" width="30px">
               <div v-if="searchInputVisible" class="d-flex j-center align-center buscador">
                 <input type="text" v-model="query" @input="buscarProd" id="inputbuscar"
@@ -56,11 +56,9 @@
               <div class="carrito" style="margin-left: 10px;" @click="toggleCart">
                 <img src="./img/svg/cart.svg" alt="cart" width="30px">
                 <span v-if="totalCart > 0">{{ totalCart }}</span>
-                <div class="usuario" style="margin-left: 10px;" @click="toggleLoginRegister">
-                  <img src="./img/svg/user.svg" alt="user" width="25px">
-                </div>
-               
               </div>
+              <div class="usuario" style="margin-left: 10px;" @click="toggleLoginRegister">
+                <img src="./img/svg/user.svg" alt="user" width="25px">
               </div>
             </div>
           </div>
@@ -240,9 +238,10 @@
         <input type="button" value="Finalitzar compra" class="btn-finalizar" @click="showCheckout" />
       </div>
     </div>
+
     <!-- Registre -->
-    <div class="registerLogin">
-      <div class="form-container" v-if="registerLoginVisible">
+    <div class="registerLogin" v-if="registerLoginVisible">
+      <div class="form-container">
         <div class="form-card">
           <input type="checkbox" id="chk" aria-hidden="true">
           

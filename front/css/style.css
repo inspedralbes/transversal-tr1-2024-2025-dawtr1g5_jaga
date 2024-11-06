@@ -925,7 +925,6 @@ input[type=number] {
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   }
   
-  
-
-  
-  
+  .margin-left {
+    margin-left: 25px;
+  }

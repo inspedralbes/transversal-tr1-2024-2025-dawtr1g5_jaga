@@ -15,28 +15,30 @@
 
 <body>
     <br>
-    <h2>Afegeix un nou producte</h2>
-    <form method="POST" action="{{ route('products.store') }}">
-        @csrf
-        <input type="text" name="title" placeholder="Nom del Joc" required>
-        <input type="text" name="description" placeholder="Descripció" required>
-        <input type="number" name="price" placeholder="Preu" step="0.01" required>
-        <input type="number" name="stock" placeholder="Stock" required>
-        <button type="submit">Afegir un producte</button>
-    </form>
+    <h2>Afegir un nuevo producto</h2>
+    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+    @csrf
+    <input type="text" name="title" placeholder="Nom del Joc" required>
+    <input type="text" name="description" placeholder="Descripció" required>
+    <input type="number" name="price" placeholder="Preu" step="0.01" required>
+    <input type="number" name="stock" placeholder="Stock" required>
+    <input type="file" id="fotoURL" name="fotoURL" accept="image/*" required>
+    <button type="submit">Afegir un producte</button>
+</form>
+
     <br><br>
 
-    <h2>Llista De Productes</h2>
+    <h2>Lista de Productos</h2>
     <table id="productsTable">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nom</th>
-                <th>Preu</th>
-                <th>Descripció</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripción</th>
                 <th>Stock</th>
-                <th>Imatge</th>
-                <th>Accions</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +49,7 @@
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->stock }}</td>
-                    <td>{{ $product->fotoURL }}</td>
+                    <td><img src="{{ asset('storage/' . $product->fotoURL) }}" alt="Foto" width="50"></td>
                     <td>
                         <form method="POST" action="{{ route('products.destroy', $product->id) }}">
                             @method('DELETE')
@@ -62,7 +64,7 @@
     </table>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#productsTable').DataTable();
         });
     </script>

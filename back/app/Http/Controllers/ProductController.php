@@ -31,11 +31,13 @@ class ProductController extends Controller
             "title" => "required",
             "description" => "required",
             "price" => "required|numeric",
-            "stock" => "required|integer"
+            "stock" => "required|integer|min:0|max:100000000"
         ]);
 
         if ($validator->fails()) {
-            return response()->json(["message" => "Error en la validación de los datos"], 422);
+            return redirect()->route('products.store')
+                ->withErrors($validator)
+                ->withInput();
         }
 
         Product::create($request->all());
@@ -62,12 +64,13 @@ class ProductController extends Controller
         }
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $query = $request->input('query');
 
-        if($query){
-            $products = Product::where('title','LIKE',"%{$query}%")->get();
-        }else{
+        if ($query) {
+            $products = Product::where('title', 'LIKE', "%{$query}%")->get();
+        } else {
             $products = "No existeix cap producte amb aquest nom";
         }
 
@@ -84,37 +87,28 @@ class ProductController extends Controller
             "title" => "required",
             "description" => "required",
             "price" => "required|numeric",
-            "stock" => "required|integer"
+            "stock" => "required|integer|min:0|max:100000000"
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                "message" => "Los datos no son válidos",
-                "status" => 422 // Cambiado a 422 para indicar error de validación
-            ]);
+            return redirect()->route('products.edit', $id)
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $product = Product::find($id);
         if (!$product) {
-            return response()->json([
-                "message" => "El producto no existe",
-                "status" => 404
-            ]);
+            return redirect()->route('products.index')->with('error', 'El producto no existe');
         }
 
         // Actualiza el producto
         $product->update($request->all());
 
-        // return response()->json([
-        //     "product" => $product,
-        //     "status" => 200
-        // ]);
-
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
-
     }
 
-    public function updateStock($product){
+    public function updateStock($product)
+    {
         $productBBDD = Product::find($product['product_id']);
         if (!$productBBDD) {
             return response()->json([

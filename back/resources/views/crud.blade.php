@@ -1,39 +1,64 @@
 @extends('app')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 </head>
 
-<body>
-    <br>
-    <h2>Afegeix un nou producte</h2>
-    <form method="POST" action="{{ route('products.store') }}">
+<div>
+    <h2>Afegir Producte</h2>
+    <form action="{{ route('products.store') }}" method="POST">
         @csrf
-        <input type="text" name="title" placeholder="Nom del Joc" required>
-        <input type="text" name="description" placeholder="Descripció" required>
-        <input type="number" name="price" placeholder="Preu" step="0.01" required>
-        <input type="number" name="stock" placeholder="Stock" required>
-        <button type="submit">Afegir un producte</button>
-    </form>
-    <br><br>
+        <label for="title">Títol:</label>
+        <input type="text" id="title" name="title" required>
 
-    <h2>Llista De Productes</h2>
-    <table id="productsTable">
+        <label for="description">Descripció:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="price">Preu:</label>
+        <input type="number" id="price" name="price" required step="0.01">
+
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" min="0" required>
+
+        <button type="submit">Afegir Producte</button>
+    </form>
+    <h2>Llista de Productes</h2>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nom</th>
-                <th>Preu</th>
+                <th>Títol</th>
                 <th>Descripció</th>
+                <th>Preu</th>
                 <th>Stock</th>
                 <th>Accions</th>
             </tr>
@@ -43,28 +68,26 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->title }}</td>
-                    <td>{{ $product->price }}</td>
                     <td>{{ $product->description }}</td>
+                    <td>{{ $product->price }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>
-                        <form method="POST" action="{{ route('products.destroy', $product->id) }}">
-                            @method('DELETE')
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Editar</a>
+                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
                             @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
-                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+</div>
 
-    <script>
-        $(document).ready(function() {
-            $('#productsTable').DataTable();
-        });
-    </script>
-</body>
-
-</html>
+<script>
+    $(document).ready(function () {
+        $('table').DataTable();
+    });
+</script>
 @endsection

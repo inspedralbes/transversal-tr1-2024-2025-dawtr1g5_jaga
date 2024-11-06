@@ -24,7 +24,7 @@
                     <th>uuid</th>
                     <th>Estat de la comanda</th>
                     <th>Desglossament de comanda</th>
-                    <th>Canviar estat de comanda</th> <!-- Nuevo encabezado -->
+                    <th>Canviar estat de comanda</th>
                 </tr>
             </thead>
             <tbody>

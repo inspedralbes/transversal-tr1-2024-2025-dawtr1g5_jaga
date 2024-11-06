@@ -51,7 +51,7 @@ class cartController extends Controller
         }
 
         foreach ($request->orders as $product) {
-            Orders::create([
+            $orderProduct = Orders::create([
                 "order_id" => $orderTotal->id,
                 "product_id" => $product['product_id'],
                 "quantity" => $product['quantity'],
@@ -61,7 +61,7 @@ class cartController extends Controller
             $productController -> updateStock($product);
         }
 
-        Mail::to($orderTotal->email)->send(new OrderSend($orderTotal));
+        Mail::to($orderTotal->email)->send(new OrderSend($orderTotal, $orderProduct));
         //CAMBIAR ESTA LINEA PARA QUE EL TO: SEA EL USUARIO AUTENTICADO
 
         return response()->json([

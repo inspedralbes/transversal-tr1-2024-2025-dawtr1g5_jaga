@@ -13,8 +13,6 @@ export async function getProducts() {
     }
 }
 
-let aux;
-
 export async function postOrder(orderData){
     // try {
         const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
@@ -150,10 +148,14 @@ export async function logoutUser() {
         return false; 
     }
 }
-export let orderId = aux; //AVERIGUAR COMO ENVIARLO AL FRONT
 
 export async function searchProd(query){
     const URL = "http://127.0.0.1:8000/api/productsearch?query="+query;
     const response = await fetch(URL);
     return response;
+}
+
+export async function getMyOrders(user_id){
+    const response = await fetch("http://127.0.0.1:8000/api/myOrders?id="+user_id); //CAMBIAR USER_ID POR TOKEN AUTH
+    return response.json();
 }

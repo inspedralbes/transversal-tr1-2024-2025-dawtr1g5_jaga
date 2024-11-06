@@ -35,6 +35,7 @@
                 <th>Preu</th>
                 <th>Descripció</th>
                 <th>Stock</th>
+                <th>Imatge</th>
                 <th>Accions</th>
             </tr>
         </thead>
@@ -46,6 +47,7 @@
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->stock }}</td>
+                    <td>{{ $product->fotoURL }}</td>
                     <td>
                         <form method="POST" action="{{ route('products.destroy', $product->id) }}">
                             @method('DELETE')

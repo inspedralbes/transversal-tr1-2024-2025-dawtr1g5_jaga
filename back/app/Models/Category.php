@@ -1,4 +1,5 @@
 <?php
+// app/Models/Category.php
 
 namespace App\Models;
 
@@ -10,11 +11,15 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'category',  // Nombre de la categoría
+        'fotoURL',   // Foto URL
     ];
 
+    // Relación muchos a muchos con productos
     public function products()
     {
         return $this->belongsToMany(Product::class, 'category_product', 'categID', 'prodID');
     }
 }
+
+

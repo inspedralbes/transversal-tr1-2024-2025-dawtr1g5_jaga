@@ -113,13 +113,24 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('fotoURL')) {
+            // Elimina la foto anterior si existe
             if (Storage::exists('public/' . $product->fotoURL)) {
                 Storage::delete('public/' . $product->fotoURL);
             }
-
-            $imagePath = $request->file('fotoURL')->store('products', 'public');
-            $product->fotoURL = $imagePath;  
+        
+            // Obtener el archivo cargado
+            $image = $request->file('fotoURL');
+            
+            // Obtener solo el nombre del archivo (sin la ruta)
+            $imageName = $image->getClientOriginalName();
+            
+            // Almacenar el archivo en el almacenamiento público
+            $image->storeAs('products', $imageName, 'public');
+            
+            // Guardar solo el nombre de la imagen en la base de datos
+            $product->fotoURL = $imageName;
         }
+        
 
         // Actualizar el producto
         $product->update($request->only(['title', 'description', 'price', 'stock']));

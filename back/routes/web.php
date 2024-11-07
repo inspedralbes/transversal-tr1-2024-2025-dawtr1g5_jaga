@@ -23,6 +23,8 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::post('/categories/{id}/add-product', [CategoryController::class, 'addProduct'])->name('categories.product.add');
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');Route::delete('/categories/{categoryId}/products/{productId}', [CategoryController::class, 'removeProduct'])->name('categories.product.remove');
+Route::get('/comandes/{id}', [comandaController::class, 'show'])->name('comandes.show');
+Route::post('comandes/{id}/update-status', [comandaController::class, 'updateStatus'])->name('comandes.updateStatus');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
@@ -36,6 +38,3 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
 
-
-Route::get('/comandes/{id}', [comandaController::class, 'show'])->name('comandes.show');
-Route::post('comandes/{id}/update-status', [comandaController::class, 'updateStatus'])->name('comandes.updateStatus');

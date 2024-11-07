@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\OrderFinal;
@@ -23,22 +22,11 @@ class OrderStatusUpdate extends Mailable
     }
 
     /**
-     * Get the message envelope.
+     * Build the message.
      */
-    public function envelope()
+    public function build()
     {
-        return [
-            'subject' => 'Actualització de l’estat de la teva comanda',
-        ];
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content()
-    {
-        return [
-            'view' => 'emails.orderStatusUpdate', // Vista del correo
-        ];
+        return $this->subject('Actualització de l’estat de la teva comanda')
+                    ->view('emails.orderStatusUpdate'); // Asegúrate de que la vista exista
     }
 }

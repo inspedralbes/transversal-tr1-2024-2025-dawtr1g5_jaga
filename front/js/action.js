@@ -43,6 +43,8 @@ createApp({
         let categSeleccionada = ref('');
         let productoActualId = ref('');
 
+        let juegosSimilaresVisible = ref(false);
+
         // Cargar los productos
         onBeforeMount(async () => {
             try {
@@ -72,6 +74,7 @@ createApp({
             products.value = true;
             regVisible.value = false;
             productsCategVisible.value = false;
+            juegosSimilaresVisible.value = false;
         }
 
         function productosMasVendidos () {
@@ -148,6 +151,11 @@ createApp({
         //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
             productoActualId.value = productId;
+            console.log(productId);
+            if(productsCategVisible.value) {
+                juegosSimilaresVisible.value = true;
+            }
+
             if (!productVisible.value) {
                 registerLoginVisible.value = false;
                 landingVisible.value = false;
@@ -165,10 +173,10 @@ createApp({
         }
 
         function toggleLandingProd() {
-            landingVisible.value = !landingVisible.value;
-            productVisible.value = !productVisible.value;
+            reiniciarVisible();
             quantitat.value = 1;
         }
+
 
         function toggleMenu () {
             searchInputVisible.value = false;
@@ -481,7 +489,8 @@ createApp({
             categSeleccionada,
             productsCategory,
             productosMasVendidos,
-            productoActualId
+            productoActualId,
+            juegosSimilaresVisible
         };
     }
 }).mount('#appVue');

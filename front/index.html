@@ -410,7 +410,7 @@
 
       <!--Mas productos con la misma categoria-->
 
-      <div class="containerProd d-flex desk-none blank-space" v-if="productVisible">
+      <div class="containerProd d-flex desk-none blank-space" v-if="juegosSimilaresVisible">
         <p class="no-margin" style="font-weight: 600;">Juegos similares</p>
         <div class="prods d-flex">
           <div class="prod" v-for="producto in productsCategory.datos.filter(p => p.id !== productoActualId)"  :key="producto.id">

@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd, orderId, registerUser, loginUser, logoutUser, getCategories } from './communicationManager.js';
+import { getProducts, postOrder, searchProd, orderId, registerUser, loginUser, logoutUser, getCategories, getCategoryProducts } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -18,7 +18,7 @@ createApp({
         let isGift = ref(false);
         let orderId = ref('');
         let barcodeOrder = ref('');
-
+        
         let cartVisible = ref(false); // Controla la visibilidad del carrito
         let productVisible = ref(false);
         let landingVisible = ref(true);
@@ -35,6 +35,13 @@ createApp({
 
         const categories = reactive ({ datos: [] });
         let categoriesVisible = ref(false);
+        let products = ref(true);
+        let regVisible = ref(false);
+
+        let productsCategory = reactive({ datos:[] });
+        let productsCategVisible = ref(false);
+        let categSeleccionada = ref('');
+        let productoActualId = ref('');
 
         // Cargar los productos
         onBeforeMount(async () => {
@@ -49,15 +56,107 @@ createApp({
             // calcularTotal();
         });
 
+        function reiniciarVisible () {
+            cartVisible.value = false; // Controla la visibilidad del carrito
+            productVisible.value = false;
+            landingVisible.value = true;
+            searchInputVisible.value = false;
+            searchVisible.value = false;
+            checkoutVisible.value = false;
+            ticketVisible.value = false;
+            preCheckoutVisible.value = false;
+            postCheckoutVisible.value = false;
+            registerLoginVisible.value = false;
+            quiSomVisible.value = false;
+            categoriesVisible.value = false;
+            products.value = true;
+            regVisible.value = false;
+            productsCategVisible.value = false;
+        }
+
+        function productosMasVendidos () {
+            console.log(infoTotal)
+            return infoTotal.datos.filter(producto => producto.stock < 8);
+        }
+
+        async function showProducts (categ) {
+            categSeleccionada.value = categ.category;
+            productsCategVisible.value = !productsCategVisible.value;
+            try {
+                const data = await getCategoryProducts(categ);
+                productsCategory.datos = data;
+            } catch (error) {
+                console.error("Error al carregar els productes de la categoria:", error);
+            }
+            categoriesVisible.value = false;
+        }
+
+        function toggleInici () {
+            reiniciarVisible();
+            document.getElementById('menu_burger').checked = false;
+        }
+        
+        function toggleCategories() {
+            categoriesVisible.value = true;
+            landingVisible.value = false;
+            products.value = false;
+            registerLoginVisible.value = false;
+            document.getElementById('menu_burger').checked = false;
+        }
+        
+        function toggleQuiSom() {
+            quiSomVisible.value = !quiSomVisible.value;  
+            landingVisible.value = !landingVisible.value;
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        function toggleAdmin () {
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        function toggleLoginRegister() {
+            registerLoginVisible.value = true;
+            landingVisible.value = false;
+            products.value = false;
+            categoriesVisible.value = false;
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        async function toggleLogout() {
+            try {
+                const success = await logoutUser();
+                if (success) {
+                    alert("Has cerrado sesión correctamente.");
+                }
+            } catch (error) {
+                console.error("Error en la solicitud de logout:", error);
+                alert("Error de red al intentar cerrar sesión.");
+            }
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        function toggleOrders () {
+            document.getElementById('menu_burger').checked = false;
+        }
+
         // Alternar visibilidad del carrito
         function toggleCart() {
             cartVisible.value = !cartVisible.value;
         }
 
+
         //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
+            productoActualId.value = productId;
             if (!productVisible.value) {
-                toggleLandingProd();
+                registerLoginVisible.value = false;
+                landingVisible.value = false;
+                products.value = false;
+                categoriesVisible.value = false;
+                productVisible.value = !productVisible.value;
+                productsCategVisible.value = !productsCategVisible.value
+                //toggleLandingProd();
+
             }
             if (searchInputVisible.value) {
                 toggleSearch();
@@ -69,6 +168,14 @@ createApp({
             landingVisible.value = !landingVisible.value;
             productVisible.value = !productVisible.value;
             quantitat.value = 1;
+        }
+
+        function toggleMenu () {
+            searchInputVisible.value = false;
+        }
+
+        function toggleRegLog () {
+            regVisible.value = !regVisible.value;
         }
 
         function backToHome() {
@@ -100,11 +207,6 @@ createApp({
             }
         }
 
-        function toggleQuiSom() {
-            quiSomVisible.value = !quiSomVisible.value;  
-            landingVisible.value = !landingVisible.value;
-            document.getElementById('menu_burger').checked = false;
-        }
 
         // Añadir producto al carret
         function addCart(productId) {
@@ -245,11 +347,7 @@ createApp({
                 searchVisible.value = false;
             }
         }
-        function toggleLoginRegister() {
-            registerLoginVisible.value = !registerLoginVisible.value;
-            landingVisible.value = !landingVisible.value;
-            document.getElementById('menu_burger').checked = false;
-        }
+        
         async function register() {
             const userData = {
                 name: document.querySelector('input[name="txt"]').value,
@@ -297,19 +395,6 @@ createApp({
                 console.error("Error en el inicio de sesión:", error);
                 alert("Error inesperado en el inicio de sesión.");
             }
-        }
-
-        async function logout() {
-            try {
-                const success = await logoutUser();
-                if (success) {
-                    alert("Has cerrado sesión correctamente.");
-                }
-            } catch (error) {
-                console.error("Error en la solicitud de logout:", error);
-                alert("Error de red al intentar cerrar sesión.");
-            }
-            document.getElementById('menu_burger').checked = false;
         }
 
         async function buscarProd() {
@@ -378,10 +463,25 @@ createApp({
             login,
             loginEmail, 
             loginPassword,
-            logout,
+            toggleLogout,
             quiSomVisible,
             toggleQuiSom,
-            categories
+            categories,
+            toggleCategories,
+            categoriesVisible,
+            toggleInici,
+            toggleAdmin,
+            toggleOrders,
+            products,
+            toggleMenu,
+            regVisible,
+            toggleRegLog,
+            showProducts,
+            productsCategVisible,
+            categSeleccionada,
+            productsCategory,
+            productosMasVendidos,
+            productoActualId
         };
     }
 }).mount('#appVue');

@@ -29,3 +29,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 // Categories
 Route::get('/categories', [CategoryController::class,'index']);
+Route::get('/productsCateg/{id}', [CategoryController::class,'show']);

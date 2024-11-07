@@ -17,7 +17,7 @@
         <input type="text" name="description" value="{{ $product->description }}" required>
         <input type="number" name="price" value="{{ $product->price }}" step="0.01" required>
         <input type="number" name="stock" value="{{ $product->stock }}" required>
-        <button type="submit">Actualizar Producto</button>
+        <button type="submit">Actualitzar Producte</button>
     </form>
 </body>
 

@@ -31,7 +31,7 @@
     <tbody>
         @foreach($totalOrder->orders as $order)
         <tr>
-            <td style="padding: 10px; border: 1px solid #ddd;">{{$order->product->name}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{$order->product->title}}</td>
             <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{$order->quantity}}</td>
             <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">€{{number_format($order->amount, 2)}}</td>
         </tr>

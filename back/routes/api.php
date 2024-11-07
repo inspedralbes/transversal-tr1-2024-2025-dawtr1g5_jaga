@@ -20,7 +20,7 @@ Route::put('/updateStock/{id}',[ProductController::class,'updateStock']);
 Route::get('/productsearch',[ProductController::class, 'search']);
 
 Route::get('/orders', [CartController::class, 'index']);
-Route::post('/createOrder', [CartController::class, 'create']);
+Route::post('/createOrder', [CartController::class, 'create'])->middleware('auth:sanctum');;
 Route::get('/myOrders', [CartController::class, 'show']);
 
 Route::post('/register', [AuthController::class, 'register']);

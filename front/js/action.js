@@ -184,7 +184,6 @@ createApp({
                 }));
 
                 const orderTotal = { //obj info gnral de la orden
-                    user_id: 1,  // reemplazar "x" con el ID real del usuario 
                     totalAmount: preuTotal.total.toFixed(2), //total de la compra ejem:45,9
                     fullname: fullnameCustomer.value,
                     email: emailCustomer.value,

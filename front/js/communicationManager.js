@@ -13,7 +13,20 @@ export async function getProducts() {
     }
 }
 
-let aux;
+export async function getCategories() {
+    const URL = `http://127.0.0.1:8000/api/categories`;
+    try {
+        const response = await fetch(URL);
+        if (!response.ok) {
+            throw new Error("Error");
+        }
+        const categories = await response.json();
+        return categories;
+    } catch (error) {
+        console.error("Error al carregar les categories:", error);
+        return []; 
+    }
+}
 
 export async function postOrder(orderData){
     // try {
@@ -41,7 +54,59 @@ export async function postOrder(orderData){
     // }
 }
 
-export let orderId = aux; //AVERIGUAR COMO ENVIARLO AL FRONT
+export async function registerUser(userData) {
+    const URL = "http://127.0.0.1:8000/api/register"; 
+    try {
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            return true; // Indica éxito
+        } else {
+            const error = await response.json();
+            console.error("Error en el registro:", error);
+            return false; // Indica fallo
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        return false; // Indica fallo
+    }
+}
+
+
+export async function loginUser(userData) {
+    const URL = "http://127.0.0.1:8000/api/login"; 
+    try {
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log("Inicio de sesión exitoso:", result);
+            return result;
+        } else {
+            const errorData = await response.json();
+            console.error("Error en el inicio de sesión:", errorData.message);
+            alert(errorData.message || "Error en el inicio de sesión");
+            return null; 
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+        alert("Error de red");
+        return null; 
+    }
+}
 
 export async function searchProd(query){
     const URL = "http://127.0.0.1:8000/api/productsearch?query="+query;

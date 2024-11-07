@@ -1,58 +1,34 @@
 @extends('app')
 
 @section('content')
+<!DOCTYPE html>
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productes</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 </head>
 
-<div>
-    <h2>Afegir Producte</h2>
-    <form action="{{ route('products.store') }}" method="POST">
-        @csrf
-        <label for="title">Títol:</label>
-        <input type="text" id="title" name="title" required>
+<body>
+    <br>
+    <h2>Afegir un nou producte</h2>
+    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+    @csrf
+    <input type="text" name="title" placeholder="Nom del Joc" required>
+    <input type="text" name="description" placeholder="Descripció" required>
+    <input type="number" name="price" placeholder="Preu" step="0.01" required>
+    <input type="number" name="stock" placeholder="Stock" required>
+    <button type="submit">Afegir un producte</button>
+</form>
 
-        <label for="description">Descripció:</label>
-        <textarea id="description" name="description" required></textarea>
+    <br><br>
 
-        <label for="price">Preu:</label>
-        <input type="number" id="price" name="price" required step="0.01">
-
-        <label for="stock">Stock:</label>
-        <input type="number" id="stock" name="stock" min="0" required>
-
-        <button type="submit">Afegir Producte</button>
-    </form>
     <h2>Llista de Productes</h2>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <table>
+    <table id="productsTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -60,6 +36,7 @@
                 <th>Descripció</th>
                 <th>Preu</th>
                 <th>Stock</th>
+                <th>Imatge</th>
                 <th>Accions</th>
             </tr>
         </thead>
@@ -71,6 +48,7 @@
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->stock }}</td>
+                    <td><img src="{{ asset('storage/' . $product->fotoURL) }}" alt="Foto" width="50"></td>
                     <td>
                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Editar</a>
                         <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
@@ -85,9 +63,12 @@
     </table>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('table').DataTable();
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            $('#productsTable').DataTable();
+        });
+    </script>
+</body>
+
+</html>
 @endsection

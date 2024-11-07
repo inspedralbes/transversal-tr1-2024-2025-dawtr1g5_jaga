@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Mail\OrderSend;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class cartController extends Controller
 {
@@ -34,8 +35,10 @@ class cartController extends Controller
 {
     $productController = new ProductController();
 
+    $user = Auth::user();
+
     $orderTotal = orderfinal::create([
-        'user_id' => $request->input('orderTotal.user_id'),
+        'user_id' => $user->id,
         'amount' => $request->input('orderTotal.totalAmount'),
         'fullname' => $request->input('orderTotal.fullname'),
         'email' => $request->input('orderTotal.email'),

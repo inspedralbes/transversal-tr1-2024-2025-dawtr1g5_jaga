@@ -98,7 +98,7 @@ class ProductController extends Controller
             "description" => "required",
             "price" => "required|numeric",
             "stock" => "required|integer",
-            "fotoURL" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",  // Validación de imagen (opcional)
+            "fotoURL" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048", 
         ]);
 
         if ($validator->fails()) {

@@ -17,7 +17,7 @@
         <input type="text" name="description" value="{{ $product->description }}" required>
         <input type="number" name="price" value="{{ $product->price }}" step="0.01" required>
         <input type="number" name="stock" value="{{ $product->stock }}" required>
-        <input type="file" id="fotoURL" name="fotoURL" accept="image/*" required>
+        <input type="file" id="fotoURL" name="fotoURL" accept="image/*">
         <button type="submit">Actualitzar Producte</button>
     </form>
 

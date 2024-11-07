@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd, getMyOrders, registerUser, loginUser, logoutUser} from './communicationManager.js';
+import { getProducts, postOrder, searchProd, getMyOrders, registerUser, loginUser, logoutUser } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -38,17 +38,25 @@ createApp({
         // Cargar los productos
         onBeforeMount(async () => {
             try {
-                let user_id = 2;
                 const data = await getProducts();
-                const orders = await getMyOrders(user_id);
-                console.log(orders);
                 infoTotal.datos = data;
-                myOrders.datos = orders;
+                isLogged();
+                if(localStorage.getItem('token')){
+                    const orders = await getMyOrders();
+                    myOrders.datos = orders;
+                }
             } catch (error) {
                 console.error("Error al carregar els productes:", error);
             }
-            // calcularTotal();
         });
+
+        function isLogged(){
+            if(localStorage.getItem('token')){
+                return true;
+            }else{
+                return false;
+            }
+        }
 
         // Alternar visibilidad del carrito
         function toggleCart() {
@@ -106,8 +114,8 @@ createApp({
         }
 
         function toggleQuiSom() {
-            quiSomVisible.value = !quiSomVisible.value;  
-            landingVisible.value = !landingVisible.value;  
+            quiSomVisible.value = !quiSomVisible.value;
+            landingVisible.value = !landingVisible.value;
         }
 
         // Añadir producto al carret
@@ -174,7 +182,7 @@ createApp({
         // Función para finalizar la compra
         async function finalitzarCompra() {
             orderId.value = generarUUID();
-            barcodeOrder.value = 'https://barcode.tec-it.com/barcode.ashx?data='+orderId.value+'&code=Code128&translate-esc=on';
+            barcodeOrder.value = 'https://barcode.tec-it.com/barcode.ashx?data=' + orderId.value + '&code=Code128&translate-esc=on';
 
             if (cart.datos.length > 0) {
                 const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
@@ -199,6 +207,10 @@ createApp({
                         let productoEncontrado = infoTotal.datos.find(p => p.id === prod.product_id);
                         productoEncontrado.stock -= prod.quantity;
                     })
+
+                    const myorder = await getMyOrders();
+                    myOrders.datos = myorder;
+
 
                     //Resetear todos los valores
                     cart.datos = [];
@@ -227,7 +239,7 @@ createApp({
             }
 
             return resultado;
-        }        
+        }
 
         async function buscarProd() {
             if (query.value.length >= 2) {
@@ -248,23 +260,27 @@ createApp({
                 searchVisible.value = false;
             }
         }
+
         function toggleLoginRegister() {
-            registerLoginVisible.value = !registerLoginVisible.value;
-            landingVisible.value = !landingVisible.value;
+            if(!ticketVisible.value){
+                registerLoginVisible.value = !registerLoginVisible.value;
+                landingVisible.value = !landingVisible.value;
+            }
         }
+
         async function register() {
             const userData = {
                 name: document.querySelector('input[name="txt"]').value,
                 email: document.querySelector('input[name="email"]').value,
                 password: document.querySelector('input[name="pswd"]').value,
             };
-        
+
             try {
                 const success = await registerUser(userData);
                 if (success) {
                     alert("Registro exitoso");
                     registerLoginVisible.value = false;
-                    landingVisible.value = true; 
+                    landingVisible.value = true;
 
                     document.querySelector('input[name="txt"]').value = '';
                     document.querySelector('input[name="email"]').value = '';
@@ -282,7 +298,7 @@ createApp({
                 email: loginEmail.value,
                 password: loginPassword.value
             };
-        
+
             try {
                 const success = await loginUser(userData);
                 if (success) {
@@ -292,6 +308,9 @@ createApp({
 
                     loginEmail.value = '';
                     loginPassword.value = '';
+
+                    const orders = await getMyOrders();
+                    myOrders.datos = orders;
                 } else {
                     alert("Usuario o contraseña incorrectos.");
                 }
@@ -306,6 +325,9 @@ createApp({
                 const success = await logoutUser();
                 if (success) {
                     alert("Has cerrado sesión correctamente.");
+                    myOrders.datos = [];
+                    cart.datos = [];
+                    totalCart.value = 0;
                 }
             } catch (error) {
                 console.error("Error en la solicitud de logout:", error);
@@ -314,13 +336,13 @@ createApp({
         }
 
         async function buscarProd() {
-            if(query.value.length >= 2){
-                if(!searchVisible.value){
+            if (query.value.length >= 2) {
+                if (!searchVisible.value) {
                     searchVisible.value = true;
                 }
                 await searchProd(query.value)
-                .then(response => response.json())
-                .then(data => queryProducts.value = data);
+                    .then(response => response.json())
+                    .then(data => queryProducts.value = data);
                 // if(queryProducts.length != 0){
                 //     queryProducts.forEach((prod)=>{
                 //         console.log(prod.title);
@@ -328,7 +350,7 @@ createApp({
                 // }else{
                 //     console.log("No s'ha trobat cap producte");
                 // }
-            }else{
+            } else {
                 searchVisible.value = false;
                 queryProducts.value = [];
             }
@@ -378,7 +400,7 @@ createApp({
             registerLoginVisible,
             register,
             login,
-            loginEmail, 
+            loginEmail,
             loginPassword,
             logout,
             quiSomVisible,
@@ -386,6 +408,7 @@ createApp({
             toggleMyOrders,
             MyOrdersVisible,
             myOrders,
+            isLogged,
         };
     }
 }).mount('#appVue');

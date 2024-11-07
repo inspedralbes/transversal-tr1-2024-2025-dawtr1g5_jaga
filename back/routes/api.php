@@ -20,8 +20,8 @@ Route::put('/updateStock/{id}',[ProductController::class,'updateStock']);
 Route::get('/productsearch',[ProductController::class, 'search']);
 
 Route::get('/orders', [CartController::class, 'index']);
-Route::post('/createOrder', [CartController::class, 'create'])->middleware('auth:sanctum');;
-Route::get('/myOrders', [CartController::class, 'show']);
+Route::post('/createOrder', [CartController::class, 'create'])->middleware('auth:sanctum');
+Route::get('/myOrders', [CartController::class, 'show'])->middleware('auth:sanctum');
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

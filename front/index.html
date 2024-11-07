@@ -41,7 +41,7 @@
                   <li><a href="#">Categories</a></li>
                   <li><a href="#" @click="toggleQuiSom">Qui som</a></li>
                   <li><a href="#">Admin</a></li>
-                  <li><a href="#" @click="toggleLoginRegister">Register/Login</a></li>
+                  <li v-if="isLogged"><a href="#" @click="toggleLoginRegister">Register/Login</a></li>
                   <li><a href="#" @click="logout">Logout</a></li>
                   <li><input type="button" value="My orders" @click="toggleMyOrders"></li>
                 </ul>

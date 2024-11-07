@@ -32,63 +32,63 @@ class cartController extends Controller
      * Show the form for creating a new resource.
      */
     public function create(Request $request)
-{
-    $productController = new ProductController();
+    {
+        $productController = new ProductController();
 
-    $user = Auth::user();
+        $user = Auth::user();
 
-    $orderTotal = orderfinal::create([
-        'user_id' => $user->id,
-        'amount' => $request->input('orderTotal.totalAmount'),
-        'fullname' => $request->input('orderTotal.fullname'),
-        'email' => $request->input('orderTotal.email'),
-        'phone' => $request->input('orderTotal.phone'),
-        'gift' => $request->input('orderTotal.gift'),
-        'uuid' => $request->input('orderTotal.uuid'),
-        'status' => "pendiente",
-    ]);
+        $orderTotal = orderfinal::create([
+            'user_id' => $user->id,
+            'amount' => $request->input('orderTotal.totalAmount'),
+            'fullname' => $request->input('orderTotal.fullname'),
+            'email' => $request->input('orderTotal.email'),
+            'phone' => $request->input('orderTotal.phone'),
+            'gift' => $request->input('orderTotal.gift'),
+            'uuid' => $request->input('orderTotal.uuid'),
+            'status' => "pendiente",
+        ]);
 
-    if (!$orderTotal) {
+        if (!$orderTotal) {
+            return response()->json([
+                "message" => "Error al crear la orden",
+                "status" => 404
+            ]);
+        }
+
+        $orderedProducts = []; // Array para almacenar productos comprados
+        foreach ($request->orders as $product) {
+            $orderProduct = Orders::create([
+                "order_id" => $orderTotal->id,
+                "product_id" => $product['product_id'],
+                "quantity" => $product['quantity'],
+                "amount" => $product['amount'],
+            ]);
+
+            $productDetails = Product::find($product['product_id']);
+
+            // Agregar producto a la lista de productos comprados
+            $orderedProducts[] = [
+                'product' => Product::find($product['product_id']),
+                'quantity' => $product['quantity'],
+                'price' => $product['amount'],
+            ];
+
+            $productController->updateStock($product);
+        }
+
+
+        // Precargar la relación orders.product para asegurar el acceso a los nombres de productos
+        $orderTotal = OrderFinal::with('orders.product')->find($orderTotal->id);
+
+        // Enviar el correo con el resumen de la compra
+        Mail::to($orderTotal->email)->send(new OrderSend($orderTotal, $orderedProducts));
+
+
         return response()->json([
-            "message" => "Error al crear la orden",
-            "status" => 404
+            "final order" => $orderTotal,
+            "status" => 200,
         ]);
     }
-
-    $orderedProducts = []; // Array para almacenar productos comprados
-    foreach ($request->orders as $product) {
-        $orderProduct = Orders::create([
-            "order_id" => $orderTotal->id,
-            "product_id" => $product['product_id'],
-            "quantity" => $product['quantity'],
-            "amount" => $product['amount'],
-        ]);
-
-        $productDetails = Product::find($product['product_id']);
-
-        // Agregar producto a la lista de productos comprados
-        $orderedProducts[] = [
-            'product' => Product::find($product['product_id']),
-            'quantity' => $product['quantity'],
-            'price' => $product['amount'],
-        ];
-
-        $productController->updateStock($product);
-    }
-
-    
-    // Precargar la relación orders.product para asegurar el acceso a los nombres de productos
-$orderTotal = OrderFinal::with('orders.product')->find($orderTotal->id);
-
-// Enviar el correo con el resumen de la compra
-Mail::to($orderTotal->email)->send(new OrderSend($orderTotal, $orderedProducts));
-
-
-    return response()->json([
-        "final order" => $orderTotal,
-        "status" => 200,
-    ]);
-}
 
     /**
      * Store a newly created resource in storage.
@@ -101,9 +101,10 @@ Mail::to($orderTotal->email)->send(new OrderSend($orderTotal, $orderedProducts))
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show()
     {
-        $user_id = $request->query('id');
+        $user = Auth::user();
+        $user_id = $user->id;
         $orders = orderfinal::where('user_id', $user_id)->get();
         return $orders;
     }

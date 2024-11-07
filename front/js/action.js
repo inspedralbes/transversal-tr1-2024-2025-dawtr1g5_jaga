@@ -44,6 +44,8 @@ createApp({
         let productoActualId = ref('');
 
         let juegosSimilaresVisible = ref(false);
+        let itemsPerPage = ref(8);
+        let currentPage = ref(1);
 
         // Cargar los productos
         onBeforeMount(async () => {
@@ -57,6 +59,31 @@ createApp({
             }
             // calcularTotal();
         });
+
+        const totalPages = () => {
+            return Math.ceil(infoTotal.datos.length / itemsPerPage.value);
+        };
+      
+        // Función para obtener los productos de la página actual
+        const paginatedProducts = () => {
+            const start = (currentPage.value - 1) * itemsPerPage.value;
+            const end = start + itemsPerPage.value;
+            return infoTotal.datos.slice(start, end);
+        };
+    
+        // Función para ir a la siguiente página
+        const nextPage = () => {
+            if (currentPage.value < totalPages()) {
+                currentPage.value++;
+            }
+        };
+    
+        // Función para ir a la página anterior
+        const prevPage = () => {
+            if (currentPage.value > 1) {
+                currentPage.value--;
+            }
+        };
 
         function reiniciarVisible () {
             cartVisible.value = false; // Controla la visibilidad del carrito
@@ -490,7 +517,13 @@ createApp({
             productsCategory,
             productosMasVendidos,
             productoActualId,
-            juegosSimilaresVisible
+            juegosSimilaresVisible,
+            itemsPerPage,
+            currentPage,
+            totalPages,
+            paginatedProducts,
+            nextPage,
+            prevPage
         };
     }
 }).mount('#appVue');

@@ -20,7 +20,7 @@ createApp({
         let orderId = ref('');
         let barcodeOrder = ref('');
 
-        let cartVisible = ref(false); // Controla la visibilidad del carrito
+        let cartVisible = ref(false);
         let productVisible = ref(false);
         let landingVisible = ref(true);
         let searchInputVisible = ref(false);
@@ -40,7 +40,6 @@ createApp({
             try {
                 const data = await getProducts();
                 infoTotal.datos = data;
-                isLogged();
                 if(localStorage.getItem('token')){
                     const orders = await getMyOrders();
                     myOrders.datos = orders;
@@ -50,14 +49,6 @@ createApp({
             }
         });
 
-        function isLogged(){
-            if(localStorage.getItem('token')){
-                return true;
-            }else{
-                return false;
-            }
-        }
-
         // Alternar visibilidad del carrito
         function toggleCart() {
             cartVisible.value = !cartVisible.value;
@@ -65,6 +56,14 @@ createApp({
 
         function toggleMyOrders() {
             MyOrdersVisible.value = !MyOrdersVisible.value;
+            landingVisible.value = !MyOrdersVisible.value;
+            if(productVisible.value){
+                productVisible.value = !MyOrdersVisible.value;
+            }
+            if(document.getElementById('menu_burger').checked){
+                document.getElementById('menu_burger').checked = false;
+            }
+            
         }
 
         //Mostrar pantalla de información del producto
@@ -266,6 +265,9 @@ createApp({
                 registerLoginVisible.value = !registerLoginVisible.value;
                 landingVisible.value = !landingVisible.value;
             }
+            if(document.getElementById('menu_burger').checked){
+                document.getElementById('menu_burger').checked = false;
+            }
         }
 
         async function register() {
@@ -356,7 +358,6 @@ createApp({
             }
         }
 
-
         return {
             infoTotal,
             myOrders,
@@ -408,7 +409,6 @@ createApp({
             toggleMyOrders,
             MyOrdersVisible,
             myOrders,
-            isLogged,
         };
     }
 }).mount('#appVue');

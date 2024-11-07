@@ -281,23 +281,23 @@
 
           <!-- Registro -->
           <div class="signup">
-            <form @submit.prevent="register">
+            <div>
               <h2 class="form-title" style="color: #f39212;">Register</h2>
               <input type="text" name="txt" placeholder="nom d'usuari" required="">
               <input type="email" name="email" placeholder="Email" required="">
               <input type="password" name="pswd" placeholder="Contrasenya" required="">
-              <button type="submit" class="btn-primary">Registrar</button>
-            </form>
+              <button @click="register" class="btn-primary">Registrar</button>
+            </div>
           </div>
 
           <!-- Login -->
           <div class="login">
-            <form @submit.prevent="login">
+            <div>
               <h2 class="form-title">Login</h2>
               <input type="email" v-model="loginEmail" placeholder="Email" required="">
               <input type="password" v-model="loginPassword" placeholder="Contrasenya" required="">
-              <button type="submit" class="btn-primary">Iniciar Sesión</button>
-            </form>
+              <button @click="login" class="btn-primary">Iniciar Sesión</button>
+            </div>
           </div>
 
         </div>

@@ -31,6 +31,6 @@ class comandaController extends Controller
         $order->status = $request->input('status');
         $order->save();
 
-        return redirect()->route('comandes.index')->with('success', 'Estado de la comanda actualizado correctament.');
+        return redirect()->route('index')->with('success', 'Estado de la comanda actualizado correctament.');
     }
 }

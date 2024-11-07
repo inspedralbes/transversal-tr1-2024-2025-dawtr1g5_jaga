@@ -133,7 +133,6 @@ nav {
 #menu_burger:checked+.barra-nav {
     box-shadow: 0 0 0 1000vmax rgba(0, 0, 0, .5);
     margin-left: 0px;
-    transition: .5s ease-in-out;
 }
 
 .barra-nav-menu {
@@ -382,20 +381,9 @@ nav {
     text-align: center;
 }
 
-.titleCateg {
-    font-size: 40px;
-    text-align: center;
-}
-
 .priceItem {
     font-weight: 300;
     font-size: 12px;
-    text-align: center;
-}
-
-.productsCateg {
-    font-weight: 300;
-    font-size: 20px;
     text-align: center;
 }
 
@@ -407,26 +395,11 @@ nav {
     margin: 15px 0;
 }
 
-.containCategories {
-    grid-template-columns: repeat(1, 170vh);
-    gap: 5vh;
-    justify-items: center;
-    align-items: center;
-    margin: 15px 0;
-}
-
 .contItem {
     height: 172px;
     width: 160px;
     border: 1px solid rgb(201, 201, 201);
-}
 
-.contCateg {
-    height: 45vh;
-    width: 40vh;
-    border: 1px solid rgb(201, 201, 201);
-    padding: 5px;
-    padding-top: 50px;
 }
 
 /* -------------------------------------------------------- */

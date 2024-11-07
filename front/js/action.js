@@ -7,7 +7,7 @@ createApp({
         const myOrders = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
-        let prodActual = reactive({ datos: [] });
+        let prodActual = reactive({ datos: [] })
         let totalCart = ref(0);
         let quantitat = ref(1);
         let query = ref('');
@@ -21,7 +21,6 @@ createApp({
         let barcodeOrder = ref('');
 
         let cartVisible = ref(false); // Controla la visibilidad del carrito
-        let registerLoginVisible = ref(false); // Controla la visibilidad del register/login
         let productVisible = ref(false);
         let landingVisible = ref(true);
         let searchInputVisible = ref(false);
@@ -46,8 +45,9 @@ createApp({
                 infoTotal.datos = data;
                 myOrders.datos = orders;
             } catch (error) {
-                console.error("Error al carregar les dades del JSON", error);
+                console.error("Error al carregar els productes:", error);
             }
+            // calcularTotal();
         });
 
         // Alternar visibilidad del carrito
@@ -76,13 +76,6 @@ createApp({
             quantitat.value = 1;
         }
 
-        function toggleInici() {
-            registerLoginVisible.value = false;
-            landingVisible.value = true;
-            document.getElementById('menu_burger').checked = false;
-        }
-
-        // Añadir producto al carrito
         function backToHome() {
             landingVisible.value = true;
             checkoutVisible.value = false;
@@ -180,70 +173,6 @@ createApp({
 
         // Función para finalizar la compra
         async function finalitzarCompra() {
-            const orders = cart.datos.map(producte => ({
-                product_id: producte.product.id,
-                quantity: producte.product.quantitat,
-                amount: producte.product.price * producte.product.quantitat
-            }));
-
-            const orderTotal = {
-                user_id: 1,  // reemplazar "x" con el ID real del usuario 
-                totalAmount: preuTotal.total.toFixed(2)
-            };
-
-            const orderData = { orders, orderTotal };
-            
-            if (await postOrder(orderData)) {
-                cart.datos = [];
-                totalCart.value = 0;
-                calcularTotal();
-            }
-        }
-
-        async function register() {
-            const userData = {
-                name: document.querySelector('input[name="txt"]').value,
-                email: document.querySelector('input[name="email"]').value,
-                password: document.querySelector('input[name="pswd"]').value,
-            };
-        
-            try {
-                const success = await registerUser(userData);
-                if (success) {
-                    alert("Registro exitoso");
-                    registerLoginVisible.value = false;
-                    // Limpiar campos de entrada
-                    document.querySelector('input[name="txt"]').value = '';
-                    document.querySelector('input[name="email"]').value = '';
-                    document.querySelector('input[name="pswd"]').value = '';
-                } else {
-                    alert("Error en el registro");
-                }
-            } catch (error) {
-                alert("Error en el registro: " + error.message);
-            }
-        }
-        
-        async function login() {
-            const userData = {
-                email: document.querySelector('input[name="email"]').value,
-                password: document.querySelector('input[name="pswd"]').value
-            };
-        
-            try {
-                const success = await loginUser(userData);
-                if (success) {
-                    alert("Inicio de sesión exitoso");
-                    registerLoginVisible.value = false;
-                    // Limpiar campos de entrada
-                    document.querySelector('input[name="email"]').value = '';
-                    document.querySelector('input[name="pswd"]').value = '';
-                } else {
-                    alert("Error en el inicio de sesión");
-                }
-            } catch (error) {
-                alert("Error en el inicio de sesión: " + error.message);
-            }
             orderId.value = generarUUID();
             barcodeOrder.value = 'https://barcode.tec-it.com/barcode.ashx?data='+orderId.value+'&code=Code128&translate-esc=on';
 
@@ -411,28 +340,18 @@ createApp({
             infoTotal,
             myOrders,
             toggleCart,
-            toggleLoginRegister,
-            finalitzarCompra,
             addCart,
-            increment,
-            decrement,
+            calcularTotal,
             eliminarProducte,
-            toggleLandingProd,
+            preuTotal,
+            totalCart,
+            cart,
+            cartVisible,
             productVisible,
             landingVisible,
-            quantitat,
-            totalCart,
-            preuTotal,
-            cart,
-            infoTotal,
-            registerLoginVisible,
-            register,
-            login,
-            mostrarProd,
-            toggleInici,
-            categories,
-            cartVisible,
             prodActual,
+            mostrarProd,
+            quantitat,
             decrement,
             increment,
             toggleLandingProd,

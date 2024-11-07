@@ -32,13 +32,16 @@ class OrderSend extends Mailable
         );
     }
 
-    public function content(): Content
+    public function content()
     {
         return new Content(
-            view: 'emails.OrderSend',
+            view: 'emails.OrderSend', // Vista del correo donde se mostrará el nombre del producto
+            with: [
+                'totalOrder' => $this->totalOrder,
+                'orderedProducts' => $this->orderedProducts, // Pasar el array de productos
+            ]
         );
     }
-
     /**
      * Get the attachments for the message.
      *

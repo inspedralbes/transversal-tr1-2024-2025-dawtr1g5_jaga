@@ -18,7 +18,7 @@
         </p>
         
         <!-- Detalls de la comanda -->
-        <h2 style="color: #333; font-size: 18px; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Resum de la Comanda</h2>
+        <h2 style="color: #333; font-size: 18px; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Resum de la teva comanda</h2>
 
         <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
     <thead>
@@ -44,15 +44,15 @@
 </table>
 
 
-        <!-- Codi de barra -->
+        <!--  
         <div style="text-align: center; margin-top: 20px;">
             <p>Escaneja aquest codi de barres per a més informació de la teva comanda:</p>
             <img src="https://barcode.tec-it.com/barcode.ashx?data={{$totalOrder->uuid}}&code=Code128&translate-esc=on" alt="Codi de barres" style="margin-top: 10px; width: 250px;">
-        </div>
+        </div>-->
         
         <!-- Peu de pàgina -->
         <p style="color: #777; font-size: 14px; text-align: center; margin-top: 30px;">
-            Si tens cap pregunta, posa't en contacte amb nosaltres a través de <a href="mailto:hello@raco.com" style="color: #1a73e8;">hello@raco.com</a>.
+            Si tens alguna pregunta, posa't en contacte amb nosaltres a través de <a href="mailto:hello@raco.com" style="color: #1a73e8;">hello@raco.com</a>.
         </p>
     </div>
 </body>

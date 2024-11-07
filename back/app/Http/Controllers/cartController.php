@@ -73,8 +73,13 @@ class cartController extends Controller
         $productController->updateStock($product);
     }
 
-    // Enviar el correo con el resumen de la compra
-    Mail::to($orderTotal->email)->send(new OrderSend($orderTotal, $orderedProducts));
+    
+    // Precargar la relación orders.product para asegurar el acceso a los nombres de productos
+$orderTotal = OrderFinal::with('orders.product')->find($orderTotal->id);
+
+// Enviar el correo con el resumen de la compra
+Mail::to($orderTotal->email)->send(new OrderSend($orderTotal, $orderedProducts));
+
 
     return response()->json([
         "final order" => $orderTotal,

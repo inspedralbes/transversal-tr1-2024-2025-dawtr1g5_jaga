@@ -1,0 +1,45 @@
+📦 Documentació Bàsica del Projecte Botiga GRUP05
+Integrants: Joselyn, Aivan, Agustín, Gerard
+
+🏆 Objectius
+El projecte Botiga "Racó del Joc" que som el GRUP05 té com a objectiu crear una plataforma en línia per a la venda de jocs de taula, oferint una experiència d'usuari fluida, atractiva i de fàcil navegació. Els usuaris poden explorar el catàleg, gestionar el seu carret de compra i finalitzar la seva comanda de manera segura. Alhora, l'administrador disposa d'un panell on pot gestionar els productes, clients i comandes mitjançant operacions CRUD (Crear, Llegir, Actualitzar i Eliminar).
+
+🏗️ Arquitectura Bàsica
+- Backend (Servidor): Utilitzem Laravel 11, un potent framework PHP, que ens permet gestionar la lògica del servidor, l'emmagatzematge de dades i la seguretat del sistema.
+- Frontend (Client): La interfície d'usuari està construïda en Vue 3, un framework JavaScript que permet la creació d'aplicacions SPA (Single Page Application) per oferir una experiència d'usuari dinàmica i responsiva.
+- Part d'Administració: Els usuaris amb permisos d'administrador poden accedir a un panell de control per gestionar el catàleg de productes, les dades dels usuaris i les comandes. Aquest panell està completament integrat amb el backend i ofereix la funcionalitat CRUD completa.
+
+🔧 Tecnologies Utilitzades
+- Vue 3: Per a la creació de components del frontend, que permeten una interfície d'usuari interactiva.
+- Laravel 11: Com a backend per gestionar les API, la lògica de negocis i la comunicació amb la base de dades.
+- PHP 8: Llenguatge base del framework Laravel.
+- JavaScript (ES6+): Utilitzat en el frontend per crear una aplicació SPA dinàmica.
+- HTML5 & CSS3: Per a l'estructura i estil dels components de l'aplicació.
+- MySQL: Base de dades relacional per emmagatzemar les dades dels usuaris, productes i comandes.
+
+🔌 Plugins i eines
+- Postman: Utilitzat per provar i documentar l'API durant el desenvolupament i assegurar la correcta comunicació entre el frontend i el backend.
+
+🔄 Interrelació entre els diversos components
+- Frontend i Backend: La comunicació entre el client (Vue 3) i el servidor (Laravel) es realitza mitjançant una API. Les peticions de dades es fan a través fetch, enviant peticions GET, POST, PUT i DELETE segons sigui necessari.
+- Base de Dades i API: Laravel s'encarrega de gestionar les connexions i operacions amb la base de dades MySQL, on es guarden les dades de productes, comandes i usuaris.
+- Panell d'Administració: L'administrador utilitza vistes especials del frontend que permeten la gestió de dades mitjançant crides a l'API del backend, que facilita la gestió completa dels recursos.
+
+📑 Llistat d'endpoints de l'API de backend   
+
+Mètode	   Endpoint	            Descripció  
+GET	    /api/products  	        Retorna tots els productes
+GET	    /api/products/{id}	    Retorna un producte específic
+POST	/api/products	        Crea un nou producte (admin)
+PUT	    /api/products/{id}	    Actualitza un producte existent
+DELETE	/api/products/{id}	    Elimina un producte (admin)
+POST	/api/orders	            Crea una nova comanda
+GET	    /api/orders/{id}	    Retorna els detalls d'una comanda
+POST	/api/users/register  	Registra un nou usuari
+POST	/api/users/login	    Autentica un usuari
+
+
+
+
+🌐 Adreça web del projecte (Penpot)
+Aquí es pot veure una vista prèvia del nostre disseny de la botiga en Penpot:  https://design.penpot.app/#/view/9cff1166-2265-80f2-8005-2fd893e53b00?page-id=9cff1166-2265-80f2-8005-2fd893e53b01&section=interactions&index=0&share-id=226a7763-6852-8092-8005-2ff2c286b2cc&interactions-mode=show-on-click 

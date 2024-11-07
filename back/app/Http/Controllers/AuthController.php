@@ -7,48 +7,58 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    // Registro de usuario
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
+        // Validar el request...
 
         $user = User::create([
-            'name' => $request->input('name'),
+            'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), 
+            'password' => Hash::make($request->password),
         ]);
 
-        return response()->json(['message' => 'Usuario registrado exitosamente', 'user' => $user], 201);
+        // Generar un token
+        $token = $user->createToken('token_name')->plainTextToken;
+
+        return response()->json(['user' => $user, 'token' => $token], 201);
     }
 
-    // Inicio de sesión
+
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        try {
+            Log::info('Intentando iniciar sesión con:', [
+                'email' => $request->input('email'),
+                'password' => $request->input('password')
+            ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            return response()->json(['message' => 'Inicio de sesión exitoso', 'user' => $user], 200);
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+                $user = Auth::user();
+                $token = $user->createToken('auth_token')->plainTextToken;
+                Log::info('Inicio de sesión exitoso:', ['user' => $user]);
+                return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => $token], 200);
+            }
+
+            Log::warning("Intento de login fallido. Credenciales incorrectas:", ['email' => $request->input('email')]);
+            return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        } catch (\Exception $e) {
+            Log::error('Error durante el inicio de sesión: ' . $e->getMessage());
+            return response()->json(['message' => 'Error en el servidor'], 500);
         }
-
-        return response()->json(['message' => 'Credenciales incorrectas'], 401);
     }
 
-    // Cierre de sesión
+
     public function logout(Request $request)
     {
-        Auth::logout();
+        $user = Auth::user();
+        $user->tokens()->delete(); // Revocar todos los tokens
+        Log::info('Usuario desconectado.');
         return response()->json(['message' => 'Usuario desconectado exitosamente'], 200);
     }
 }

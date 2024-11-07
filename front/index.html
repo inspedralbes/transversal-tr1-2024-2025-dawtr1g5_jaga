@@ -189,8 +189,8 @@
             <!-- Controles de Paginación -->
             <div class="pagination-controls">
               <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
-              <span>Page {{ currentPage }}</span>
-              <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+              <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+              <button @click="nextPage" :disabled="currentPage === totalPages()">Next</button>
             </div>
           </div>
 
@@ -379,7 +379,7 @@
       <div class="d-flex j-center align-center" style="flex-direction: column;" v-if="categoriesVisible">
         <h1 style="margin: 0; margin-top: 50px;">CATEGORIES</h1>
         <div class="d-grid containCategories">
-          <div class="contCateg p-relative" v-for="category in categories.datos" :key="category.id" @click="showProducts(category)">
+          <div class="contCateg p-relative" v-for="category in paginatedCategories()" :key="category.id" @click="showProducts(category)">
             <div class="d-flex j-center" style="padding-top: 10px;">
               <img src="./img/svg/image.svg" alt="imageProd" width="110px">
             </div>
@@ -387,6 +387,12 @@
                 <p class="titleItem no-margin">{{category.category}}</p>
             </div>
           </div>
+        </div>
+        <!-- Controles de Paginación -->
+        <div class="pagination-controls">
+          <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
+          <span>Page {{ currentPage }} of {{ totalPagesCateg() }}</span>
+          <button @click="nextPageCateg" :disabled="currentPage === totalPagesCateg()">Next</button>
         </div>
       </div>
 
@@ -399,7 +405,7 @@
           <h3>{{ categSeleccionada }}</h3>
         </div>
         <div class="d-grid containProducts">
-          <div class="contItem p-relative" v-for="producto in productsCategory.datos" :key="producto.id">
+          <div class="contItem p-relative" v-for="producto in paginatedProductsCategories()" :key="producto.id">
             <div class="d-flex j-center" @click="mostrarProd(producto.id)">
               <img src="./img/svg/image.svg" alt="imageProd" width="110px">
             </div>
@@ -412,6 +418,13 @@
               <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Add to cart</button>
             </div>
           </div>
+        </div>
+        
+        <!-- Controles de Paginación -->
+        <div class="pagination-controls">
+          <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
+          <span>Page {{ currentPage }} of {{ totalPagesProductCategory() }}</span>
+          <button @click="nextPageProdCateg" :disabled="currentPage === totalPagesProductCategory()">Next</button>
         </div>
       </div>
 

@@ -44,7 +44,9 @@ createApp({
         let productoActualId = ref('');
 
         let juegosSimilaresVisible = ref(false);
+        
         let itemsPerPage = ref(8);
+        let itemsPerPageCateg = ref(9);
         let currentPage = ref(1);
 
         // Cargar los productos
@@ -61,27 +63,60 @@ createApp({
         });
 
         const totalPages = () => {
-            return Math.ceil(infoTotal.datos.length / itemsPerPage.value);
+            const pages = infoTotal.datos.length / itemsPerPage.value;
+            return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
         };
       
-        // Función para obtener los productos de la página actual
+
         const paginatedProducts = () => {
             const start = (currentPage.value - 1) * itemsPerPage.value;
             const end = start + itemsPerPage.value;
             return infoTotal.datos.slice(start, end);
         };
     
-        // Función para ir a la siguiente página
         const nextPage = () => {
             if (currentPage.value < totalPages()) {
                 currentPage.value++;
             }
         };
     
-        // Función para ir a la página anterior
         const prevPage = () => {
             if (currentPage.value > 1) {
                 currentPage.value--;
+            }
+        };
+
+        const totalPagesCateg = () => {
+            const pages = categories.datos.length / itemsPerPageCateg.value;
+            return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
+        };
+
+        const paginatedCategories = () => {
+            const start = (currentPage.value - 1) * itemsPerPageCateg.value;
+            const end = start + itemsPerPageCateg.value;
+            return categories.datos.slice(start, end);
+        };
+
+        const nextPageCateg = () => {
+            if (currentPage.value < totalPagesCateg()) {
+                currentPage.value++;
+            }
+        };
+        
+        const totalPagesProductCategory = () => {
+            const pages = productsCategory.datos.length / itemsPerPage.value;
+            return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
+        };
+
+        const paginatedProductsCategories = () => {
+            const start = (currentPage.value - 1) * itemsPerPage.value;
+            const end = start + itemsPerPage.value;
+            return productsCategory.datos.slice(start, end);
+        };
+        
+        const nextPageProdCateg = () => {
+            if (currentPage.value < totalPagesProductCategory()) {
+                currentPage.value++;
             }
         };
 
@@ -110,8 +145,9 @@ createApp({
         }
 
         async function showProducts (categ) {
-            categSeleccionada.value = categ.category;
+            currentPage.value = 1;
             productsCategVisible.value = !productsCategVisible.value;
+            categSeleccionada.value = categ.category;
             try {
                 const data = await getCategoryProducts(categ);
                 productsCategory.datos = data;
@@ -122,6 +158,7 @@ createApp({
         }
 
         function toggleInici () {
+            currentPage.value = 1;
             reiniciarVisible();
             document.getElementById('menu_burger').checked = false;
         }
@@ -131,6 +168,7 @@ createApp({
             landingVisible.value = false;
             products.value = false;
             registerLoginVisible.value = false;
+            currentPage.value = 1;
             document.getElementById('menu_burger').checked = false;
         }
         
@@ -523,7 +561,14 @@ createApp({
             totalPages,
             paginatedProducts,
             nextPage,
-            prevPage
+            prevPage,
+            totalPagesCateg,
+            paginatedCategories,
+            itemsPerPageCateg,
+            nextPageCateg,
+            totalPagesProductCategory,
+            paginatedProductsCategories,
+            nextPageProdCateg
         };
     }
 }).mount('#appVue');

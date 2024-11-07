@@ -20,8 +20,8 @@ Route::delete('/products/{id}', [ProductController::class,'destroy']);
 Route::put('/updateStock/{id}',[ProductController::class,'updateStock']);
 Route::get('/productsearch',[ProductController::class, 'search']);
 
-Route::get('/orders', [CartController::class, 'index']);
-Route::post('/createOrder', [CartController::class, 'create']);
+Route::get('/orders', [cartController::class, 'index']);
+Route::post('/createOrder', [cartController::class, 'create']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

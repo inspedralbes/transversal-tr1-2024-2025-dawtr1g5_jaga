@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\cartController;
 use App\Http\Controllers\comandaController;
 use App\Http\Controllers\CategoryController;
 

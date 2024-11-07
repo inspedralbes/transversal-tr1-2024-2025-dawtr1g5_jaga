@@ -4,41 +4,41 @@
 <!-- resources/views/categories/index.blade.php -->
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorías</title>
+    <title>Categories</title>
 </head>
 
 <body>
-    <h1>Categorías</h1>
+    <h1>Categories</h1>
 
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif
 
-    <h3>Añadir nueva categoría</h3>
+    <h3>Afegeix una nova categoria</h3>
     <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <label for="category">Nombre de la Categoría:</label>
+        <label for="category">Nom de la Categoria:</label>
         <input type="text" id="category" name="category" required>
 
-        <label for="fotoURL">Imagen de la Categoría (Sube un archivo):</label>
+        <label for="fotoURL">Imatge de la Categoria (Puja un arxiu):</label>
         <input type="file" id="fotoURL" name="fotoURL" accept="image/*" required>
 
-        <button type="submit">Añadir Categoría</button>
+        <button type="submit">Afegir Categoria</button>
     </form>
 
-    <h3>Lista de Categorías</h3>
+    <h3>Llista de Categories</h3>
     <table>
         <thead>
             <tr>
                 <th>#</th>
-                <th>Nombre de la Categoría</th>
+                <th>Nom de la Categoria</th>
                 <th>Foto</th>
-                <th>Acciones</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -48,14 +48,14 @@
                     <td>{{ $category->category }}</td>
                     <td><img src="{{ asset('storage/' . $category->fotoURL) }}" alt="Foto" width="50"></td>
                     <td>
-                        <a href="{{ route('categprod', $category->id) }}">Ver Detalles</a>
-                        <!-- Botón de eliminar -->
+                        <a href="{{ route('categprod', $category->id) }}">Veure Detalls</a>
+                        <!-- Botó d'eliminar -->
                         <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
                             style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
-                                onclick="return confirm('¿Estás seguro de que quieres eliminar esta categoría?');">Eliminar</button>
+                                onclick="return confirm('Estàs segur que vols eliminar aquesta categoria?');">Eliminar</button>
                         </form>
                     </td>
                 </tr>
@@ -66,6 +66,5 @@
 </body>
 
 </html>
-
 
 @endsection

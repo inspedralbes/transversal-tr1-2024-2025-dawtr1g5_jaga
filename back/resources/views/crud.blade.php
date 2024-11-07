@@ -2,12 +2,12 @@
 
 @section('content')
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Productes</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
@@ -15,30 +15,29 @@
 
 <body>
     <br>
-    <h2>Afegir un nuevo producto</h2>
+    <h2>Afegir un nou producte</h2>
     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
     @csrf
     <input type="text" name="title" placeholder="Nom del Joc" required>
     <input type="text" name="description" placeholder="Descripció" required>
     <input type="number" name="price" placeholder="Preu" step="0.01" required>
     <input type="number" name="stock" placeholder="Stock" required>
-    <input type="file" id="fotoURL" name="fotoURL" accept="image/*" required>
     <button type="submit">Afegir un producte</button>
 </form>
 
     <br><br>
 
-    <h2>Lista de Productos</h2>
+    <h2>Llista de Productes</h2>
     <table id="productsTable">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Descripción</th>
+                <th>Nom</th>
+                <th>Preu</th>
+                <th>Descripció</th>
                 <th>Stock</th>
-                <th>Imagen</th>
-                <th>Acciones</th>
+                <th>Imatge</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>

@@ -1,21 +1,21 @@
 <!-- resources/views/categories/show.blade.php -->
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles de Categoría</title>
+    <title>Detalls de la Categoria</title>
 </head>
 <body>
-    <h1>Detalles de la Categoría: {{ $category->category }}</h1>
+    <h1>Detalls de la Categoria: {{ $category->category }}</h1>
 
-    <h3>Productos en esta Categoría</h3>
+    <h3>Productes en aquesta Categoria</h3>
     <table border="1">
         <thead>
             <tr>
-                <th>Nombre del Producto</th>
-                <th>Acciones</th>
+                <th>Nom del Producte</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
                         <form action="{{ route('categories.product.remove', [$category->id, $product->id]) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto de la categoría?');">Eliminar</button>
+                            <button type="submit" onclick="return confirm('Estàs segur que vols eliminar aquest producte de la categoria?');">Eliminar</button>
                         </form>
                     </td>
                 </tr>
@@ -34,19 +34,19 @@
         </tbody>
     </table>
 
-    <h3>Añadir un Producto</h3>
+    <h3>Afegeix un Producte</h3>
     <form action="{{ route('categories.product.add', $category->id) }}" method="POST">
         @csrf
-        <label for="product_id">Seleccionar Producto:</label>
+        <label for="product_id">Selecciona un Producte:</label>
         <select id="product_id" name="product_id" required>
-            <option value="">-- Selecciona un Producto --</option>
+            <option value="">-- Selecciona un Producte --</option>
             @foreach($allProducts as $product)
                 <option value="{{ $product->id }}">{{ $product->title }}</option>
             @endforeach
         </select>
-        <button type="submit">Añadir Producto</button>
+        <button type="submit">Afegir Producte</button>
     </form>
 
-    <a href="{{ route('categories') }}">Volver a Categorías</a>
+    <a href="{{ route('categories') }}">Tornar a Categories</a>
 </body>
 </html>

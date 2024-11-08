@@ -1,5 +1,5 @@
 import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd, getMyOrders, registerUser, loginUser, logoutUser} from './communicationManager.js';
+import { getProducts, postOrder, searchProd, getMyOrders, registerUser, loginUser, logoutUser, getCategories, getCategoryProducts } from './communicationManager.js';
 
 createApp({
     setup() {
@@ -19,7 +19,7 @@ createApp({
         let isGift = ref(false);
         let orderId = ref('');
         let barcodeOrder = ref('');
-
+        
         let cartVisible = ref(false); // Controla la visibilidad del carrito
         let productVisible = ref(false);
         let landingVisible = ref(true);
@@ -35,20 +35,183 @@ createApp({
         let quiSomVisible = ref(false);
         let MyOrdersVisible = ref(false);
 
+        const categories = reactive ({ datos: [] });
+        let categoriesVisible = ref(false);
+        let products = ref(true);
+        let regVisible = ref(false);
+
+        let productsCategory = reactive({ datos:[] });
+        let productsCategVisible = ref(false);
+        let categSeleccionada = ref('');
+        let productoActualId = ref('');
+
+        let juegosSimilaresVisible = ref(false);
+        
+        let itemsPerPage = ref(8);
+        let itemsPerPageCateg = ref(9);
+        let currentPage = ref(1);
+
         // Cargar los productos
         onBeforeMount(async () => {
             try {
                 let user_id = 2;
                 const data = await getProducts();
                 const orders = await getMyOrders(user_id);
-                console.log(orders);
+                
+                const dataCateg = await getCategories();
                 infoTotal.datos = data;
                 myOrders.datos = orders;
+                categories.datos = dataCateg;
             } catch (error) {
                 console.error("Error al carregar els productes:", error);
             }
             // calcularTotal();
         });
+
+        const totalPages = () => {
+            const pages = infoTotal.datos.length / itemsPerPage.value;
+            return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
+        };
+      
+
+        const paginatedProducts = () => {
+            const start = (currentPage.value - 1) * itemsPerPage.value;
+            const end = start + itemsPerPage.value;
+            return infoTotal.datos.slice(start, end);
+        };
+    
+        const nextPage = () => {
+            if (currentPage.value < totalPages()) {
+                currentPage.value++;
+            }
+        };
+    
+        const prevPage = () => {
+            if (currentPage.value > 1) {
+                currentPage.value--;
+            }
+        };
+
+        const totalPagesCateg = () => {
+            const pages = categories.datos.length / itemsPerPageCateg.value;
+            return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
+        };
+
+        const paginatedCategories = () => {
+            const start = (currentPage.value - 1) * itemsPerPageCateg.value;
+            const end = start + itemsPerPageCateg.value;
+            return categories.datos.slice(start, end);
+        };
+
+        const nextPageCateg = () => {
+            if (currentPage.value < totalPagesCateg()) {
+                currentPage.value++;
+            }
+        };
+        
+        const totalPagesProductCategory = () => {
+            const pages = productsCategory.datos.length / itemsPerPage.value;
+            return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
+        };
+
+        const paginatedProductsCategories = () => {
+            const start = (currentPage.value - 1) * itemsPerPage.value;
+            const end = start + itemsPerPage.value;
+            return productsCategory.datos.slice(start, end);
+        };
+        
+        const nextPageProdCateg = () => {
+            if (currentPage.value < totalPagesProductCategory()) {
+                currentPage.value++;
+            }
+        };
+
+        function reiniciarVisible () {
+            cartVisible.value = false; // Controla la visibilidad del carrito
+            productVisible.value = false;
+            landingVisible.value = true;
+            searchInputVisible.value = false;
+            searchVisible.value = false;
+            checkoutVisible.value = false;
+            ticketVisible.value = false;
+            preCheckoutVisible.value = false;
+            postCheckoutVisible.value = false;
+            registerLoginVisible.value = false;
+            quiSomVisible.value = false;
+            categoriesVisible.value = false;
+            products.value = true;
+            regVisible.value = false;
+            productsCategVisible.value = false;
+            juegosSimilaresVisible.value = false;
+        }
+
+        function productosMasVendidos () {
+            console.log(infoTotal)
+            return infoTotal.datos.filter(producto => producto.stock < 8);
+        }
+
+        async function showProducts (categ) {
+            currentPage.value = 1;
+            productsCategVisible.value = !productsCategVisible.value;
+            categSeleccionada.value = categ.category;
+            try {
+                const data = await getCategoryProducts(categ);
+                productsCategory.datos = data;
+            } catch (error) {
+                console.error("Error al carregar els productes de la categoria:", error);
+            }
+            categoriesVisible.value = false;
+        }
+
+        function toggleInici () {
+            currentPage.value = 1;
+            reiniciarVisible();
+            document.getElementById('menu_burger').checked = false;
+        }
+        
+        function toggleCategories() {
+            categoriesVisible.value = true;
+            landingVisible.value = false;
+            products.value = false;
+            registerLoginVisible.value = false;
+            currentPage.value = 1;
+            document.getElementById('menu_burger').checked = false;
+        }
+        
+        function toggleQuiSom() {
+            quiSomVisible.value = !quiSomVisible.value;  
+            landingVisible.value = !landingVisible.value;
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        function toggleAdmin () {
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        function toggleLoginRegister() {
+            registerLoginVisible.value = true;
+            landingVisible.value = false;
+            products.value = false;
+            categoriesVisible.value = false;
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        async function toggleLogout() {
+            try {
+                const success = await logoutUser();
+                if (success) {
+                    alert("Has cerrado sesión correctamente.");
+                }
+            } catch (error) {
+                console.error("Error en la solicitud de logout:", error);
+                alert("Error de red al intentar cerrar sesión.");
+            }
+            document.getElementById('menu_burger').checked = false;
+        }
+
+        function toggleOrders () {
+            document.getElementById('menu_burger').checked = false;
+        }
 
         // Alternar visibilidad del carrito
         function toggleCart() {
@@ -61,8 +224,21 @@ createApp({
 
         //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
+            productoActualId.value = productId;
+            console.log(productId);
+            if(productsCategVisible.value) {
+                juegosSimilaresVisible.value = true;
+            }
+
             if (!productVisible.value) {
-                toggleLandingProd();
+                registerLoginVisible.value = false;
+                landingVisible.value = false;
+                products.value = false;
+                categoriesVisible.value = false;
+                productVisible.value = !productVisible.value;
+                productsCategVisible.value = !productsCategVisible.value
+                //toggleLandingProd();
+
             }
             if (searchInputVisible.value) {
                 toggleSearch();
@@ -71,9 +247,17 @@ createApp({
         }
 
         function toggleLandingProd() {
-            landingVisible.value = !landingVisible.value;
-            productVisible.value = !productVisible.value;
+            reiniciarVisible();
             quantitat.value = 1;
+        }
+
+
+        function toggleMenu () {
+            searchInputVisible.value = false;
+        }
+
+        function toggleRegLog () {
+            regVisible.value = !regVisible.value;
         }
 
         function backToHome() {
@@ -105,10 +289,6 @@ createApp({
             }
         }
 
-        function toggleQuiSom() {
-            quiSomVisible.value = !quiSomVisible.value;  
-            landingVisible.value = !landingVisible.value;  
-        }
 
         // Añadir producto al carret
         function addCart(productId) {
@@ -248,10 +428,7 @@ createApp({
                 searchVisible.value = false;
             }
         }
-        function toggleLoginRegister() {
-            registerLoginVisible.value = !registerLoginVisible.value;
-            landingVisible.value = !landingVisible.value;
-        }
+        
         async function register() {
             const userData = {
                 name: document.querySelector('input[name="txt"]').value,
@@ -298,18 +475,6 @@ createApp({
             } catch (error) {
                 console.error("Error en el inicio de sesión:", error);
                 alert("Error inesperado en el inicio de sesión.");
-            }
-        }
-
-        async function logout() {
-            try {
-                const success = await logoutUser();
-                if (success) {
-                    alert("Has cerrado sesión correctamente.");
-                }
-            } catch (error) {
-                console.error("Error en la solicitud de logout:", error);
-                alert("Error de red al intentar cerrar sesión.");
             }
         }
 
@@ -380,12 +545,42 @@ createApp({
             login,
             loginEmail, 
             loginPassword,
-            logout,
+            toggleLogout,
             quiSomVisible,
             toggleQuiSom,
             toggleMyOrders,
             MyOrdersVisible,
             myOrders,
+            categories,
+            toggleCategories,
+            categoriesVisible,
+            toggleInici,
+            toggleAdmin,
+            toggleOrders,
+            products,
+            toggleMenu,
+            regVisible,
+            toggleRegLog,
+            showProducts,
+            productsCategVisible,
+            categSeleccionada,
+            productsCategory,
+            productosMasVendidos,
+            productoActualId,
+            juegosSimilaresVisible,
+            itemsPerPage,
+            currentPage,
+            totalPages,
+            paginatedProducts,
+            nextPage,
+            prevPage,
+            totalPagesCateg,
+            paginatedCategories,
+            itemsPerPageCateg,
+            nextPageCateg,
+            totalPagesProductCategory,
+            paginatedProductsCategories,
+            nextPageProdCateg
         };
     }
 }).mount('#appVue');

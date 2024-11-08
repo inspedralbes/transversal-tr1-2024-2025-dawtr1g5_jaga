@@ -13,6 +13,38 @@ export async function getProducts() {
     }
 }
 
+export async function getCategories() {
+    const URL = `http://127.0.0.1:8000/api/categories`;
+    try {
+        const response = await fetch(URL);
+        if (!response.ok) {
+            throw new Error("Error");
+        }
+        const categories = await response.json();
+        return categories;
+    } catch (error) {
+        console.error("Error al carregar les categories:", error);
+        return []; 
+    }
+}
+
+export async function getCategoryProducts(categ) {
+    const URL = `http://127.0.0.1:8000/api/productsCateg/${categ.id}`;
+    try {
+        const response = await fetch(URL);
+        if (!response.ok) {
+            throw new Error("Error");
+        }
+        const categoryProducts = await response.json();
+        return categoryProducts;
+    } catch (error) {
+        console.error("Error al carregar los productos de la categoria" + categ.category + " :", error);
+        return [];
+    }
+}
+
+let aux;
+
 export async function postOrder(orderData){
     // try {
         const token = localStorage.getItem('token');

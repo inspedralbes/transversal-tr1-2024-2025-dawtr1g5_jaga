@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -22,9 +23,9 @@ class AuthController extends Controller
         ]);
 
         // Generar un token
-        $token = $user->createToken('token_name')->plainTextToken;
+        // $token = $user->createToken('token_name')->plainTextToken;
 
-        return response()->json(['user' => $user, 'token' => $token], 201);
+        return response()->json(['user' => $user], 201);
     }
 
 
@@ -40,7 +41,7 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
-                $token = $user->createToken('auth_token')->plainTextToken;
+                $token = $user->createToken('auth_token', [], Carbon::now()->addMinutes(60))->plainTextToken;
                 Log::info('Inicio de sesión exitoso:', ['user' => $user]);
                 return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => $token], 200);
             }
@@ -52,7 +53,6 @@ class AuthController extends Controller
             return response()->json(['message' => 'Error en el servidor'], 500);
         }
     }
-
 
     public function logout(Request $request)
     {

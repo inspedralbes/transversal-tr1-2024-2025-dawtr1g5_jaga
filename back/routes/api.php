@@ -6,6 +6,7 @@ use App\Http\Controllers\cartController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,13 +21,13 @@ Route::put('/updateStock/{id}',[ProductController::class,'updateStock']);
 Route::get('/productsearch',[ProductController::class, 'search']);
 
 Route::get('/orders', [CartController::class, 'index']);
-Route::post('/createOrder', [CartController::class, 'create'])->middleware('auth:sanctum');;
+Route::post('/createOrder', [CartController::class, 'create']);
 Route::get('/myOrders', [CartController::class, 'show']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-
-
-
+// Categories
+Route::get('/categories', [CategoryController::class,'index']);
+Route::get('/productsCateg/{id}', [CategoryController::class,'show']);

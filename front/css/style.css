@@ -833,8 +833,7 @@ input[type=number] {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f4;
+    min-height: 80vh;
   }
   
   .form-container {
@@ -919,7 +918,8 @@ input[type=number] {
     }
   
     .form-title {
-      font-size: 20px;
+      font-size: 40px;
+      margin: 0;
     }
   
     .btn-primary {
@@ -949,8 +949,22 @@ input[type=number] {
     padding: 10px 20px; /* Espaciado interno del botón */
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   }
-  
-  
 
-  
-  
+  .containCategories {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+
+.contCateg {
+    box-shadow: 5px 5px 3px #727272;
+    width: 125px;
+    height: 180px;
+}
+
+.blank-space {
+    padding-bottom: 100px;
+}

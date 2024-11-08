@@ -19,6 +19,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone'=> $request->phone,
         ]);
 
         // Generar un token

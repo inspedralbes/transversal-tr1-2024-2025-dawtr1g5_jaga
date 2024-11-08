@@ -258,6 +258,7 @@ createApp({
                 name: document.querySelector('input[name="txt"]').value,
                 email: document.querySelector('input[name="email"]').value,
                 password: document.querySelector('input[name="pswd"]').value,
+                phone: document.querySelector('input[name="phone"]').value
             };
         
             try {
@@ -270,6 +271,7 @@ createApp({
                     document.querySelector('input[name="txt"]').value = '';
                     document.querySelector('input[name="email"]').value = '';
                     document.querySelector('input[name="pswd"]').value = '';
+                    document.querySelector('input[name="phone"]').value = '';
                 } else {
                     alert("Error en el registro");
                 }

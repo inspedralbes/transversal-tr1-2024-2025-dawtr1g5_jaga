@@ -867,9 +867,7 @@ input[type=number] {
   }
   
   /* Inputs */
-  .form-card input[type="text"],
-  .form-card input[type="email"],
-  .form-card input[type="password"] {
+  .form-card input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -881,9 +879,7 @@ input[type=number] {
     transition: border-color 0.3s;
   }
   
-  .form-card input[type="text"]:focus,
-  .form-card input[type="email"]:focus,
-  .form-card input[type="password"]:focus {
+  .form-card input:focus {
     border-color: #f39212;
     outline: none;
   }

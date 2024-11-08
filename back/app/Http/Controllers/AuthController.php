@@ -53,6 +53,19 @@ class AuthController extends Controller
         }
     }
 
+    public function adminLogin(Request $request)
+    {
+        // Solo el admin puede acceder con estas credenciales
+        if ($request->email === 'admin@example.com' && $request->password === 'adminpassword') {
+            $user = User::where('email', 'admin@example.com')->first();
+            $token = $user->createToken('admin_token')->plainTextToken;
+
+            Log::info('Login exitoso como admin', ['user' => $user]);
+            return response()->json(['message' => 'Login exitoso como admin', 'token' => $token], 200);
+        }
+
+        return response()->json(['message' => 'Credenciales incorrectas para administrador'], 401);
+    }
 
     public function logout(Request $request)
     {

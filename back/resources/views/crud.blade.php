@@ -48,7 +48,7 @@
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->stock }}</td>
-                    <td><img src="{{ asset('storage/' . $product->fotoURL) }}" alt="Foto" width="50"></td>
+                    <td><img src="{{ asset('storage/products/' . $product->fotoURL) }}" alt="Foto" width="50"></td>
                     <td>
                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Editar</a>
                         <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">

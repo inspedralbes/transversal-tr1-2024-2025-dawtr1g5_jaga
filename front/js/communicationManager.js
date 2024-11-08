@@ -46,20 +46,26 @@ export async function getCategoryProducts(categ) {
 
 export async function postOrder(orderData) {
     const token = localStorage.getItem('token');
-    
+    let response;
     const headers = {
         "Content-Type": "application/json",
     };
     
     if (token) {
         headers["Authorization"] = `Bearer ${token}`;
+        response = await fetch("http://127.0.0.1:8000/api/createOrderLogged", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(orderData),
+        });
+    }else{
+        response = await fetch("http://127.0.0.1:8000/api/createOrderUnlogged", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(orderData),
+        });
     }
-
-    const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(orderData),
-    });
+    
 
     if (response.ok) {
         const result = await response.json();
@@ -190,7 +196,19 @@ export async function searchProd(query) {
     return response;
 }
 
-export async function getMyOrders(user_id) {
-    const response = await fetch("http://127.0.0.1:8000/api/myOrders?id=" + user_id); //CAMBIAR USER_ID POR TOKEN AUTH
-    return response.json();
+export async function getMyOrders() {
+    const token = localStorage.getItem('token');
+    const response = await fetch("http://127.0.0.1:8000/api/myOrders", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+    });
+    if(response.ok){
+        return await response.json();
+    }else{
+        console.error("Ha ocurrido un error: ", error);
+        return [];
+    }
 }

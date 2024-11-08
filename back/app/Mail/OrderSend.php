@@ -8,40 +8,40 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\OrderFinal;  
+use App\Models\orderfinal;
 
 class OrderSend extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public OrderFinal $totalOrder;
-    public array $orderedProducts;
-
-    
-    public function __construct(OrderFinal $totalOrder, array $orderedProducts)
+    /**
+     * Create a new message instance.
+     */
+    public function __construct(public orderfinal $totalOrder)
     {
-        $this->totalOrder = $totalOrder;
-        $this->orderedProducts = $orderedProducts;
+
     }
 
-    
+    /**
+     * Get the message envelope.
+     */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Confirmation',
+            subject: 'Order Sent',
         );
     }
 
-    public function content()
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
     {
         return new Content(
-            view: 'emails.OrderSend', // Vista del correo donde se mostrará el nombre del producto
-            with: [
-                'totalOrder' => $this->totalOrder,
-                'orderedProducts' => $this->orderedProducts, // Pasar el array de productos
-            ]
+            view: 'emails.OrderSend',
         );
     }
+
     /**
      * Get the attachments for the message.
      *

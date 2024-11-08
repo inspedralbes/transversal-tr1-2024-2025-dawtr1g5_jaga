@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 
+
+use App\Models\Product;
 use App\Models\orderfinal;
 use Illuminate\Http\Request;
+// app/Http/Controllers/ComandaController.php
+use Illuminate\Support\Facades\Validator;
+use App\Models\Orders;
 use Illuminate\Support\Facades\Mail; 
 
 
@@ -12,7 +17,7 @@ class comandaController extends Controller
 {
     public function index()
     {
-        $orders = orderfinal::with('orders')->get();
+        $orders = Orders::with('product')->get();
         return view('index', compact('orders'));
     }
 

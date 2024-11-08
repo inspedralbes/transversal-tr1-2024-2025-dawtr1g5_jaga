@@ -266,6 +266,16 @@ nav {
     padding: 20px;
 }
 
+.containerItem{
+    height: 100px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid rgb(221, 221, 221);
+}
+
 .grid-item {
     background-color: white;
     border-radius: 10px;
@@ -647,31 +657,6 @@ nav {
 
 
 /* --------------------------------------------------------- */
-
-/* ------------------------My Orders------------------------ */
-
-.containerItem{
-    height: 100px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 20px;
-    background-color: white;
-    overflow: hidden;
-    border: 1px solid rgb(221, 221, 221);
-}
-
-/* --------------------------------------------------------- */
-
-
-
-
-
-
-
-
-
-
-
 
 /* UTILIZAR MOBILE-NONE EN AQUELLAS COSAS QUE APAREZCAN EN DESKTOP Y NO QUERAMOS QUE APAREZCAN EN MOBILE */
 .mobile-none {

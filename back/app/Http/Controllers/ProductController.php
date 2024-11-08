@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;  // Necesario para manejar archivos
 
 class ProductController extends Controller
 {
@@ -32,29 +31,18 @@ class ProductController extends Controller
             "title" => "required",
             "description" => "required",
             "price" => "required|numeric",
-            "stock" => "required|integer",
-            "fotoURL" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "stock" => "required|integer"
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('products.create')
-                ->withErrors($validator)
-                ->withInput();
-        }        
-        
-        $product = $request->only(['title', 'description', 'price', 'stock']);
-        
-        if ($request->hasFile('fotoURL')) {
-            $imagePath = $request->file('fotoURL')->store('products', 'public');
-            $product['fotoURL'] = $imagePath;
-        }        
+            return response()->json(["message" => "Error en la validación de los datos"], 422);
+        }
 
-        Product::create($product);
+        Product::create($request->all());
 
         return redirect()->route('products.index')->with('success', 'Producto agregado correctamente');
     }
 
-    
     /**
      * Display the specified resource.
      */
@@ -74,14 +62,13 @@ class ProductController extends Controller
         }
     }
 
-    public function search(Request $request)
-    {
+    public function search(Request $request){
         $query = $request->input('query');
 
-        if ($query) {
-            $products = Product::where('title', 'LIKE', "%{$query}%")->get();
-        } else {
-            $products = "No existe ningún producto con ese nombre";
+        if($query){
+            $products = Product::where('title','LIKE',"%{$query}%")->get();
+        }else{
+            $products = "No existeix cap producte amb aquest nom";
         }
 
         return response()->json($products);
@@ -92,45 +79,42 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validación de datos
+        // Primero, valida los datos
         $validator = Validator::make($request->all(), [
             "title" => "required",
             "description" => "required",
             "price" => "required|numeric",
-            "stock" => "required|integer",
-            "fotoURL" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048", 
+            "stock" => "required|integer"
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('products.edit', $id)
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json([
+                "message" => "Los datos no son válidos",
+                "status" => 422 // Cambiado a 422 para indicar error de validación
+            ]);
         }
 
         $product = Product::find($id);
         if (!$product) {
-            return redirect()->route('products.index')->with('error', 'El producto no existe');
+            return response()->json([
+                "message" => "El producto no existe",
+                "status" => 404
+            ]);
         }
 
-        if ($request->hasFile('fotoURL')) {
-            if (Storage::exists('public/' . $product->fotoURL)) {
-                Storage::delete('public/' . $product->fotoURL);
-            }
+        // Actualiza el producto
+        $product->update($request->all());
 
-            $imagePath = $request->file('fotoURL')->store('products', 'public');
-            $product->fotoURL = $imagePath;  
-        }
-
-        // Actualizar el producto
-        $product->update($request->only(['title', 'description', 'price', 'stock']));
+        // return response()->json([
+        //     "product" => $product,
+        //     "status" => 200
+        // ]);
 
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
+
     }
 
-
-
-    public function updateStock($product)
-    {
+    public function updateStock($product){
         $productBBDD = Product::find($product['product_id']);
         if (!$productBBDD) {
             return response()->json([
@@ -166,14 +150,13 @@ class ProductController extends Controller
                 "status" => 404
             ]);
         }
-
-        // Eliminar la imagen del almacenamiento
-        if (Storage::exists('public/' . $product->fotoURL)) {
-            Storage::delete('public/' . $product->fotoURL);
-        }
-
         $product->delete();
 
+        // return response()->json([
+        //     "message" => "Registro eliminado correctamente",
+        //     "status" => 200
+        // ]);
         return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente');
+
     }
 }

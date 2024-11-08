@@ -21,7 +21,8 @@ Route::put('/updateStock/{id}',[ProductController::class,'updateStock']);
 Route::get('/productsearch',[ProductController::class, 'search']);
 
 Route::get('/orders', [CartController::class, 'index']);
-Route::post('/createOrder', [CartController::class, 'create']);
+Route::post('/createOrderLogged', [CartController::class, 'createOrderLogged'])->middleware('auth:sanctum');
+Route::post('/createOrderUnlogged', [CartController::class, 'createOrderUnlogged']);
 Route::get('/myOrders', [CartController::class, 'show']);
 
 Route::post('/register', [AuthController::class, 'register']);

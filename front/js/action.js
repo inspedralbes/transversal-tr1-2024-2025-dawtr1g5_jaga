@@ -30,6 +30,8 @@ createApp({
         let preCheckoutVisible = ref(true);
         let postCheckoutVisible = ref(false);
         let registerLoginVisible = ref(false);
+        let isLogged = ref(false);
+
         const loginEmail = ref('');
         const loginPassword = ref('');
         let quiSomVisible = ref(false);
@@ -56,11 +58,15 @@ createApp({
             try {
                 let user_id = 2;
                 const data = await getProducts();
-                const orders = await getMyOrders(user_id);
+                if(localStorage.getItem('token')){
+                    const orders = await getMyOrders(user_id);
+                    myOrders.datos = orders;
+                }
+
+                localStorage.removeItem('token');
                 
                 const dataCateg = await getCategories();
                 infoTotal.datos = data;
-                myOrders.datos = orders;
                 categories.datos = dataCateg;
             } catch (error) {
                 console.error("Error al carregar els productes:", error);
@@ -201,6 +207,7 @@ createApp({
                 const success = await logoutUser();
                 if (success) {
                     alert("Has cerrado sesión correctamente.");
+                    isLogged.value = false;
                 }
             } catch (error) {
                 console.error("Error en la solicitud de logout:", error);
@@ -209,17 +216,14 @@ createApp({
             document.getElementById('menu_burger').checked = false;
         }
 
-        function toggleOrders () {
-            document.getElementById('menu_burger').checked = false;
-        }
-
         // Alternar visibilidad del carrito
         function toggleCart() {
             cartVisible.value = !cartVisible.value;
         }
-
+        
         function toggleMyOrders() {
             MyOrdersVisible.value = !MyOrdersVisible.value;
+            document.getElementById('menu_burger').checked = false;
         }
 
         //Mostrar pantalla de información del producto
@@ -439,13 +443,15 @@ createApp({
             try {
                 const success = await registerUser(userData);
                 if (success) {
-                    alert("Registro exitoso");
-                    registerLoginVisible.value = false;
-                    landingVisible.value = true; 
+                    // alert("Registro exitoso");
+                    loginEmail.value = '';
+                    loginPassword.value = '';
+                    regVisible.value = !regVisible.value;
 
                     document.querySelector('input[name="txt"]').value = '';
                     document.querySelector('input[name="email"]').value = '';
                     document.querySelector('input[name="pswd"]').value = '';
+                    // document.querySelector('input[name="phone"]').value = '';
                 } else {
                     alert("Error en el registro");
                 }
@@ -463,12 +469,13 @@ createApp({
             try {
                 const success = await loginUser(userData);
                 if (success) {
-                    alert("Inicio de sesión exitoso");
-                    registerLoginVisible.value = false;
-                    landingVisible.value = true;
+                    // alert("Inicio de sesión exitoso");
+                    reiniciarVisible();
 
                     loginEmail.value = '';
                     loginPassword.value = '';
+
+                    isLogged.value = true;
                 } else {
                     alert("Usuario o contraseña incorrectos.");
                 }
@@ -546,6 +553,7 @@ createApp({
             loginEmail, 
             loginPassword,
             toggleLogout,
+            isLogged,
             quiSomVisible,
             toggleQuiSom,
             toggleMyOrders,

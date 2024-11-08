@@ -9,7 +9,7 @@ export async function getProducts() {
         return data;
     } catch (error) {
         console.error("Error al carregar els productes:", error);
-        return []; 
+        return [];
     }
 }
 
@@ -24,7 +24,7 @@ export async function getCategories() {
         return categories;
     } catch (error) {
         console.error("Error al carregar les categories:", error);
-        return []; 
+        return [];
     }
 }
 
@@ -43,37 +43,37 @@ export async function getCategoryProducts(categ) {
     }
 }
 
-let aux;
 
-export async function postOrder(orderData){
-    // try {
-        const token = localStorage.getItem('token');
-        const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify(orderData),
-        });
+export async function postOrder(orderData) {
+    const token = localStorage.getItem('token');
+    
+    const headers = {
+        "Content-Type": "application/json",
+    };
+    
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
 
-        if (response.ok) {
-            const result = await response.json();
-            console.log("Ordre creada amb èxit:", result);
-            return true;
-        } else {
-            console.error("Error al crear la orden:", response.statusText);
-            alert("Error al crear la orden. Inténtalo de nuevo.");
-            return false;
-        }
-    // } catch (error) {
-    //     console.error("error:", error);
-    //     alert("Error de red");
-    //     return false;
-    // }
+    const response = await fetch("http://127.0.0.1:8000/api/createOrder", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(orderData),
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        console.log("Ordre creada amb èxit:", result);
+        return true;
+    } else {
+        console.error("Error al crear la orden:", response.statusText);
+        alert("Error al crear la orden. Inténtalo de nuevo.");
+        return false;
+    }
 }
+
 export async function registerUser(userData) {
-    const URL = "http://127.0.0.1:8000/api/register"; 
+    const URL = "http://127.0.0.1:8000/api/register";
     try {
         const response = await fetch(URL, {
             method: "POST",
@@ -86,27 +86,28 @@ export async function registerUser(userData) {
         if (response.ok) {
             const result = await response.json();
             console.log("Usuario registrado exitosamente:", result);
-            if (result.token) {
-                localStorage.setItem('token', result.token);
-                console.log("Token almacenado:", result.token);
-            } else {
-                console.error("El token no está definido en la respuesta");
-            }
             
+            // if (result.token) {
+            //     localStorage.setItem('token', result.token);
+            //     console.log("Token almacenado:", result.token);
+            // } else {
+            //     console.error("El token no está definido en la respuesta");
+            // }
+
             // Mostrar el contenido de localStorage
             console.log("Contenido de localStorage:", localStorage);
 
-            return true; 
+            return true;
         } else {
             const errorBody = await response.text();
             console.error("Error en el registro:", errorBody);
             alert("Error en el registro. Respuesta del servidor: " + errorBody);
-            return false; 
+            return false;
         }
     } catch (error) {
         console.error("Error de red:", error);
         alert("Error de red. No se pudo completar el registro.");
-        return false; 
+        return false;
     }
 }
 
@@ -132,7 +133,7 @@ export async function loginUser(userData) {
             } else {
                 console.error("El token no está definido en la respuesta");
             }
-            
+
             // Mostrar el contenido de localStorage
             console.log("Contenido de localStorage:", localStorage);
 
@@ -151,7 +152,7 @@ export async function loginUser(userData) {
 }
 
 export async function logoutUser() {
-    const URL = "http://127.0.0.1:8000/api/logout"; 
+    const URL = "http://127.0.0.1:8000/api/logout";
     try {
         // Obtenemos el token del localStorage
         const token = localStorage.getItem('token');
@@ -169,27 +170,27 @@ export async function logoutUser() {
             console.log("Cierre de sesión exitoso");
             // Eliminar el token del localStorage
             localStorage.removeItem('token');
-            return true; 
+            return true;
         } else {
             const errorData = await response.json();
             console.error("Error en el cierre de sesión:", errorData.message);
             alert(errorData.message || "Error en el cierre de sesión");
-            return false; 
+            return false;
         }
     } catch (error) {
         console.error("Error de red:", error);
         alert("Error de red");
-        return false; 
+        return false;
     }
 }
 
-export async function searchProd(query){
-    const URL = "http://127.0.0.1:8000/api/productsearch?query="+query;
+export async function searchProd(query) {
+    const URL = "http://127.0.0.1:8000/api/productsearch?query=" + query;
     const response = await fetch(URL);
     return response;
 }
 
-export async function getMyOrders(user_id){
-    const response = await fetch("http://127.0.0.1:8000/api/myOrders?id="+user_id); //CAMBIAR USER_ID POR TOKEN AUTH
+export async function getMyOrders(user_id) {
+    const response = await fetch("http://127.0.0.1:8000/api/myOrders?id=" + user_id); //CAMBIAR USER_ID POR TOKEN AUTH
     return response.json();
 }

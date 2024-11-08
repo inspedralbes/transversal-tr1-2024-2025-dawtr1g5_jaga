@@ -23,7 +23,7 @@ Route::get('/productsearch',[ProductController::class, 'search']);
 Route::get('/orders', [CartController::class, 'index']);
 Route::post('/createOrderLogged', [CartController::class, 'createOrderLogged'])->middleware('auth:sanctum');
 Route::post('/createOrderUnlogged', [CartController::class, 'createOrderUnlogged']);
-Route::get('/myOrders', [CartController::class, 'show']);
+Route::get('/myOrders', [CartController::class, 'show'])->middleware('auth:sanctum');
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

@@ -130,25 +130,24 @@ export async function loginUser(userData) {
 
         if (response.ok) {
             const result = await response.json();
-            console.log("Inicio de sesión exitoso:", result);
+            // console.log("Inicio de sesión exitoso:", result);
 
-            // Almacenar el token en localStorage
             if (result.token) {
                 localStorage.setItem('token', result.token);
-                console.log("Token almacenado:", result.token);
+                // console.log("Token almacenado:", result.token);
             } else {
-                console.error("El token no está definido en la respuesta");
+                // console.error("El token no está definido en la respuesta");
             }
 
             // Mostrar el contenido de localStorage
-            console.log("Contenido de localStorage:", localStorage);
+            // console.log("Contenido de localStorage:", localStorage);
 
             return true;
         } else {
-            const errorData = await response.json();
-            console.error("Error en el inicio de sesión:", errorData.message);
-            alert(errorData.message || "Error en el inicio de sesión");
-            return false;
+            // const errorData = await response.json();
+            // console.error("Error en el inicio de sesión:", errorData.message);
+            // alert(errorData.message || "Error en el inicio de sesión");
+            // return false;
         }
     } catch (error) {
         console.error("Error de red:", error);

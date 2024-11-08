@@ -219,6 +219,7 @@ createApp({
             registerLoginVisible.value = true;
             landingVisible.value = false;
             products.value = false;
+            checkoutVisible.value = false;
             categoriesVisible.value = false;
             document.getElementById('menu_burger').checked = false;
         }
@@ -229,6 +230,9 @@ createApp({
                 if (success) {
                     alert("Has cerrado sesión correctamente.");
                     isLogged.value = false;
+                    cart.datos = [];
+                    myOrders.datos = '';
+                    totalCart.value = 0;
                 }
             } catch (error) {
                 console.error("Error en la solicitud de logout:", error);
@@ -281,7 +285,6 @@ createApp({
             quantitat.value = 1;
         }
 
-
         function toggleMenu () {
             searchInputVisible.value = false;
         }
@@ -318,7 +321,6 @@ createApp({
                 alert("Cart is empty");
             }
         }
-
 
         // Añadir producto al carret
         function addCart(productId) {
@@ -438,7 +440,6 @@ createApp({
                 const indice = Math.floor(Math.random() * caracteres.length);
                 resultado += caracteres.charAt(indice);
             }
-
             return resultado;
         }        
 
@@ -450,13 +451,6 @@ createApp({
                 await searchProd(query.value)
                     .then(response => response.json())
                     .then(data => queryProducts.value = data);
-                // if(queryProducts.length != 0){
-                //     queryProducts.forEach((prod)=>{
-                //         console.log(prod.title);
-                //     });
-                // }else{
-                //     console.log("No s'ha trobat cap producte");
-                // }
             } else {
                 searchVisible.value = false;
             }
@@ -505,6 +499,7 @@ createApp({
                     loginPassword.value = '';
 
                     isLogged.value = true;
+                    myOrders.datos = await getMyOrders();
                 } else {
                     alert("Usuario o contraseña incorrectos.");
                 }
@@ -534,7 +529,6 @@ createApp({
                 queryProducts.value = [];
             }
         }
-
 
         return {
             infoTotal,

@@ -40,8 +40,8 @@
                   <li><a href="#" @click="toggleCategories">Categories</a></li>
                   <li><a href="#" @click="toggleQuiSom">Qui som</a></li>
                   <li><a href="#" @click="toggleAdmin">Admin</a></li>
-                  <li v-if="isLogged"><a href="#" @click="toggleLogout">Logout</a></li>
                   <li v-if="isLogged"><a href="#" @click="toggleMyOrders">My orders</a></li>
+                  <li v-if="isLogged" style="margin-top: 10px;"><a href="#" @click="toggleLogout"><b>Logout</b></a></li>
                 </ul>
               </div>
             </div>
@@ -419,7 +419,7 @@
         <img src="./img/svg/arrow.svg" alt="cart" @click="backToCart" width="25px" height="25px">
         <p class="no-margin p-absolute">Information detail</p>
       </div>
-      <button>Iniciar sesión</button>
+      <button @click="toggleLoginRegister">Iniciar sesión</button>
       <p>-------- o --------</p>
       <div class="d-flex f-column w-full" id="infoCheckout">
         <label for="fullnameCustomer">Full name</label>

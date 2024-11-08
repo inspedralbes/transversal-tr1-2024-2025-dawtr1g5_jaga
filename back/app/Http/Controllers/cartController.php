@@ -172,8 +172,7 @@ class cartController extends Controller
     public function show()
     {
         $user = Auth::user();
-        $user_id = $user ? $user->id : 1;
-        $orders = orderfinal::where('user_id', $user_id)->get();
+        $orders = orderfinal::where('user_id', $user->id)->get();
         return $orders;
     }
 

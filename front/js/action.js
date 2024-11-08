@@ -56,7 +56,7 @@ createApp({
         // Cargar los productos
         onBeforeMount(async () => {
             try {
-                let user_id = 2;
+                let user_id = 1;
                 const data = await getProducts();
                 if(localStorage.getItem('token')){
                     const orders = await getMyOrders(user_id);
@@ -223,6 +223,11 @@ createApp({
         
         function toggleMyOrders() {
             MyOrdersVisible.value = !MyOrdersVisible.value;
+            if(MyOrdersVisible.value){
+                products.value = false;
+            }else{
+                products.value = true;
+            }
             document.getElementById('menu_burger').checked = false;
         }
 
@@ -564,7 +569,6 @@ createApp({
             categoriesVisible,
             toggleInici,
             toggleAdmin,
-            toggleOrders,
             products,
             toggleMenu,
             regVisible,

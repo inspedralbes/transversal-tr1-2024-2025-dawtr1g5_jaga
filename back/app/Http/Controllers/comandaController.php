@@ -44,7 +44,7 @@ class comandaController extends Controller
         // Log detallado para verificar el valor y tipo de $email antes de enviar
         \Log::info('Verificación del email antes de enviar correo:', [
             'email' => $email,
-            'tipo' => gettype($email)
+            'tipo' => ($email)
         ]);
     
         // Asegurarnos de que $email es una cadena

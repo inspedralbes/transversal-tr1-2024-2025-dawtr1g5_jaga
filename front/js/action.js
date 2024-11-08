@@ -1,4 +1,4 @@
-import { createApp, ref, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+import { createApp, ref, computed,onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import { getProducts, postOrder, searchProd, orderId, registerUser, loginUser, logoutUser, getCategories, getCategoryProducts } from './communicationManager.js';
 
 createApp({
@@ -34,6 +34,7 @@ createApp({
         let quiSomVisible = ref(false);
 
         const categories = reactive ({ datos: [] });
+        let categVisible = ref(false);
         let categoriesVisible = ref(false);
         let products = ref(true);
         let regVisible = ref(false);
@@ -49,6 +50,10 @@ createApp({
         let itemsPerPageCateg = ref(9);
         let currentPage = ref(1);
 
+        let mesProductes = ref([]);
+
+        let adminLoginVisible = ref(false);
+
         // Cargar los productos
         onBeforeMount(async () => {
             try {
@@ -61,6 +66,12 @@ createApp({
             }
             // calcularTotal();
         });
+
+        const productosAleatorias = computed(function () {
+            mesProductes.value = infoTotal.datos.sort(() => Math.random() - 0.5).slice(0, 15);
+        
+            return mesProductes.value;
+        })
 
         const totalPages = () => {
             const pages = infoTotal.datos.length / itemsPerPage.value;
@@ -137,16 +148,20 @@ createApp({
             regVisible.value = false;
             productsCategVisible.value = false;
             juegosSimilaresVisible.value = false;
+            categVisible.value = false;
         }
 
         function productosMasVendidos () {
-            console.log(infoTotal)
+            console.log(infoTotal);
             return infoTotal.datos.filter(producto => producto.stock < 8);
         }
 
         async function showProducts (categ) {
+            if (categoriesVisible.value) {
+                categVisible.value = true;
+                productsCategVisible.value = true;
+            }
             currentPage.value = 1;
-            productsCategVisible.value = !productsCategVisible.value;
             categSeleccionada.value = categ.category;
             try {
                 const data = await getCategoryProducts(categ);
@@ -158,13 +173,16 @@ createApp({
         }
 
         function toggleInici () {
-            currentPage.value = 1;
             reiniciarVisible();
+            currentPage.value = 1;
             document.getElementById('menu_burger').checked = false;
         }
         
         function toggleCategories() {
+            reiniciarVisible ();
             categoriesVisible.value = true;
+            categVisible.value = true;
+            juegosSimilaresVisible.value = false;
             landingVisible.value = false;
             products.value = false;
             registerLoginVisible.value = false;
@@ -179,6 +197,10 @@ createApp({
         }
 
         function toggleAdmin () {
+            adminLoginVisible.value = true;
+            landingVisible.value = false;
+            products.value = false;
+            categoriesVisible.value = false;
             document.getElementById('menu_burger').checked = false;
         }
 
@@ -215,20 +237,20 @@ createApp({
 
         //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
+            productVisible.value = false;
             productoActualId.value = productId;
             console.log(productId);
+            // Mostrar los productos/datos dentro de Categoria
             if(productsCategVisible.value) {
                 juegosSimilaresVisible.value = true;
             }
 
             if (!productVisible.value) {
-                registerLoginVisible.value = false;
-                landingVisible.value = false;
+                landingVisible.value = false; // imagen portada
                 products.value = false;
                 categoriesVisible.value = false;
-                productVisible.value = !productVisible.value;
-                productsCategVisible.value = !productsCategVisible.value
-                //toggleLandingProd();
+                productsCategVisible.value = false;
+                productVisible.value = true;
 
             }
             if (searchInputVisible.value) {
@@ -568,7 +590,10 @@ createApp({
             nextPageCateg,
             totalPagesProductCategory,
             paginatedProductsCategories,
-            nextPageProdCateg
+            nextPageProdCateg,
+            categVisible,
+            productosAleatorias,
+            adminLoginVisible
         };
     }
 }).mount('#appVue');

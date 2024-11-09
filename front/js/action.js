@@ -79,9 +79,10 @@ createApp({
         });
 
         const productosAleatorias = computed(function () {
-            mesProductes.value = infoTotal.datos.sort(() => Math.random() - 0.5).slice(0, 15);
+            // let aux = infoTotal;
+            // mesProductes.value = aux.datos.sort(() => Math.random() - 0.5).slice(0, 15);
         
-            return mesProductes.value;
+            // return mesProductes.value;
         })
 
         const totalPages = () => {
@@ -164,7 +165,8 @@ createApp({
 
         function productosMasVendidos () {
             console.log(infoTotal);
-            return infoTotal.datos.filter(producto => producto.stock < 8);
+            let aux = infoTotal;
+            return aux.datos.filter(producto => producto.stock < 8);
         }
 
         async function showProducts (categ) {

@@ -908,27 +908,94 @@ input[type=number] {
     }
   }
   .qui-som-section {
-    background-color: white; /* Fondo blanco */
-    position: fixed; /* O absolute, dependiendo del diseño */
-    top: 0; /* Ajusta según sea necesario */
-    left: 0; /* Ajusta según sea necesario */
-    width: 100%; /* Asegúrate de que ocupa el ancho completo */
-    height: 100%; /* Asegúrate de que ocupa el alto completo */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Asegúrate de que está por encima de otros elementos */
-    /* Otros estilos según sea necesario */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fafafa;
   }
   
+  .qui-som-container {
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .qui-som-container h2 {
+    font-size: 28px;
+    color: #ff6347; /* Color vibrante para el título */
+    margin-bottom: 15px;
+  }
+  
+  .qui-som-container p {
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .horari-title {
+    font-size: 18px;
+    color: #ff6347;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .horari-info {
+    font-size: 15px;
+    color: #666666;
+    background-color: #f9f1e7; /* Fondo suave para el horario */
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .mapa-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .mapa {
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  
+  .adreca-info {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+  }
+  
+  .adreca-text {
+    font-size: 15px;
+    color: #666;
+    margin-top: 8px;
+  }
+  .btn-close:hover {
+    background-color: #e57a00;
+  }
+  
+  .btn-close:focus {
+    outline: none;
+  }
   
   .btn-close {
-    margin-top: 20px; /* Espacio para el botón */
-    background-color: #f39212; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    padding: 10px 20px; /* Espaciado interno del botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #ff8c00;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
   }
 
   .containCategories {

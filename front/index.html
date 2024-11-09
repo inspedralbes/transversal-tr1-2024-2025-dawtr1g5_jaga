@@ -38,7 +38,7 @@
                 <ul class="nav-list">
                   <li><a href="#" @click="toggleInici">Inici</a></li>
                   <li><a href="#" @click="toggleCategories">Categories</a></li>
-                  <li><a href="#" @click="toggleQuiSom">Qui som</a></li>
+                  <li><a href="#" @click="toggleQuiSom">On som</a></li>
                   <li><a href="#" @click="toggleAdmin">Admin</a></li>
                   <li v-if="isLogged"><a href="#" @click="toggleMyOrders">My orders</a></li>
                   <li v-if="isLogged" style="margin-top: 10px;"><a href="#" @click="toggleLogout"><b>Logout</b></a></li>
@@ -397,18 +397,31 @@
 
     <!--Final admin login-->
 
-    <!--Qui som-->
+    <!--On som-->
 
     <div v-if="quiSomVisible" class="qui-som-section">
       <div class="qui-som-container">
-        <h2>Qui Som</h2>
-        <p>Som quatre fundadors que vam crear aquest projecte de botiga en línia de jocs de taula per a totes les edats.
-        </p>
-        <p>El nostre horari d'atenció al client és de dilluns a divendres, de 9:00h a 13:00h i de 17:00h a 19:00h.</p>
+        <h2>On som</h2>
+        <p> Som quatre fundadors apassionats pels jocs de taula, i hem creat aquesta botiga en línia perquè puguis trobar
+          diversió per a totes les edats sense sortir de casa.</p>
+          <p class="horari-title">Horari d'atenció al client:</p>
+      <p class="horari-info">
+        Dilluns a divendres, de 9:00h a 13:00h i de 17:00h a 19:00h
+      </p>
+
+      <!-- Mapa i Adreça -->
+    <div class="mapa-container">
+      <p class="adreca-info">Ens pots trobar a:</p>
+      <iframe class="mapa" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2992.5652174058936!2d2.1148796157213567!3d41.38640797926482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4986f7a97f09b%3A0xfac1f4d6ec9e06d!2sAv.%20d&#39;Esplugues%2C%2040%2C%2008034%20Barcelona!5e0!3m2!1ses!2ses!4v1607508932349!5m2!1ses!2ses" 
+              allowfullscreen="" 
+              loading="lazy">
+      </iframe>
+      <p class="adreca-text">Av. d'Esplugues, 40, Les Corts, 08034 Barcelona</p>
+    </div>
         <button @click="toggleQuiSom" class="btn-close">Tornar a l'inici</button>
       </div>
     </div>
-
 
     <!-- Formulario con datos del usuario que compra -->
     <div v-if="checkoutVisible" id="checkoutLanding" class="d-flex f-column align-center j-center">

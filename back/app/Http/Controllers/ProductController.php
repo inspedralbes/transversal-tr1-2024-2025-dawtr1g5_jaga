@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;  // Necesario para manejar archivos
 
 class ProductController extends Controller
 {
@@ -41,7 +42,8 @@ class ProductController extends Controller
             "title" => "required",
             "description" => "required",
             "price" => "required|numeric",
-            "stock" => "required|integer"
+            "stock" => "required|integer",
+            "fotoURL" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
         ]);
 
         if ($validator->fails()) {
@@ -116,10 +118,9 @@ class ProductController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                "message" => "Los datos no son válidos",
-                "status" => 422 // Cambiado a 422 para indicar error de validación
-            ]);
+            return redirect()->route('products.edit', $id)
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $product = Product::find($id);
@@ -190,13 +191,14 @@ class ProductController extends Controller
                 "status" => 404
             ]);
         }
+
+        // Eliminar la imagen del almacenamiento
+        if (Storage::exists('public/' . $product->fotoURL)) {
+            Storage::delete('public/' . $product->fotoURL);
+        }
+
         $product->delete();
 
-        // return response()->json([
-        //     "message" => "Registro eliminado correctamente",
-        //     "status" => 200
-        // ]);
         return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente');
-
     }
 }

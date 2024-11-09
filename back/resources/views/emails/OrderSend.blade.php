@@ -52,7 +52,7 @@
         
         <!-- Peu de pàgina -->
         <p style="color: #777; font-size: 14px; text-align: center; margin-top: 30px;">
-            Si tens alguna pregunta, posa't en contacte amb nosaltres a través de <a href="mailto:hello@raco.com" style="color: #1a73e8;">hello@raco.com</a>.
+            Si tens alguna pregunta, posa't en contacte amb nosaltres a través de <a href="mailto:hello@racoDelJoc.com" style="color: #1a73e8;">hello@raco.com</a>.
         </p>
     </div>
 </body>

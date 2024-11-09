@@ -1,10 +1,11 @@
 import { createApp, ref, computed, onBeforeMount, reactive } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-import { getProducts, postOrder, searchProd, getMyOrders, registerUser, loginUser, logoutUser, getCategories, getCategoryProducts } from './communicationManager.js';
+import { getProducts, postOrder, searchProd, getMyOrders, registerUser, loginUser, logoutUser, getCategories, getCategoryProducts, getUserInfo } from './communicationManager.js';
 
 createApp({
     setup() {
         const infoTotal = reactive({ datos: [] });
         const myOrders = reactive({ datos: [] });
+        const user = reactive({ datos: [] });
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
         let prodActual = reactive({ datos: [] })
@@ -19,14 +20,14 @@ createApp({
         let isGift = ref(false);
         let orderId = ref('');
         let barcodeOrder = ref('');
-        
+
         let cartVisible = ref(false); // Controla la visibilidad del carrito
         let productVisible = ref(false);
         let landingVisible = ref(true);
         let searchInputVisible = ref(false);
         let searchVisible = ref(false);
         let checkoutVisible = ref(false);
-        let ticketVisible = ref(false);
+        // let ticketVisible = ref(false);
         let preCheckoutVisible = ref(true);
         let postCheckoutVisible = ref(false);
         let registerLoginVisible = ref(false);
@@ -37,19 +38,19 @@ createApp({
         const loginPassword = ref('');
         let quiSomVisible = ref(false);
 
-        const categories = reactive ({ datos: [] });
+        const categories = reactive({ datos: [] });
         let categVisible = ref(false);
         let categoriesVisible = ref(false);
         let products = ref(true);
         let regVisible = ref(false);
 
-        let productsCategory = reactive({ datos:[] });
+        let productsCategory = reactive({ datos: [] });
         let productsCategVisible = ref(false);
         let categSeleccionada = ref('');
         let productoActualId = ref('');
 
         let juegosSimilaresVisible = ref(false);
-        
+
         let itemsPerPage = ref(8);
         let itemsPerPageCateg = ref(9);
         let currentPage = ref(1);
@@ -63,13 +64,13 @@ createApp({
             try {
                 const data = await getProducts();
                 infoTotal.datos = data;
-                if(localStorage.getItem('token')){
+                if (localStorage.getItem('token')) {
                     const orders = await getMyOrders();
                     myOrders.datos = orders;
                 }
 
                 localStorage.removeItem('token');
-                
+
                 const dataCateg = await getCategories();
                 categories.datos = dataCateg;
             } catch {
@@ -88,20 +89,19 @@ createApp({
             const pages = infoTotal.datos.length / itemsPerPage.value;
             return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
         };
-      
 
         const paginatedProducts = () => {
             const start = (currentPage.value - 1) * itemsPerPage.value;
             const end = start + itemsPerPage.value;
             return infoTotal.datos.slice(start, end);
         };
-    
+
         const nextPage = () => {
             if (currentPage.value < totalPages()) {
                 currentPage.value++;
             }
         };
-    
+
         const prevPage = () => {
             if (currentPage.value > 1) {
                 currentPage.value--;
@@ -124,7 +124,7 @@ createApp({
                 currentPage.value++;
             }
         };
-        
+
         const totalPagesProductCategory = () => {
             const pages = productsCategory.datos.length / itemsPerPage.value;
             return pages === parseInt(pages) ? pages : parseInt(pages) + 1;
@@ -135,21 +135,21 @@ createApp({
             const end = start + itemsPerPage.value;
             return productsCategory.datos.slice(start, end);
         };
-        
+
         const nextPageProdCateg = () => {
             if (currentPage.value < totalPagesProductCategory()) {
                 currentPage.value++;
             }
         };
 
-        function reiniciarVisible () {
+        function reiniciarVisible() {
             cartVisible.value = false; // Controla la visibilidad del carrito
             productVisible.value = false;
             landingVisible.value = true;
             searchInputVisible.value = false;
             searchVisible.value = false;
             checkoutVisible.value = false;
-            ticketVisible.value = false;
+            // ticketVisible.value = false;
             preCheckoutVisible.value = false;
             postCheckoutVisible.value = false;
             registerLoginVisible.value = false;
@@ -162,13 +162,13 @@ createApp({
             categVisible.value = false;
         }
 
-        function productosMasVendidos () {
+        function productosMasVendidos() {
             console.log(infoTotal);
             let aux = infoTotal;
             return aux.datos.filter(producto => producto.stock < 8);
         }
 
-        async function showProducts (categ) {
+        async function showProducts(categ) {
             if (categoriesVisible.value) {
                 categVisible.value = true;
                 productsCategVisible.value = true;
@@ -184,14 +184,14 @@ createApp({
             categoriesVisible.value = false;
         }
 
-        function toggleInici () {
+        function toggleInici() {
             reiniciarVisible();
             currentPage.value = 1;
             document.getElementById('menu_burger').checked = false;
         }
-        
+
         function toggleCategories() {
-            reiniciarVisible ();
+            reiniciarVisible();
             categoriesVisible.value = true;
             categVisible.value = true;
             juegosSimilaresVisible.value = false;
@@ -201,14 +201,14 @@ createApp({
             currentPage.value = 1;
             document.getElementById('menu_burger').checked = false;
         }
-        
+
         function toggleQuiSom() {
-            quiSomVisible.value = !quiSomVisible.value;  
+            quiSomVisible.value = !quiSomVisible.value;
             landingVisible.value = !landingVisible.value;
             document.getElementById('menu_burger').checked = false;
         }
 
-        function toggleAdmin () {
+        function toggleAdmin() {
             adminLoginVisible.value = true;
             landingVisible.value = false;
             products.value = false;
@@ -242,28 +242,26 @@ createApp({
             document.getElementById('menu_burger').checked = false;
         }
 
-        // Alternar visibilidad del carrito
         function toggleCart() {
             cartVisible.value = !cartVisible.value;
         }
-        
+
         function toggleMyOrders() {
             MyOrdersVisible.value = !MyOrdersVisible.value;
-            if(MyOrdersVisible.value){
+            if (MyOrdersVisible.value) {
                 products.value = false;
-            }else{
+            } else {
                 products.value = true;
             }
             document.getElementById('menu_burger').checked = false;
         }
 
-        //Mostrar pantalla de información del producto
         function mostrarProd(productId) {
             productVisible.value = false;
             productoActualId.value = productId;
             console.log(productId);
             // Mostrar los productos/datos dentro de Categoria
-            if(productsCategVisible.value) {
+            if (productsCategVisible.value) {
                 juegosSimilaresVisible.value = true;
             }
 
@@ -286,18 +284,18 @@ createApp({
             quantitat.value = 1;
         }
 
-        function toggleMenu () {
+        function toggleMenu() {
             searchInputVisible.value = false;
         }
 
-        function toggleRegLog () {
+        function toggleRegLog() {
             regVisible.value = !regVisible.value;
         }
 
         function backToHome() {
             landingVisible.value = true;
             checkoutVisible.value = false;
-            ticketVisible.value = false;
+            // ticketVisible.value = false;
         }
 
         function toggleSearch() {
@@ -323,7 +321,6 @@ createApp({
             }
         }
 
-        // Añadir producto al carret
         function addCart(productId) {
             const product = infoTotal.datos.find(p => p.id === productId);
             if (product && product.stock > 0) {
@@ -340,7 +337,6 @@ createApp({
             }
         }
 
-        // Calcular el total del carrito
         function calcularTotal() {
             preuTotal.total = 0;
             cart.datos.forEach(producte => {
@@ -348,7 +344,6 @@ createApp({
             });
         }
 
-        // Eliminar producto del carrito
         function eliminarProducte(producteToRemove) {
             const index = cart.datos.findIndex(p => p.product.id === producteToRemove.product.id);
             if (index !== -1) {
@@ -384,10 +379,9 @@ createApp({
             }
         }
 
-        // Función para finalizar la compra
         async function finalitzarCompra() {
             orderId.value = generarUUID();
-            barcodeOrder.value = 'https://barcode.tec-it.com/barcode.ashx?data='+orderId.value+'&code=Code128&translate-esc=on';
+            barcodeOrder.value = 'https://barcode.tec-it.com/barcode.ashx?data=' + orderId.value + '&code=Code128&translate-esc=on';
 
             if (cart.datos.length > 0) {
                 const orders = cart.datos.map(producte => ({ //genero un nuevo array orders
@@ -412,7 +406,7 @@ createApp({
                         let productoEncontrado = infoTotal.datos.find(p => p.id === prod.product_id);
                         productoEncontrado.stock -= prod.quantity;
                     })
-                    if(localStorage.getItem('token')){
+                    if (localStorage.getItem('token')) {
                         myOrders.datos = await getMyOrders();
                     }
 
@@ -426,8 +420,8 @@ createApp({
                     isGift.value = false;
                     cartVisible.value = false;
                     checkoutVisible.value = false;
-                    landingVisible.value = false; //Para mostrar la pantalla del checkout mejor
-                    ticketVisible.value = true;
+                    landingVisible.value = true;
+                    // ticketVisible.value = true;
                 }
             } else {
                 alert("La cistella està buida");
@@ -442,7 +436,7 @@ createApp({
                 resultado += caracteres.charAt(indice);
             }
             return resultado;
-        }        
+        }
 
         async function buscarProd() {
             if (query.value.length >= 2) {
@@ -456,7 +450,7 @@ createApp({
                 searchVisible.value = false;
             }
         }
-        
+
         async function register() {
             const userData = {
                 name: document.querySelector('input[name="txt"]').value,
@@ -464,7 +458,7 @@ createApp({
                 password: document.querySelector('input[name="pswd"]').value,
                 phone: document.querySelector('input[name="phone"]').value
             };
-        
+
             try {
                 const success = await registerUser(userData);
                 if (success) {
@@ -490,7 +484,7 @@ createApp({
                 email: loginEmail.value,
                 password: loginPassword.value
             };
-        
+
             try {
                 const success = await loginUser(userData);
                 if (success) {
@@ -502,6 +496,7 @@ createApp({
 
                     isLogged.value = true;
                     myOrders.datos = await getMyOrders();
+                    user.datos = await getUserInfo();
                 } else {
                     alert("Usuario o contraseña incorrectos.");
                 }
@@ -512,13 +507,13 @@ createApp({
         }
 
         async function buscarProd() {
-            if(query.value.length >= 2){
-                if(!searchVisible.value){
+            if (query.value.length >= 2) {
+                if (!searchVisible.value) {
                     searchVisible.value = true;
                 }
                 await searchProd(query.value)
-                .then(response => response.json())
-                .then(data => queryProducts.value = data);
+                    .then(response => response.json())
+                    .then(data => queryProducts.value = data);
                 // if(queryProducts.length != 0){
                 //     queryProducts.forEach((prod)=>{
                 //         console.log(prod.title);
@@ -526,7 +521,7 @@ createApp({
                 // }else{
                 //     console.log("No s'ha trobat cap producte");
                 // }
-            }else{
+            } else {
                 searchVisible.value = false;
                 queryProducts.value = [];
             }
@@ -564,7 +559,7 @@ createApp({
             showCheckout,
             checkoutVisible,
             backToCart,
-            ticketVisible,
+            // ticketVisible,
             orderId,
             barcodeOrder,
             preCheckoutVisible,
@@ -574,7 +569,7 @@ createApp({
             registerLoginVisible,
             register,
             login,
-            loginEmail, 
+            loginEmail,
             loginPassword,
             toggleLogout,
             isLogged,
@@ -614,7 +609,8 @@ createApp({
             nextPageProdCateg,
             categVisible,
             productosAleatorias,
-            adminLoginVisible
+            adminLoginVisible,
+            user,
         };
     }
 }).mount('#appVue');

@@ -211,3 +211,20 @@ export async function getMyOrders() {
         return [];
     }
 }
+
+export async function getUserInfo() {
+    const token = localStorage.getItem('token');
+    const response = await fetch("http://127.0.0.1:8000/api/user", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+    });
+    if(response.ok){
+        return await response.json();
+    }else{
+        console.error("Ha ocurrido un error: ", error);
+        return [];
+    }
+}

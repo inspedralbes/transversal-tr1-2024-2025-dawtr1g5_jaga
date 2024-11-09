@@ -78,12 +78,11 @@ createApp({
             // calcularTotal();
         });
 
-        const productosAleatorias = computed(function () {
-            // let aux = infoTotal;
-            // mesProductes.value = aux.datos.sort(() => Math.random() - 0.5).slice(0, 15);
-        
-            // return mesProductes.value;
-        })
+        const productosAleatorias = () => {
+            let aux = JSON.parse(JSON.stringify(infoTotal.datos));
+            console.log(aux);
+            return aux.sort(() => Math.random() - 0.5).slice(0, 15);
+        };
 
         const totalPages = () => {
             const pages = infoTotal.datos.length / itemsPerPage.value;

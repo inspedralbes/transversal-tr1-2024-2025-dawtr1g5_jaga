@@ -1,60 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Resum de la teva comanda</title>
 </head>
 
-<body>
-    <style>
-        body {
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: sans-serif;
-            color: #1a1a1a;
-        }
+<body style="background-color: #f7f7f7; font-family: Arial, sans-serif; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+        
+        <!-- Encabezado -->
+        <h1 style="color: #333; text-align: center;">🎉 Gràcies per la teva compra, {{$totalOrder->fullname}}!</h1>
+        
+        <p style="color: #555; font-size: 16px; text-align: center;">
+            La teva comanda <strong>#{{$totalOrder->uuid}}</strong> ha estat rebuda amb èxit.
+        </p>
+        
+        <!-- Detalls de la comanda -->
+        <h2 style="color: #333; font-size: 18px; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Resum de la teva comanda</h2>
 
-        .containDiv {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: white;
-            width: 100%;
-            box-sizing: border-box;
-            padding: 5px;
-        }
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Producte</th>
+            <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Quantitat</th>
+            <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Preu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($totalOrder->orders as $order)
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">{{$order->product->title}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">{{$order->quantity}}</td>
+            <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">€{{number_format($order->amount, 2)}}</td>
+        </tr>
+        @endforeach
+        <tr style="font-weight: bold;">
+            <td colspan="2" style="padding: 10px; border: 1px solid #ddd; text-align: right;">Total</td>
+            <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">€{{number_format($totalOrder->amount, 2)}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+        <!--  
+        <div style="text-align: center; margin-top: 20px;">
+            <p>Escaneja aquest codi de barres per a més informació de la teva comanda:</p>
+            <img src="https://barcode.tec-it.com/barcode.ashx?data={{$totalOrder->uuid}}&code=Code128&translate-esc=on" alt="Codi de barres" style="margin-top: 10px; width: 250px;">
+        </div>-->
         
-        .codeBar {
-            width: 70%;
-        }
-        
-        @media screen and (min-width: 600px) {
-            .codeBar {
-                width: 400px;
-            }
-            
-            .containDiv {
-                border: 1px solid rgb(218, 218, 218);
-                border-radius: 10px;
-                width: 50%;
-                padding: 10px;
-            }
-        }
-    </style>
-    <div class="containDiv">
-        <h1 style="margin: 20px 0 0 0;">Order sent</h1>
-        <!-- <p>Hello <span></span><br>Your order #{{$totalOrder->uuid}} has been received</p> -->
-        <p style="text-align: center;">Hello <span style="font-weight: 700; font-size: 20px;">{{$totalOrder->fullname}}</span><br>Your order #{{$totalOrder->uuid}} has been received</p>
-        <p>Scan this barcode:</p>
-        <img src="https://barcode.tec-it.com/barcode.ashx?data={{$totalOrder->uuid}}&code=Code128&translate-esc=on"
-            alt="Barcode Scan" class="codeBar">
-        <img src="https://i.ibb.co/47NWgwC/lettermark.png" width="130px" style="margin: 30px 0 10px 0;">
+        <!-- Peu de pàgina -->
+        <p style="color: #777; font-size: 14px; text-align: center; margin-top: 30px;">
+            Si tens alguna pregunta, posa't en contacte amb nosaltres a través de <a href="mailto:hello@racoDelJoc.com" style="color: #1a73e8;">hello@raco.com</a>.
+        </p>
     </div>
 </body>
 

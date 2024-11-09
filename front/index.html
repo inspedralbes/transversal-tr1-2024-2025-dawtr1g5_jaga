@@ -134,7 +134,7 @@
           <div class="prods d-flex">
             <div class="prod" v-for="producto in productosMasVendidos()" :key="producto.id">
               <div class="d-flex j-center" @click="mostrarProd(producto.id)">
-                <img src="./img/svg/image.svg" alt="imageProd" width="90px">
+                <img :src="producto.fotoURL" alt="imageProd" height="70px">
               </div>
               <div class="d-flex" style="flex-direction: column; margin-top: -15px;">
                 <div style="padding: 3px;" @click="mostrarProd(producto.id)">
@@ -167,63 +167,56 @@
 
         <!--Products desktop-->
 
-        <div class="d-flex j-center align-center mobile-none products" style="flex-direction: column;">
-          <div class="filter d-flex" style="margin-top: 5%;">
-            [FILTROS DE BUSQUEDA]
-          </div>
-          <div class="d-grid containProducts">
-            <div class="contItem p-relative" v-for="producto in infoTotal.datos" :key="producto.id">
-              <div class="d-flex j-center" @click="mostrarProd(producto.id)">
-                <img src="./img/svg/image.svg" alt="imageProd" width="110px">
+      <div class="d-flex j-center align-center mobile-none products" style="flex-direction: column;">
+        <div class="filter d-flex" style="margin-top: 5%;">
+          [FILTROS DE BUSQUEDA]
+        </div>
+        <div class="d-grid containProducts">
+          <div class="contItem p-relative" v-for="producto in infoTotal.datos" :key="producto.id">
+            <div class="d-flex j-center" @click="mostrarProd(producto.id)">
+              <img :src="producto.fotoURL" alt="imageProd" height="110px">
+            </div>
+            <div class="d-flex infProd" style="flex-direction: column; margin-top: -15px;">
+              <div style="padding: 3px; margin-top: 20px;" @click="mostrarProd(producto.id)">
+                <p class="titleItem no-margin">{{producto.title}}</p>
+                <p class="priceItem no-margin">€{{producto.price}}</p>
               </div>
-              <div class="d-flex infProd" style="flex-direction: column; margin-top: -15px;">
-                <div style="padding: 3px; margin-top: 20px;" @click="mostrarProd(producto.id)">
-                  <p class="titleItem no-margin">{{producto.title}}</p>
-                  <p class="priceItem no-margin">€{{producto.price}}</p>
-                </div>
-                <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0"
-                  @click="addCart(producto.id)">Add to cart</button>
-              </div>
+              <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0"
+                @click="addCart(producto.id)">Add to cart</button>
             </div>
           </div>
         </div>
+      </div>
 
-        <!--Final products desktop-->
-
-        <!--Products mobile-->
-
-        <!--Products mobile-->
-
-        <div class="d-flex j-center align-center desk-none" style="flex-direction: column;">
-          <div class="filter d-flex">
-            [FILTROS DE BUSQUEDA]
-          </div>
-          <div class="d-grid containProducts">
-            <div class="contItem p-relative" v-for="producto in paginatedProducts()" :key="producto.id">
-              <div class="d-flex j-center" @click="mostrarProd(producto.id)">
-                <img src="./img/svg/image.svg" alt="imageProd" width="110px">
+      <div class="d-flex j-center align-center desk-none" style="flex-direction: column;">
+        <div class="filter d-flex">
+          [FILTROS DE BUSQUEDA]
+        </div>
+        <div class="d-grid containProducts">
+          <div class="contItem p-relative" v-for="producto in infoTotal.datos" :key="producto.id">
+            <div class="d-flex j-center" @click="mostrarProd(producto.id)">
+              <img :src="producto.fotoURL" alt="imageProd" height="110px">
+            </div>
+            <div class="d-flex" style="flex-direction: column; margin-top: -15px;">
+              <div style="padding: 3px;" @click="mostrarProd(producto.id)">
+                <p class="titleItem no-margin">{{producto.title}}</p>
+                <p class="priceItem no-margin">€{{producto.price}}</p>
               </div>
-              <div class="d-flex" style="flex-direction: column; margin-top: -15px;">
-                <div style="padding: 3px;" @click="mostrarProd(producto.id)">
-                  <p class="titleItem no-margin">{{producto.title}}</p>
-                  <p class="priceItem no-margin">€{{producto.price}}</p>
-                </div>
-                <button class="w-full btn-add p-absolute" v-if="producto.stock > 0" style="bottom: 0;"
-                  @click="addCart(producto.id)">Add to cart</button>
-                <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Add to cart</button>
-              </div>
+              <button class="w-full btn-add p-absolute" v-if="producto.stock > 0" style="bottom: 0;"
+                @click="addCart(producto.id)">Add to cart</button>
+              <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Add to cart</button>
             </div>
           </div>
-
-          <!-- Controles de Paginación -->
-          <div class="pagination-controls">
-            <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
-            <span>Page {{ currentPage }} of {{ totalPages() }}</span>
-            <button @click="nextPage" :disabled="currentPage === totalPages()">Next</button>
-          </div>
         </div>
+        <!-- Controles de Paginación -->
+        <div class="pagination-controls">
+          <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
+          <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+          <button @click="nextPage" :disabled="currentPage === totalPages()">Next</button>
+        </div>
+      </div>
 
-        <!--Final products mobile-->
+      <!--Final products mobile-->
       </div>
     </div>
 
@@ -237,37 +230,38 @@
         <p class="no-margin w-full">Informació del producte</p>
       </div>
 
-        <div class="bodyProd" style="padding: 20px;">
-          <div class="containImage d-flex j-center">
-            <img src="./img/svg/image.svg" alt="imageProd">
-          </div>
-          <div class="infoDet">
-            <p v-if="prodActual.stock >= 10">Disponible</p>
-            <p v-else-if="prodActual.stock > 0">Últimas unidades ({{prodActual.stock}})</p>
-            <p v-else>No disponible</p>
-            <p class="titleProd no-margin">{{prodActual.title}}</p>
-            <p class="priceProd no-margin">€{{prodActual.price}}</p>
-            <p>Descripció</p>
-            <p>{{prodActual.description}}</p>
-            <div class="d-flex align-center j-between mobile-none">
-              <div class="cantidadTotal d-flex mobile-none j-center">
-                <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
-                <input type="number" name="cant" :value="quantitat" class="contador" readonly>
-                <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
-              </div>
-              <button class="btn-addProd mobile-none" @click="addCart(prodActual.id)">Add to cart</button>
-            </div>
-          </div>
-          <div class="d-flex align-center j-between w-full p-fixed footerProd desk-none">
-            <div class="cantidadTotal d-flex align-center desk-none">
+      <div class="bodyProd" style="padding: 20px;">
+        <div class="containImage d-flex j-center">
+          <img :src="prodActual.fotoURL" alt="imageProd">
+        </div>
+        <div class="infoDet">
+          <p v-if="prodActual.stock >= 10">Disponible</p>
+          <p v-else-if="prodActual.stock > 0">Últimas unidades ({{prodActual.stock}})</p>
+          <p v-else>No disponible</p>
+          <p class="titleProd no-margin">{{prodActual.title}}</p>
+          <p class="priceProd no-margin">€{{prodActual.price}}</p>
+          <p>Descripció</p>
+          <p>{{prodActual.description}}</p>
+          <div class="d-flex align-center j-between mobile-none">
+            <div class="cantidadTotal d-flex mobile-none j-center">
               <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
               <input type="number" name="cant" :value="quantitat" class="contador" readonly>
               <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
             </div>
-            <button class="btn-addProd desk-none" @click="addCart(prodActual.id)">Add to cart</button>
-            <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
+            <button class="btn-addProd mobile-none" @click="addCart(prodActual.id)">Add to cart</button>
           </div>
         </div>
+        <div class="d-flex align-center j-between w-full p-fixed footerProd desk-none">
+          <div class="cantidadTotal d-flex align-center desk-none">
+            <button @click="decrement"><img src="./img/svg/restar.svg" width="25px"></button>
+            <input type="number" name="cant" :value="quantitat" class="contador" readonly>
+            <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
+          </div>
+          <button class="btn-addProd desk-none" @click="addCart(prodActual.id)">Add to cart</button>
+
+          <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
+        </div>
+      </div>
 
         <!--Otros productos-->
 
@@ -347,6 +341,7 @@
                 <input type="text" name="txt" placeholder="Username" required="">
                 <input type="email" name="email" placeholder="Email" required="">
                 <input type="password" name="pswd" placeholder="Password" required="">
+                <input type="number" name="phone" placeholder="Telefon" required="">              
                 <button @click="register" class="btn-primary">Registrar</button>
                 <p @click="toggleRegLog" style="color: blue;">Login</p>
               </div>

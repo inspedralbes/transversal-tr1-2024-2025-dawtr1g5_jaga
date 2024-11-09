@@ -396,7 +396,6 @@ createApp({
                 }));
 
                 const orderTotal = { //obj info gnral de la orden
-                    user_id: 1,  // reemplazar "x" con el ID real del usuario 
                     totalAmount: preuTotal.total.toFixed(2), //total de la compra ejem:45,9
                     fullname: fullnameCustomer.value,
                     email: emailCustomer.value,
@@ -412,8 +411,9 @@ createApp({
                         let productoEncontrado = infoTotal.datos.find(p => p.id === prod.product_id);
                         productoEncontrado.stock -= prod.quantity;
                     })
-
-                    myOrders.datos = await getMyOrders();
+                    if(localStorage.getItem('token')){
+                        myOrders.datos = await getMyOrders();
+                    }
 
                     //Resetear todos los valores
                     cart.datos = [];
@@ -461,6 +461,7 @@ createApp({
                 name: document.querySelector('input[name="txt"]').value,
                 email: document.querySelector('input[name="email"]').value,
                 password: document.querySelector('input[name="pswd"]').value,
+                phone: document.querySelector('input[name="phone"]').value
             };
         
             try {
@@ -474,7 +475,7 @@ createApp({
                     document.querySelector('input[name="txt"]').value = '';
                     document.querySelector('input[name="email"]').value = '';
                     document.querySelector('input[name="pswd"]').value = '';
-                    // document.querySelector('input[name="phone"]').value = '';
+                    document.querySelector('input[name="phone"]').value = '';
                 } else {
                     alert("Error en el registro");
                 }

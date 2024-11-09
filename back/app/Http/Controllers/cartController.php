@@ -41,7 +41,7 @@ class cartController extends Controller
             'amount' => $request->input('orderTotal.totalAmount'),
             'fullname' => $user->name,
             'email' => $user->email,
-            'phone' => 1234,
+            'phone' => $user->phone,
             'gift' => $request->input('orderTotal.gift'),
             'uuid' => $request->input('orderTotal.uuid'),
             'status' => "pendiente",

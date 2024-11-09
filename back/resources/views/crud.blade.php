@@ -46,6 +46,7 @@
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->stock }}</td>
+                    <td><img src="{{ asset('storage/products/' . $product->fotoURL) }}" alt="Foto" width="50"></td>
                     <td>
                         <form method="POST" action="{{ route('products.destroy', $product->id) }}">
                             @method('DELETE')

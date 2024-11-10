@@ -33,15 +33,15 @@ El projecte Botiga "Racó del Joc" que som el GRUP05 té com a objectiu crear un
 
 | Mètode  |	Endpoint	          | Descripció                            |
 |---------|-----------------------|---------------------------------------|
-| GET	  | /api/products  	      | Retorna tots els productes            |
-| GET	  | /api/products/{id}	  | Retorna un producte específic         |
-| POST	  | /api/products	      | Crea un nou producte (admin)          |
-| PUT	  | /api/products/{id}	  | Actualitza un producte existent       |
-| DELETE  |	/api/products/{id}	  | Elimina un producte (admin)           |
-| POST	  | /api/orders	          | Crea una nova comanda                 |
-| GET	  | /api/orders/{id}	  | Retorna els detalls d'una comanda     |
-| POST	  | /api/users/register   |	Registra un nou usuari                |
-| POST	  | /api/users/login	  | Autentica un usuari                   |
+| GET	  | `/api/products`  	      | Retorna tots els productes            |
+| GET	  | `/api/products/{id}`	  | Retorna un producte específic         |
+| POST	  | `/api/products`	      | Crea un nou producte (admin)          |
+| PUT	  | `/api/products/{id}`	  | Actualitza un producte existent       |
+| DELETE  |	`/api/products/{id}`	  | Elimina un producte (admin)           |
+| POST	  | `/api/orders`	          | Crea una nova comanda                 |
+| GET	  | `/api/orders/{id}`	  | Retorna els detalls d'una comanda     |
+| POST	  | `/api/users/register`   |	Registra un nou usuari                |
+| POST	  | `/api/users/login`	  | Autentica un usuari                   |
 
 ## 📋Pre-requisits 
 Abans de començar, ens assegurem de tenir instal·lades les eines següents:
@@ -57,31 +57,31 @@ Descarregem e instal·lem XAMPP des de Apache Friends.
 Ens assegurem de tenir l’última versió per evitar problemes de compatibilitat amb PHP (ha de ser compatible amb PHP 8).
 Un cop instal·lat, obrim el panell de control de XAMPP i activa els mòduls Apache i MySQL.
 
-2. Configuració del Projecte Laravel
-    2. 1. Clonem el Repositori
-    En el terminal fem: 
+#### 2. Configuració del Projecte Laravel
+    2.1. Clonem el Repositori
+        En el terminal fem: 
         git clone https://github.com/inspedralbes/transversal-tr1-2024-2025-dawtr1g5_jaga.git
-    2. 2. Instal·lem Laravel i les dependències: Executem el següent comandament al directori arrel del         projecte per instal·lar Laravel i les seves dependències:
+    2.2. Instal·lem Laravel i les dependències: Executem el següent comandament al directori arrel del projecte per instal·lar Laravel i les seves dependències:
         composer install
-    2. 3. Configurem el fitxer .env. Fem copia el fitxer de configuració d’exemple:
-    En el terminal fem: 
+    2.3. Configurem el fitxer .env. Fem copia el fitxer de configuració d’exemple, en el terminal fem: 
         cp .env.example .env
-    2. 4. Obrim  el fitxer .env i configurem els següents valors:
+    2.4. Obrim  el fitxer .env i configurem els següents valors:
         DB_CONNECTION=mysql
         DB_HOST=127.0.0.1
         DB_PORT=3306
         DB_DATABASE=Botiga-JAGA
         DB_USERNAME=root
         DB_PASSWORD=
-    2. 5. Generem la clau de l'aplicació: En la terminal posem el següent comando:
+    2.5. Generem la clau de l'aplicació: En la terminal posem el següent comando:
         php artisan key:generate
-    2. 6. Configurem la bbdd. Obrim phpMyAdmin a través de http://localhost/phpmyadmin. Creem una bbdd amb el nom de Botiga-JAGA que es nom que hem configurat al fitxer .env. Executem les migracions i seeders per crear les taules i registres inicials amb el següent comando:
+    2.6. Configurem la bbdd. Obrim phpMyAdmin a través de http://localhost/phpmyadmin. Creem una bbdd amb el nom de Botiga-JAGA que es nom que hem configurat al fitxer .env. Executem les migracions i seeders per          crear les taules i registres inicials amb el següent comando:
         php artisan migrate --seed
-    2. 7. Instalem i configurem el Sanstum ja que s’utilitza per gestionar l’autenticació d’usuaris en l’API. 
-    En la terminal:
+    2.7. Instalem i configurem el Sanstum ja que s’utilitza per gestionar l’autenticació d’usuaris en l’API. 
+        En la terminal:
         php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
-    Afegim Sanctum a les configuracions de la nostra API i a les rutes protegides en el fitxer api.php:
-    Utilitzem el middleware de Sanctum a les rutes d’autenticació al fitxer routes/api.php.
+> [!IMPORTANT]
+> Afegim Sanctum a les configuracions de la nostra API i a les rutes protegides en el fitxer api.php
+>> Utilitzem el middleware de Sanctum a les rutes d’autenticació al fitxer routes/api.php.
 
 3. Proves de l'API amb Postman
 Instal·lem Postman desde les extensions del Visual Code.
@@ -94,5 +94,5 @@ I el servidor estarà disponible a http://localhost:8000.
 
 5. Iniciar el Frontend: Utilizem del Live Server.
 
-🌐 Adreça web del projecte (Penpot)
+## 🌐 Adreça web del projecte (Penpot)
 Aquí es pot veure una vista prèvia del nostre disseny de la botiga en Penpot: [Obrir penpot](https://design.penpot.app/#/view/9cff1166-2265-80f2-8005-2fd893e53b00?page-id=9cff1166-2265-80f2-8005-2fd893e53b01&section=interactions&index=0&share-id=226a7763-6852-8092-8005-2ff2c286b2cc&interactions-mode=show-on-click )

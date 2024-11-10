@@ -52,7 +52,7 @@
               <img @click="toggleSearch" src="./img/svg/search.svg" alt="buscar" width="30px">
               <div v-if="searchInputVisible" class="d-flex j-center align-center buscador">
                 <input type="text" v-model="query" @input="buscarProd" id="inputbuscar"
-                  placeholder="Buscar producto...">
+                  placeholder="Cercar producte...">
               </div>
               <div class="carrito" style="margin-left: 10px;" @click="toggleCart">
                 <img src="./img/svg/cart.svg" alt="cart" width="30px">
@@ -340,10 +340,10 @@
             <div class="signup" v-if="regVisible">
               <div>
                 <h2 class="form-title" style="color: #f39212;">Registra't</h2>
-                <input type="text" name="txt" placeholder="Username" required="">
-                <input type="email" name="email" placeholder="Email" required="">
-                <input type="password" name="pswd" placeholder="Password" required="">
-                <input type="number" name="phone" placeholder="Telefon" required="">
+                <input type="text" name="txt" placeholder="Nom d'usuari" required="">
+                <input type="email" name="email" placeholder="Correu electrònic" required="">
+                <input type="password" name="pswd" placeholder="Contrasenya" required="">
+                <input type="number" name="phone" placeholder="Telèfon" required="">
                 <button @click="register" class="btn-primary">Registrar</button>
                 <p @click="toggleRegLog" style="color: blue;">Inicia sessió</p>
               </div>
@@ -356,8 +356,8 @@
             <div class="login" v-if="!regVisible">
               <div>
                 <h2 class="form-title" style="color: #f39212;">Inicia sessió</h2>
-                <input type="email" v-model="loginEmail" placeholder="Email" required="">
-                <input type="password" v-model="loginPassword" placeholder="Password" required="">
+                <input type="email" v-model="loginEmail" placeholder="Correu electrònic" required="">
+                <input type="password" v-model="loginPassword" placeholder="Contrasenya" required="">
                 <button @click="login" class="btn-primary">Iniciar Sesión</button>
                 <!--<p>Forget password</p>-->
                 <p @click="toggleRegLog" style="color:blue;">Usuari nou?</p>
@@ -385,8 +385,8 @@
             <form @submit.prevent="login">
               <h2 class="form-title" style="color: #f39212;">Administració</h2>
               <p style="margin: 0px 0px 10px 0px;">CRUD</p>
-              <input type="email" v-model="loginEmail" placeholder="Email" required="">
-              <input type="password" v-model="loginPassword" placeholder="Password" required="">
+              <input type="email" v-model="loginEmail" placeholder="Correu electrònic" required="">
+              <input type="password" v-model="loginPassword" placeholder="Contrasenya" required="">
               <button type="submit" class="btn-primary">Iniciar Sesión</button>
               <!--<p>Forget password</p>-->
             </form>
@@ -435,12 +435,12 @@
         <div class="d-flex f-column w-full" id="infoCheckout">
           <label for="fullnameCustomer">Nom complet</label>
           <input type="text" id="fullnameCustomer" class="px-10" v-model="fullnameCustomer"
-            placeholder="Your full name">
+            placeholder="El teu nom complet">
           <label for="emailCustomer">Correu electrònic</label>
-          <input type="email" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Enter your email">
+          <input type="email" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Introdueix el teu correu electrònic">
           <label for="phoneCustomer">Número de telèfon</label>
           <input type="number" id="phoneCustomer" class="px-10" v-model="phoneCustomer"
-            placeholder="Enter your phone number">
+            placeholder="Introdueix el teu correu electrònic">
           <label class="d-flex align-center w-33" style="margin-top: -10px;">
             <input type="checkbox" v-model="isGift" name="isGift" id="isGift">
             <p>És un regal?</p>

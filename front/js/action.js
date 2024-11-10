@@ -157,6 +157,7 @@ createApp({
             productsCategVisible.value = false;
             juegosSimilaresVisible.value = false;
             categVisible.value = false;
+            adminLoginVisible.value = false;
         }
 
         function productosMasVendidos() {
@@ -206,8 +207,10 @@ createApp({
         }
 
         function toggleQuiSom() {
-            quiSomVisible.value = !quiSomVisible.value;
-            landingVisible.value = !landingVisible.value;
+            quiSomVisible.value = true;
+            landingVisible.value = false;
+            adminLoginVisible.value = false;
+            categoriesVisible.value = false;
             document.getElementById('menu_burger').checked = false;
         }
 
@@ -216,6 +219,7 @@ createApp({
             landingVisible.value = false;
             products.value = false;
             categoriesVisible.value = false;
+            quiSomVisible.value = false;
             document.getElementById('menu_burger').checked = false;
         }
 

@@ -28,7 +28,7 @@
         }
 
         h1 {
-            color: #f48c42; /* Naranja */
+            color: #f48c42; 
             font-size: 26px;
         }
 
@@ -39,11 +39,11 @@
         }
 
         .status {
-            background-color: #f48c42; /* Naranja */
+            background-color: #f48c42; 
             color: #fff;
             padding: 10px 20px;
             font-weight: bold;
-            font-size: 20px; /* Tamaño ajustado */
+            font-size: 20px; 
             border-radius: 10px;
             display: inline-block;
             margin-top: 20px;
@@ -79,7 +79,7 @@
         }
 
         .footer a {
-            color: #f48c42; /* Naranja */
+            color: #f48c42; 
             text-decoration: none;
         }
 
@@ -105,7 +105,6 @@
         <p>Hola, <strong>{{ $order->fullname }}</strong>!</p>
         <p>La teva comanda <strong>#{{ $order->uuid }}</strong> ha canviat d’estat a:</p>
 
-        <!-- Estado centrado y ajustado -->
         <div class="status">{{ $order->status }}</div>
 
         <h2>Resum de la teva comanda</h2>

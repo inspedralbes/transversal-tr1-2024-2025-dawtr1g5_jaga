@@ -54,7 +54,7 @@ class comandaController extends Controller
         try {
             \Mail::to($email)->send(new \App\Mail\OrderStatusUpdate($order));
         } catch (\Exception $e) {
-            // Si ocurre un error, se puede loguear o manejar de alguna forma
+           
             \Log::error('Error al enviar el correo de estado de la orden: ' . $e->getMessage());
         }
     

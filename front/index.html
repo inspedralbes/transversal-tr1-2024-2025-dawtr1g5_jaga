@@ -52,7 +52,7 @@
               <img @click="toggleSearch" src="./img/svg/search.svg" alt="buscar" width="30px">
               <div v-if="searchInputVisible" class="d-flex j-center align-center buscador">
                 <input type="text" v-model="query" @input="buscarProd" id="inputbuscar"
-                  placeholder="Buscar producto...">
+                  placeholder="Cercar producte...">
               </div>
               <div class="carrito" style="margin-left: 10px;" @click="toggleCart">
                 <img src="./img/svg/cart.svg" alt="cart" width="30px">
@@ -137,7 +137,7 @@
 
       <div v-if="products">
         <div class="containerProd d-flex desk-none">
-          <p class="no-margin" style="font-weight: 600;">Los más vendidos</p>
+          <p class="no-margin" style="font-weight: 600;">Els més venuts</p>
           <div class="prods d-flex">
             <div class="prod" v-for="producto in productosFiltrados" :key="producto.id">
               <div class="d-flex j-center" @click="mostrarProd(producto.id)">
@@ -176,7 +176,7 @@
 
         <div class="d-flex j-center align-center mobile-none products" style="flex-direction: column;">
           <div class="filter d-flex" style="margin-top: 5%;">
-            [FILTROS DE BUSQUEDA]
+            [FILTRES DE CERCA]
           </div>
           <div class="d-grid containProducts">
             <div class="contItem p-relative" v-for="producto in infoTotal.datos" :key="producto.id">
@@ -189,7 +189,7 @@
                   <p class="priceItem no-margin">€{{producto.price}}</p>
                 </div>
                 <button class="w-full btn-add p-absolute" style="bottom: 0;" :disabled="producto.stock === 0"
-                  @click="addCart(producto.id)">Add to cart</button>
+                  @click="addCart(producto.id)">Afegeix a la cistella</button>
               </div>
             </div>
           </div>
@@ -199,7 +199,7 @@
 
         <div class="d-flex j-center align-center desk-none" style="flex-direction: column;">
           <div class="filter d-flex">
-            [FILTROS DE BUSQUEDA]
+            [FILTRES DE CERCA]
           </div>
           <div class="d-grid containProducts">
             <div class="contItem p-relative" v-for="producto in paginatedProducts()" :key="producto.id">
@@ -212,8 +212,8 @@
                   <p class="priceItem no-margin">€{{producto.price}}</p>
                 </div>
                 <button class="w-full btn-add p-absolute" v-if="producto.stock > 0" style="bottom: 0;"
-                  @click="addCart(producto.id)">Add to cart</button>
-                <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Add to cart</button>
+                  @click="addCart(producto.id)">Afegeix a la cistella</button>
+                <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Afegeix a la cistella</button>
               </div>
             </div>
           </div>
@@ -221,8 +221,8 @@
           <!-- Controles de Paginación -->
           <div class="pagination-controls">
             <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
-            <span>Page {{ currentPage }} of {{ totalPages() }}</span>
-            <button @click="nextPage" :disabled="currentPage === totalPages()">Next</button>
+            <span>Pàgina {{ currentPage }} de {{ totalPages() }}</span>
+            <button @click="nextPage" :disabled="currentPage === totalPages()">Següent</button>
           </div>
         </div>
 
@@ -246,7 +246,7 @@
         </div>
         <div class="infoDet">
           <p v-if="prodActual.stock >= 10">Disponible</p>
-          <p v-else-if="prodActual.stock > 0">Últimas unidades ({{prodActual.stock}})</p>
+          <p v-else-if="prodActual.stock > 0">Últimes unitats ({{prodActual.stock}})</p>
           <p v-else>No disponible</p>
           <p class="titleProd no-margin">{{prodActual.title}}</p>
           <p class="priceProd no-margin">€{{prodActual.price}}</p>
@@ -258,7 +258,7 @@
               <input type="number" name="cant" :value="quantitat" class="contador" readonly>
               <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
             </div>
-            <button class="btn-addProd mobile-none" @click="addCart(prodActual.id)">Add to cart</button>
+            <button class="btn-addProd mobile-none" @click="addCart(prodActual.id)">Afegeix a la cistella</button>
           </div>
         </div>
         <div class="d-flex align-center j-between w-full p-fixed footerProd desk-none">
@@ -267,7 +267,7 @@
             <input type="number" name="cant" :value="quantitat" class="contador" readonly>
             <button @click="increment(prodActual.id)"><img src="./img/svg/add.svg" width="25px"></button>
           </div>
-          <button class="btn-addProd desk-none" @click="addCart(prodActual.id)">Add to cart</button>
+          <button class="btn-addProd desk-none" @click="addCart(prodActual.id)">Afegeix a la cistella</button>
 
           <!-- AVERIGUAR COMO DESHABILITAR EL BOTÓN EN CASO DE NO TENER STOCK SUFICIENTE CON LA CANTIDAD QUE ELIGE EL USUSARIO -->
         </div>
@@ -347,13 +347,13 @@
 
             <div class="signup" v-if="regVisible">
               <div>
-                <h2 class="form-title" style="color: #f39212;">Register</h2>
-                <input type="text" name="txt" placeholder="Username" required="">
-                <input type="email" name="email" placeholder="Email" required="">
-                <input type="password" name="pswd" placeholder="Password" required="">
-                <input type="number" name="phone" placeholder="Telefon" required="">
+                <h2 class="form-title" style="color: #f39212;">Registra't</h2>
+                <input type="text" name="txt" placeholder="Nom d'usuari" required="">
+                <input type="email" name="email" placeholder="Correu electrònic" required="">
+                <input type="password" name="pswd" placeholder="Contrasenya" required="">
+                <input type="number" name="phone" placeholder="Telèfon" required="">
                 <button @click="register" class="btn-primary">Registrar</button>
-                <p @click="toggleRegLog" style="color: blue;">Login</p>
+                <p @click="toggleRegLog" style="color: blue;">Inicia sessió</p>
               </div>
             </div>
 
@@ -363,12 +363,12 @@
 
             <div class="login" v-if="!regVisible">
               <div>
-                <h2 class="form-title" style="color: #f39212;">Login</h2>
-                <input type="email" v-model="loginEmail" placeholder="Email" required="">
-                <input type="password" v-model="loginPassword" placeholder="Password" required="">
+                <h2 class="form-title" style="color: #f39212;">Inicia sessió</h2>
+                <input type="email" v-model="loginEmail" placeholder="Correu electrònic" required="">
+                <input type="password" v-model="loginPassword" placeholder="Contrasenya" required="">
                 <button @click="login" class="btn-primary">Iniciar Sesión</button>
                 <!--<p>Forget password</p>-->
-                <p @click="toggleRegLog" style="color:blue;">New user?</p>
+                <p @click="toggleRegLog" style="color:blue;">Usuari nou?</p>
               </div>
             </div>
 
@@ -378,7 +378,7 @@
         </div>
       </div>
       <div v-if="isLogged">
-        <p>Información de usuario</p>
+        <p>Informació d'usuari</p>
       </div>
     </div>
 
@@ -393,8 +393,8 @@
             <form @submit.prevent="login">
               <h2 class="form-title" style="color: #f39212;">Administració</h2>
               <p style="margin: 0px 0px 10px 0px;">CRUD</p>
-              <input type="email" v-model="loginEmail" placeholder="Email" required="">
-              <input type="password" v-model="loginPassword" placeholder="Password" required="">
+              <input type="email" v-model="loginEmail" placeholder="Correu electrònic" required="">
+              <input type="password" v-model="loginPassword" placeholder="Contrasenya" required="">
               <button type="submit" class="btn-primary">Iniciar Sesión</button>
               <!--<p>Forget password</p>-->
             </form>
@@ -436,22 +436,22 @@
       <div v-if="checkoutVisible" id="checkoutLanding" class="d-flex f-column align-center j-center">
         <div class="d-flex align-center w-full header">
           <img src="./img/svg/arrow.svg" alt="cart" @click="backToCart" width="25px" height="25px">
-          <p class="no-margin p-absolute">Information detail</p>
+          <p class="no-margin p-absolute">Detall informatiu</p>
         </div>
         <button @click="toggleLoginRegister">Iniciar sesión</button>
         <p>-------- o --------</p>
         <div class="d-flex f-column w-full" id="infoCheckout">
-          <label for="fullnameCustomer">Full name</label>
+          <label for="fullnameCustomer">Nom complet</label>
           <input type="text" id="fullnameCustomer" class="px-10" v-model="fullnameCustomer"
-            placeholder="Your full name">
-          <label for="emailCustomer">Email</label>
-          <input type="email" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Enter your email">
-          <label for="phoneCustomer">Phone number</label>
+            placeholder="El teu nom complet">
+          <label for="emailCustomer">Correu electrònic</label>
+          <input type="email" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Introdueix el teu correu electrònic">
+          <label for="phoneCustomer">Número de telèfon</label>
           <input type="number" id="phoneCustomer" class="px-10" v-model="phoneCustomer"
-            placeholder="Enter your phone number">
+            placeholder="Introdueix el teu correu electrònic">
           <label class="d-flex align-center w-33" style="margin-top: -10px;">
             <input type="checkbox" v-model="isGift" name="isGift" id="isGift">
-            <p>Is a gift?</p>
+            <p>És un regal?</p>
           </label>
           <button @click="finalitzarCompra">Comprar</button>
         </div>
@@ -461,7 +461,7 @@
       <div v-if="checkoutVisible" id="checkoutLanding" class="d-flex f-column align-center j-center">
         <div class="d-flex align-center w-full header">
           <img src="./img/svg/arrow.svg" alt="cart" @click="backToCart" width="25px" height="25px">
-          <p class="no-margin p-absolute">Information detail</p>
+          <p class="no-margin p-absolute">Detall informatiu</p>
         </div>
         <p style="margin-top: 0;">Resum de la compra</p>
         <div class="w-full"
@@ -483,7 +483,7 @@
         <div class="w-full">
           <p style="margin-top: 0px;"><span style="font-weight: 500;">Nom: </span><span
               style="font-weight: 200;">{{user.datos.name}}</span></p>
-          <p><span style="font-weight: 500;">Email: </span><span style="font-weight: 200;">{{user.datos.email}}</span>
+          <p><span style="font-weight: 500;">Correu electrònic: </span><span style="font-weight: 200;">{{user.datos.email}}</span>
           </p>
           <p><span style="font-weight: 500;">Telèfon: </span><span style="font-weight: 200;">{{user.datos.phone}}</span>
           </p>
@@ -526,8 +526,8 @@
       <!-- Controles de Paginación -->
       <div class="pagination-controls">
         <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
-        <span>Page {{ currentPage }} of {{ totalPagesCateg() }}</span>
-        <button @click="nextPageCateg" :disabled="currentPage === totalPagesCateg()">Next</button>
+        <span>Pàgina {{ currentPage }} de {{ totalPagesCateg() }}</span>
+        <button @click="nextPageCateg" :disabled="currentPage === totalPagesCateg()">Següent</button>
       </div>
     </div>
 
@@ -551,8 +551,8 @@
               <p class="priceItem no-margin">€{{producto.price}}</p>
             </div>
             <button class="w-full btn-add p-absolute" v-if="producto.stock > 0" style="bottom: 0;"
-              @click="addCart(producto.id)">Add to cart</button>
-            <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Add to cart</button>
+              @click="addCart(producto.id)">Afegeix a la cistella</button>
+            <button class="w-full p-absolute btn-disabled" v-else style="bottom: 0;">Afegeix a la cistella</button>
           </div>
         </div>
       </div>
@@ -560,8 +560,8 @@
       <!-- Controles de Paginación -->
       <div class="pagination-controls">
         <button @click="prevPage" :disabled="currentPage === 1">Prev</button>
-        <span>Page {{ currentPage }} of {{ totalPagesProductCategory() }}</span>
-        <button @click="nextPageProdCateg" :disabled="currentPage === totalPagesProductCategory()">Next</button>
+        <span>Pàgina {{ currentPage }} de {{ totalPagesProductCategory() }}</span>
+        <button @click="nextPageProdCateg" :disabled="currentPage === totalPagesProductCategory()">Següent</button>
       </div>
     </div>
 

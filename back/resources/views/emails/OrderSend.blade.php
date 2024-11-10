@@ -10,7 +10,6 @@
 <body style="background-color: #f7f7f7; font-family: Arial, sans-serif; margin: 0; padding: 0;">
     <div style="max-width: 600px; margin: auto; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
         
-        <!-- Encabezado -->
         <h1 style="color: #333; text-align: center;">🎉 Gràcies per la teva compra, {{$totalOrder->fullname}}!</h1>
         
         <p style="color: #555; font-size: 16px; text-align: center;">

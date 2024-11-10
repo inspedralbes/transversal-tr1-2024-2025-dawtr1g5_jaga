@@ -27,6 +27,6 @@ class OrderStatusUpdate extends Mailable
     public function build()
     {
         return $this->subject('Actualització de l’estat de la teva comanda')
-                    ->view('emails.orderStatusUpdate'); // Asegúrate de que la vista exista
+                    ->view('emails.orderStatusUpdate'); 
     }
 }

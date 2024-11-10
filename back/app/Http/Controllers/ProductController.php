@@ -15,17 +15,17 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        // Asegúrate de que cada producto tenga la URL completa para la imagen
+       
         $products->transform(function ($product) {
             if ($product->fotoURL) {
-                // Construir la URL completa para la imagen
+                
                 $product->fotoURL = asset('storage/products/' . $product->fotoURL);
             }
             return $product;
         });
 
         if (request()->is('api/*')) {
-            return response()->json($products); // Ahora las imágenes tienen la URL completa
+            return response()->json($products); 
         }
 
         return view('crud', compact('products'));
@@ -71,7 +71,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if ($product) {
-            // Asegúrate de que la URL de la imagen esté completa
+           
             if ($product->fotoURL) {
                 $product->fotoURL = asset('storage/products/' . $product->fotoURL);
             }
@@ -128,21 +128,21 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('fotoURL')) {
-            // Elimina la foto anterior si existe
+           
             if (Storage::exists('public/' . $product->fotoURL)) {
                 Storage::delete('public/' . $product->fotoURL);
             }
 
-            // Obtener el archivo cargado
+           
             $image = $request->file('fotoURL');
 
-            // Obtener solo el nombre del archivo (sin la ruta)
+           
             $imageName = $image->getClientOriginalName();
 
-            // Almacenar el archivo en el almacenamiento público
+           
             $image->storeAs('products', $imageName, 'public');
 
-            // Guardar solo el nombre de la imagen en la base de datos
+            
             $product->fotoURL = $imageName;
         }
 

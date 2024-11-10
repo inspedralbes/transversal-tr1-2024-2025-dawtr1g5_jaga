@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class cartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $orders = orderfinal::all();
@@ -28,9 +26,7 @@ class cartController extends Controller
         return view('index', compact('orders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function createOrderLogged(Request $request)
     {
         $productController = new ProductController();

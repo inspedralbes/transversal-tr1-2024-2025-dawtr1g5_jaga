@@ -115,7 +115,6 @@
       </div>
     </div>
 
-
     <div v-if="landingVisible">
       <div class="portada p-relative">
         <img src="./img/landingimage.jpg" alt="" width="100%">
@@ -132,7 +131,7 @@
         <div class="containerProd d-flex desk-none">
           <p class="no-margin" style="font-weight: 600;">Los más vendidos</p>
           <div class="prods d-flex">
-            <div class="prod" v-for="producto in productosMasVendidos()" :key="producto.id">
+            <div class="prod" v-for="producto in productosFiltrados" :key="producto.id">
               <div class="d-flex j-center" @click="mostrarProd(producto.id)">
                 <img :src="producto.fotoURL" alt="imageProd" height="70px">
               </div>
@@ -270,7 +269,7 @@
       <div class="containerProd d-flex desk-none blank-space" v-if="!categVisible">
         <p class="no-margin" style="font-weight: 600;">Altres products</p>
         <div class="prods d-flex">
-          <div class="prod" v-for="producto in productosAleatorias()" :key="producto.id">
+          <div class="prod" v-for="producto in productosAleatorios" :key="producto.id">
             <div class="d-flex j-center" @click="mostrarProd(producto.id)">
               <img src="./img/svg/image.svg" alt="imageProd" width="90px">
             </div>
@@ -483,11 +482,14 @@
       </div>
     </div>
 
-    <!-- <div v-if="ticketVisible" class="w-full d-flex j-center align-center f-column">
-      <p>OrderID: {{orderId}}</p>
-      <img :src="barcodeOrder" alt="Barcode Scan">
-      <input type="button" value="Volver al inicio" @click="backToHome">
-    </div> -->
+    <div v-if="ticketVisible" class="w-full d-flex j-center align-center f-column" style="padding: 20px; box-sizing: border-box; height: 90vh;">
+      <p class="no-margin" style="text-align: center; font-size: 23px; color: rgb(243, 146, 18); font-weight: 600; margin-bottom: 7px;">Gràcies per la teva compra!</p>
+      <p class="no-margin" style="font-weight: 300;text-align: center;">La teva comanda #{{orderId}} ha sigut processat amb èxit.</p>
+      <p style="font-weight: 300;text-align: center; font-size: 15px;">Rebràs un correu electrònic amb el resum de la teva compra, el tiquet de pagament i l'estat de la teva comanda.
+        Si tens alguna pregunta, no dubtis a contactar-nos.</p>
+      <p>Esperem veure't de nou aviat!</p>
+      <input type="button" value="Tornar a l'inici" @click="backToHome">
+    </div>
 
     <!--Final barra de codigo-->
 

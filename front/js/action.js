@@ -6,6 +6,8 @@ createApp({
         const infoTotal = reactive({ datos: [] });
         const myOrders = reactive({ datos: [] });
         const user = reactive({ datos: [] });
+        let productosAleatorios = ref('');
+        let productosFiltrados = ref('');
         let cart = reactive({ datos: [] });
         let preuTotal = reactive({ total: 0 });
         let prodActual = reactive({ datos: [] })
@@ -27,7 +29,7 @@ createApp({
         let searchInputVisible = ref(false);
         let searchVisible = ref(false);
         let checkoutVisible = ref(false);
-        // let ticketVisible = ref(false);
+        let ticketVisible = ref(false);
         let preCheckoutVisible = ref(true);
         let postCheckoutVisible = ref(false);
         let registerLoginVisible = ref(false);
@@ -64,13 +66,14 @@ createApp({
             try {
                 const data = await getProducts();
                 infoTotal.datos = data;
+
+                productosFiltrados.value = productosMasVendidos();
+
                 if (localStorage.getItem('token')) {
                     const orders = await getMyOrders();
                     myOrders.datos = orders;
+                    localStorage.removeItem('token');
                 }
-
-                localStorage.removeItem('token');
-
                 const dataCateg = await getCategories();
                 categories.datos = dataCateg;
             } catch {
@@ -78,12 +81,6 @@ createApp({
             }
             // calcularTotal();
         });
-
-        const productosAleatorias = () => {
-            let aux = JSON.parse(JSON.stringify(infoTotal.datos));
-            console.log(aux);
-            return aux.sort(() => Math.random() - 0.5).slice(0, 15);
-        };
 
         const totalPages = () => {
             const pages = infoTotal.datos.length / itemsPerPage.value;
@@ -149,7 +146,7 @@ createApp({
             searchInputVisible.value = false;
             searchVisible.value = false;
             checkoutVisible.value = false;
-            // ticketVisible.value = false;
+            ticketVisible.value = false;
             preCheckoutVisible.value = false;
             postCheckoutVisible.value = false;
             registerLoginVisible.value = false;
@@ -167,6 +164,12 @@ createApp({
             let aux = infoTotal;
             return aux.datos.filter(producto => producto.stock < 8);
         }
+
+        function productosRandom() {
+            let aux = JSON.parse(JSON.stringify(infoTotal.datos));
+            console.log(aux);
+            return aux.sort(() => Math.random() - 0.5).slice(0, 15);
+        };
 
         async function showProducts(categ) {
             if (categoriesVisible.value) {
@@ -259,7 +262,8 @@ createApp({
         function mostrarProd(productId) {
             productVisible.value = false;
             productoActualId.value = productId;
-            console.log(productId);
+            productosAleatorios.value = productosRandom();
+
             // Mostrar los productos/datos dentro de Categoria
             if (productsCategVisible.value) {
                 juegosSimilaresVisible.value = true;
@@ -295,7 +299,7 @@ createApp({
         function backToHome() {
             landingVisible.value = true;
             checkoutVisible.value = false;
-            // ticketVisible.value = false;
+            ticketVisible.value = false;
         }
 
         function toggleSearch() {
@@ -420,8 +424,8 @@ createApp({
                     isGift.value = false;
                     cartVisible.value = false;
                     checkoutVisible.value = false;
-                    landingVisible.value = true;
-                    // ticketVisible.value = true;
+                    landingVisible.value = false;
+                    ticketVisible.value = true;
                 }
             } else {
                 alert("La cistella està buida");
@@ -559,7 +563,7 @@ createApp({
             showCheckout,
             checkoutVisible,
             backToCart,
-            // ticketVisible,
+            ticketVisible,
             orderId,
             barcodeOrder,
             preCheckoutVisible,
@@ -608,9 +612,10 @@ createApp({
             paginatedProductsCategories,
             nextPageProdCateg,
             categVisible,
-            productosAleatorias,
+            productosAleatorios,
             adminLoginVisible,
             user,
+            productosFiltrados,
         };
     }
 }).mount('#appVue');

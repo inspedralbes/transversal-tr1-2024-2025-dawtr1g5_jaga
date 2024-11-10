@@ -82,21 +82,16 @@ Un cop instal·lat, obrim el panell de control de XAMPP i activa els mòduls Apa
     Afegim Sanctum a les configuracions de la nostra API i a les rutes protegides en el fitxer api.php:
     Utilitzem el middleware de Sanctum a les rutes d’autenticació al fitxer routes/api.php.
 
-3. Configuració del Frontend amb Vue 3
-Instal·lem les dependències de Node.js:
-S'ha de executar el següent comandament al directori arrel per instal·lar totes les dependències del frontend:
-         npm install
-
-4. Proves de l'API amb Postman
+3. Proves de l'API amb Postman
 Instal·lem Postman desde les extensions del Visual Code.
 Creem una col·lecció a Postman per als endpoints de l’API i configurem les peticions segons els endpoints documentats.
 
-5. Iniciar el Servidor Local
+4. Iniciar el Servidor Local
 Per poder executar el nostre servidor de desenvolupament de Laravel hem d'anar a backend i posar el següent comando:
     php artisan serve
 I el servidor estarà disponible a http://localhost:8000.
 
-6. Iniciar el Frontend: Utilizem del Live Server.
+5. Iniciar el Frontend: Utilizem del Live Server.
 
 🌐 Adreça web del projecte (Penpot)
 Aquí es pot veure una vista prèvia del nostre disseny de la botiga en Penpot:  https://design.penpot.app/#/view/9cff1166-2265-80f2-8005-2fd893e53b00?page-id=9cff1166-2265-80f2-8005-2fd893e53b01&section=interactions&index=0&share-id=226a7763-6852-8092-8005-2ff2c286b2cc&interactions-mode=show-on-click 

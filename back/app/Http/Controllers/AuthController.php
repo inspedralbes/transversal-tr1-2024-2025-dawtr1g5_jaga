@@ -56,13 +56,13 @@ class AuthController extends Controller
                 $user = Auth::user();
                 $token = $user->createToken('auth_token', [], Carbon::now()->addMinutes(60))->plainTextToken;
                 Log::info('Inicio de sesión exitoso:', ['user' => $user]);
-                return response()->json(['message' => 'Inicio de sesión exitoso', 'token' => $token], 200);
+                return response()->json(['message' => 'Inici de sessió exitosa', 'token' => $token], 200);
             }
 
-            Log::warning("Intento de login fallido. Credenciales incorrectas:", ['email' => $request->input('email')]);
-            return response()->json(['message' => 'Credenciales incorrectas'], 401);
+            Log::warning("Intenció d'iniciar sessió fallida. Credencials incorrectes:", ['email' => $request->input('email')]);
+            return response()->json(['message' => 'Credencials incorrectes'], 401);
         } catch (\Exception $e) {
-            Log::error('Error durante el inicio de sesión: ' . $e->getMessage());
+            Log::error('Error durant  el inicio de sesió: ' . $e->getMessage());
             return response()->json(['message' => 'Error en el servidor'], 500);
         }
     }
@@ -71,7 +71,7 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         $user->tokens()->delete(); // Revocar todos los tokens
-        Log::info('Usuario desconectado.');
-        return response()->json(['message' => 'Usuario desconectado exitosamente'], 200);
+        Log::info('Usuari desconnectat.');
+        return response()->json(['message' => 'Usuari desconnectat exitosamente'], 200);
     }
 }

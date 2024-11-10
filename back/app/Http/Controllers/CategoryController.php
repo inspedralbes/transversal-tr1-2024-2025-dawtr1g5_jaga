@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $category->fotoURL = $imagePath;  
         $category->save();
 
-        return redirect()->route('categories')->with('success', 'Categoría añadida con éxito.');
+        return redirect()->route('categories')->with('success', 'Categoria añadida amb èxit.');
     }
 
     public function destroy($id)
@@ -64,7 +64,7 @@ class CategoryController extends Controller
         }
         $category->delete();
 
-        return redirect()->route('categories')->with('success', 'Categoría eliminada con éxito.');
+        return redirect()->route('categories')->with('success', 'Categoria eliminada amb èxit.');
     }
 
     public function addProduct(Request $request, $categoryId)
@@ -79,7 +79,7 @@ class CategoryController extends Controller
         // Asociar el producto a la categoría
         $category->products()->attach($product->id);
 
-        return redirect()->route('categprod', $categoryId)->with('success', 'Producto añadido a la categoría.');
+        return redirect()->route('categprod', $categoryId)->with('success', 'Producte afegit a la categoria.');
     }
 
     public function removeProduct($categoryId, $productId)
@@ -90,6 +90,6 @@ class CategoryController extends Controller
         // Desasociar el producto de la categoría
         $category->products()->detach($product->id);
 
-        return redirect()->route('categprod', $categoryId)->with('success', 'Producto eliminado de la categoría.');
+        return redirect()->route('categprod', $categoryId)->with('success', 'Producte eliminat de la categoria.');
     }
 }

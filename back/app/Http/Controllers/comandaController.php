@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\orderfinal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail; 
-
 
 class comandaController extends Controller
 {
@@ -64,6 +61,4 @@ class comandaController extends Controller
         // Redirigir con un mensaje de éxito
         return redirect()->route('index')->with('success', 'Estat de la comanda actualitzat correctament.');
     }
-    
-
 }

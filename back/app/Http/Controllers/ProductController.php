@@ -16,12 +16,22 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
+        // Asegúrate de que cada producto tenga la URL completa para la imagen
+        $products->transform(function ($product) {
+            if ($product->fotoURL) {
+                // Construir la URL completa para la imagen
+                $product->fotoURL = asset('storage/products/' . $product->fotoURL);
+            }
+            return $product;
+        });
+
         if (request()->is('api/*')) {
-            return response()->json($products);
+            return response()->json($products); // Ahora las imágenes tienen la URL completa
         }
 
         return view('crud', compact('products'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -40,28 +50,34 @@ class ProductController extends Controller
             return redirect()->route('products.create')
                 ->withErrors($validator)
                 ->withInput();
-        }        
-        
+        }
+
         $product = $request->only(['title', 'description', 'price', 'stock']);
-        
+
         if ($request->hasFile('fotoURL')) {
             $imagePath = $request->file('fotoURL')->store('products', 'public');
             $product['fotoURL'] = $imagePath;
-        }        
+        }
 
         Product::create($product);
 
         return redirect()->route('products.index')->with('success', 'Producto agregado correctamente');
     }
 
-    
+
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
         $product = Product::find($id);
+
         if ($product) {
+            // Asegúrate de que la URL de la imagen esté completa
+            if ($product->fotoURL) {
+                $product->fotoURL = asset('storage/products/' . $product->fotoURL);
+            }
+
             return response()->json([
                 "product" => $product,
                 "status" => 200
@@ -73,6 +89,7 @@ class ProductController extends Controller
             ]);
         }
     }
+
 
     public function search(Request $request)
     {
@@ -98,7 +115,7 @@ class ProductController extends Controller
             "description" => "required",
             "price" => "required|numeric",
             "stock" => "required|integer",
-            "fotoURL" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048", 
+            "fotoURL" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
         ]);
 
         if ($validator->fails()) {
@@ -113,13 +130,24 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('fotoURL')) {
+            // Elimina la foto anterior si existe
             if (Storage::exists('public/' . $product->fotoURL)) {
                 Storage::delete('public/' . $product->fotoURL);
             }
 
-            $imagePath = $request->file('fotoURL')->store('products', 'public');
-            $product->fotoURL = $imagePath;  
+            // Obtener el archivo cargado
+            $image = $request->file('fotoURL');
+
+            // Obtener solo el nombre del archivo (sin la ruta)
+            $imageName = $image->getClientOriginalName();
+
+            // Almacenar el archivo en el almacenamiento público
+            $image->storeAs('products', $imageName, 'public');
+
+            // Guardar solo el nombre de la imagen en la base de datos
+            $product->fotoURL = $imageName;
         }
+
 
         // Actualizar el producto
         $product->update($request->only(['title', 'description', 'price', 'stock']));

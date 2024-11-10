@@ -13,19 +13,34 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        // Validar el request...
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'phone' => 'nullable|regex:/^[0-9]{9}$/',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422); 
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
         ]);
 
-        // Generar un token
         $token = $user->createToken('token_name')->plainTextToken;
 
-        return response()->json(['user' => $user, 'token' => $token], 201);
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ], 201); 
     }
+
 
 
     public function login(Request $request)

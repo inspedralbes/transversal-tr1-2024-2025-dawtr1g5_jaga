@@ -18,8 +18,8 @@ Route::get('/crud', [ProductController::class, 'index'])->name('crud');
 Route::get('/comandes', [cartController::class, 'index'])->name('index');
 Route::get('/comandes/{id}', [ComandaController::class, 'show'])->name('comandes');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categprod');
+Route::get('/categories', [CategoryController::class, 'indexCRUD'])->name('categories');
+Route::get('/categories/{id}', [CategoryController::class, 'showCRUD'])->name('categprod');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::post('/categories/{id}/add-product', [CategoryController::class, 'addProduct'])->name('categories.product.add');
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');Route::delete('/categories/{categoryId}/products/{productId}', [CategoryController::class, 'removeProduct'])->name('categories.product.remove');

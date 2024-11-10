@@ -21,5 +21,3 @@ class Category extends Model
         return $this->belongsToMany(Product::class, 'category_product', 'categID', 'prodID');
     }
 }
-
-

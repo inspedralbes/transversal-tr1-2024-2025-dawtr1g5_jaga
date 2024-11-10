@@ -186,38 +186,6 @@
             </div>
           </div>
         </div>
-        <!-- Footer -->
-<footer class="footer-container">
-  <div class="footer-section brand">
-    <h3>La Teva Botiga Online</h3>
-    <p>Marca registrada © 2024</p>
-    <img src="./img/lettermark.png" alt="Logo de la marca" class="footer-logo">
-  </div>
-
-  <div class="footer-section social">
-    <h4>Segueix-nos</h4>
-    <div class="social-links">
-      <a href="https://facebook.com" target="_blank" aria-label="Facebook">Facebook</a>
-      <a href="https://instagram.com" target="_blank" aria-label="Instagram">Instagram</a>
-      <a href="https://twitter.com" target="_blank" aria-label="Twitter">Twitter</a>
-    </div>
-  </div>
-
-  <div class="footer-section contact">
-    <h4>Contacte</h4>
-    <p>Telèfon: +34 610 456 579</p>
-    <p>Email: hello@racodeljoc.com</p>
-  </div>
-
-  <div class="footer-section legal">
-    <h4>Enllaços</h4>
-    <ul>
-      <li><a href="aviso-legal.html">Avís Legal</a></li>
-      <li><a href="privacidad.html">Política de Privacitat</a></li>
-      <li><a href="condiciones.html">Condicions de Contractació</a></li>
-    </ul>
-  </div>
-</footer>
 
         <!--Products mobile-->
 
@@ -501,7 +469,8 @@
             </div>
           </div>
         </div>
-        <div class="w-full d-flex j-right" style="font-size: 15px; margin-right: 10px; margin-top: 10px;"><span style="font-weight: 500; margin-right: 10px;">Total: </span>€{{preuTotal.total.toFixed(2)}}</div>
+        <div class="w-full d-flex j-right" style="font-size: 15px; margin-right: 10px; margin-top: 10px;"><span
+            style="font-weight: 500; margin-right: 10px;">Total: </span>€{{preuTotal.total.toFixed(2)}}</div>
         <p style="margin-bottom: 0;">Informació de l'usuari</p>
         <div class="w-full">
           <p style="margin-top: 0px;"><span style="font-weight: 500;">Nom: </span><span
@@ -515,10 +484,15 @@
       </div>
     </div>
 
-    <div v-if="ticketVisible" class="w-full d-flex j-center align-center f-column" style="padding: 20px; box-sizing: border-box; height: 90vh;">
-      <p class="no-margin" style="text-align: center; font-size: 23px; color: rgb(243, 146, 18); font-weight: 600; margin-bottom: 7px;">Gràcies per la teva compra!</p>
-      <p class="no-margin" style="font-weight: 300;text-align: center;">La teva comanda #{{orderId}} ha sigut processat amb èxit.</p>
-      <p style="font-weight: 300;text-align: center; font-size: 15px;">Rebràs un correu electrònic amb el resum de la teva compra, el tiquet de pagament i l'estat de la teva comanda.
+    <div v-if="ticketVisible" class="w-full d-flex j-center align-center f-column"
+      style="padding: 20px; box-sizing: border-box; height: 90vh;">
+      <p class="no-margin"
+        style="text-align: center; font-size: 23px; color: rgb(243, 146, 18); font-weight: 600; margin-bottom: 7px;">
+        Gràcies per la teva compra!</p>
+      <p class="no-margin" style="font-weight: 300;text-align: center;">La teva comanda #{{orderId}} ha sigut processat
+        amb èxit.</p>
+      <p style="font-weight: 300;text-align: center; font-size: 15px;">Rebràs un correu electrònic amb el resum de la
+        teva compra, el tiquet de pagament i l'estat de la teva comanda.
         Si tens alguna pregunta, no dubtis a contactar-nos.</p>
       <p>Esperem veure't de nou aviat!</p>
       <input type="button" value="Tornar a l'inici" @click="backToHome">
@@ -582,6 +556,31 @@
         <button @click="nextPageProdCateg" :disabled="currentPage === totalPagesProductCategory()">Next</button>
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer v-if="landingVisible" class="footer-container">
+      
+      <div class="footer-section social">
+        <img src="./img/lettermark.png" alt="Logo de la marca" class="footer-logo">
+        <h4>Segueix-nos</h4>
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><img src="img/svg/facebook.svg" alt="Facebook" width="20px"></a>
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram"><img src="img/svg/instagram.svg" alt="Instagram" width="20px"></a>
+          <a href="https://twitter.com" target="_blank" aria-label="Twitter"><img src="img/svg/twitter.svg" alt="Twitter" width="20px"></a>
+        </div>
+      </div>
+      
+      <div class="footer-section contact">
+        <h4>Contacte</h4>
+        <p>Telèfon: +34 610 456 579</p>
+        <p>Email: hello@racodeljoc.com</p>
+      </div>
+
+      <div class="footer-section brand">
+        <h3>La Teva Botiga Online</h3>
+        <p>Marca registrada © 2024</p>
+      </div>
+    </footer>
 
     <!--Mas productos con la misma categoria-->
 

@@ -1,5 +1,7 @@
 <?php
 
+// app/Http/Controllers/CategoryController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
@@ -9,28 +11,13 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    public function index() {
-        return Category::all(); // Retorna totes les categories
-    }
-
-    public function indexCRUD()
+    public function index()
     {
         $categories = Category::all();
         return view('categories', compact('categories'));
     }
 
-    public function show($id) {
-        // Obtiene la categoría con sus productos relacionados
-        $category = Category::with('products')->find($id);
-
-        if (!$category) {
-            return response()->json(['message' => 'Categoría no encontrada'], 404);
-        }
-
-        return response()->json($category->products); // Devuelve solo los productos
-    }
-
-    public function showCRUD($id)
+    public function show($id)
     {
         $category = Category::findOrFail($id);
         $products = $category->products;  // Productos ya asociados a esta categoría

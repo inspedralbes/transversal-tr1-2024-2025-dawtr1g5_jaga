@@ -47,7 +47,7 @@ body {
     display: grid;
 }
 
-.f-column {
+.f-column{
     flex-direction: column;
 }
 
@@ -266,16 +266,6 @@ nav {
     padding: 20px;
 }
 
-.containerItem {
-    height: 100px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 20px;
-    background-color: white;
-    overflow: hidden;
-    border: 1px solid rgb(221, 221, 221);
-}
-
 .grid-item {
     background-color: white;
     border-radius: 10px;
@@ -409,6 +399,7 @@ nav {
     height: 172px;
     width: 160px;
     border: 1px solid rgb(201, 201, 201);
+
 }
 
 /* -------------------------------------------------------- */
@@ -454,7 +445,7 @@ nav {
     overflow: hidden;
 }
 
-#cartItem .btn-delete {
+.containerItem .btn-delete {
     margin-right: 20px;
     width: 30px;
 }
@@ -501,7 +492,7 @@ nav {
     background-color: #e65c00;
 }
 
-.btn-disabled {
+.btn-disabled{
     background-color: #adadad;
     border: none;
     height: 25px;
@@ -510,21 +501,21 @@ nav {
     font-weight: bold;
 }
 
-#checkoutLanding {
+#checkoutLanding{
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
 }
 
-#infoCheckout input {
+#infoCheckout input{
     height: 30px;
     border-radius: 10px;
     border: 1px solid rgb(196, 196, 196);
-    box-shadow: 0px 0px 9px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 9px -3px rgba(0,0,0,0.1);
     margin-bottom: 5px;
 }
 
-.header {
+.header{
     background-color: white;
     position: fixed;
     height: 40px;
@@ -534,7 +525,7 @@ nav {
     padding: 10px;
 }
 
-.header p {
+.header p{
     font-size: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -632,7 +623,7 @@ nav {
 
 /* ------------------------Buscador------------------------- */
 
-.containerSearch {
+.containerSearch{
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -643,7 +634,7 @@ nav {
     z-index: 2;
 }
 
-.overlay {
+.overlay{
     position: absolute;
     top: 0;
     left: 0;
@@ -656,6 +647,31 @@ nav {
 
 
 /* --------------------------------------------------------- */
+
+/* ------------------------My Orders------------------------ */
+
+.containerItem{
+    height: 100px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid rgb(221, 221, 221);
+}
+
+/* --------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
 
 /* UTILIZAR MOBILE-NONE EN AQUELLAS COSAS QUE APAREZCAN EN DESKTOP Y NO QUERAMOS QUE APAREZCAN EN MOBILE */
 .mobile-none {
@@ -784,22 +800,22 @@ nav {
 
     #cartContainer {
         position: fixed;
-        top: 0;
-        right: 0;
-        width: 500px;
+        top: 0; 
+        right: 0; 
+        width: 500px; 
         height: auto;
-        max-height: 90%;
-        overflow-y: auto;
+        max-height: 90%; 
+        overflow-y: auto; 
         z-index: 1000;
         background-color: white;
-        border-left: 1px solid #ccc;
+        border-left: 1px solid #ccc; 
     }
 
     #cartHeader {
-        position: static;
-        top: 0;
+        position: static; 
+        top: 0; 
         background-color: white;
-        z-index: 1001;
+        z-index: 1001; 
     }
 }
 
@@ -812,16 +828,16 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
-
 /* Estilos generales */
 .registerLogin {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
-}
-
-.form-container {
+    min-height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .form-container {
     position: relative;
     display: flex;
     align-items: center;
@@ -829,29 +845,31 @@ input[type=number] {
     max-width: 400px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
-}
-
-/* Card de formulario */
-.form-card {
+  }
+  
+  /* Card de formulario */
+  .form-card {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 40px;
     width: 100%;
     text-align: center;
-}
-
-/* Título del formulario */
-.form-title {
+  }
+  
+  /* Título del formulario */
+  .form-title {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
-}
-
-/* Inputs */
-.form-card input {
+  }
+  
+  /* Inputs */
+  .form-card input[type="text"],
+  .form-card input[type="email"],
+  .form-card input[type="password"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -861,15 +879,17 @@ input[type=number] {
     color: #333;
     box-sizing: border-box;
     transition: border-color 0.3s;
-}
-
-.form-card input:focus {
+  }
+  
+  .form-card input[type="text"]:focus,
+  .form-card input[type="email"]:focus,
+  .form-card input[type="password"]:focus {
     border-color: #f39212;
     outline: none;
-}
-
-/* Botón */
-.btn-primary {
+  }
+  
+  /* Botón */
+  .btn-primary {
     width: 100%;
     padding: 12px;
     background-color: #f39212;
@@ -881,241 +901,56 @@ input[type=number] {
     margin-top: 15px;
     font-size: 16px;
     transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
+  }
+  
+  .btn-primary:hover {
     background-color: #e07900;
-}
-
-/* Checkbox oculto */
-#chk {
+  }
+  
+  /* Checkbox oculto */
+  #chk {
     display: none;
-}
-
-/* Ajustes adicionales para dispositivos móviles */
-@media (max-width: 480px) {
+  }
+  
+  /* Ajustes adicionales para dispositivos móviles */
+  @media (max-width: 480px) {
     .form-card {
-        padding: 20px;
+      padding: 20px;
     }
-
+  
     .form-title {
-        font-size: 40px;
-        margin: 0;
+      font-size: 20px;
     }
-
+  
     .btn-primary {
-        font-size: 14px;
+      font-size: 14px;
     }
-}
-
-.pagination-controls{
-    margin-bottom: 20px;
-}
-
-.qui-som-section {
+  }
+  .qui-som-section {
+    background-color: white; /* Fondo blanco */
+    position: fixed; /* O absolute, dependiendo del diseño */
+    top: 0; /* Ajusta según sea necesario */
+    left: 0; /* Ajusta según sea necesario */
+    width: 100%; /* Asegúrate de que ocupa el ancho completo */
+    height: 100%; /* Asegúrate de que ocupa el alto completo */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    background-color: #fafafa;
-}
+    z-index: 1000; /* Asegúrate de que está por encima de otros elementos */
+    /* Otros estilos según sea necesario */
+  }
+  
+  
+  .btn-close {
+    margin-top: 20px; /* Espacio para el botón */
+    background-color: #f39212; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  }
+  
+  
 
-.qui-som-container {
-    max-width: 600px;
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-}
-
-.qui-som-container h2 {
-    font-size: 28px;
-    color: #ff6347;
-    /* Color vibrante para el título */
-    margin-bottom: 15px;
-}
-
-.qui-som-container p {
-    font-size: 16px;
-    color: #333333;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-.horari-title {
-    font-size: 18px;
-    color: #ff6347;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.horari-info {
-    font-size: 15px;
-    color: #666666;
-    background-color: #f9f1e7;
-    /* Fondo suave para el horario */
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.mapa-container {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.mapa {
-    width: 100%;
-    height: 200px;
-    border: none;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
-.adreca-info {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 15px;
-}
-
-.adreca-text {
-    font-size: 15px;
-    color: #666;
-    margin-top: 8px;
-}
-
-.btn-close:hover {
-    background-color: #e57a00;
-}
-
-.btn-close:focus {
-    outline: none;
-}
-
-.btn-close {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #ff8c00;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-}
-
-.containCategories {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    justify-items: center;
-    align-items: center;
-    margin: 15px 0;
-}
-
-
-.contCateg {
-    box-shadow: 5px 5px 3px #727272;
-    width: 125px;
-    height: 180px;
-}
-
-.blank-space {
-    padding-bottom: 100px;
-}
-
-/* General Footer Styles */
-.footer-container {
-    background-color: #222;
-    color: #e0e0e0;
-    padding: 20px 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 15px;
-    text-align: left;
-    font-size: 0.9em;
-    /* Tamaño cómodo de lectura */
-}
-
-.footer-section {
-    flex: 1 1 50px;
-    margin: 5px;
-}
-
-.footer-section h3,
-.footer-section h4 {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: #ffa500;
-    margin-top: 0;
-}
-
-.footer-section p,
-.footer-section ul li {
-    margin: 5px 0;
-    line-height: 1.4;
-}
-
-/* Brand Section */
-img.footer-logo {
-    max-width: 120px;
-    margin-top: 10px;
-}
-
-/* Social Media Links */
-.social .social-links {
-    font-size: 0.9em;
-}
-
-.social a {
-    color: #ffa500;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    margin: 0 5px 0 5px;
-}
-
-.social a:hover {
-    color: #ffd966;
-}
-
-/* Legal Links */
-.legal ul {
-    list-style: none;
-    padding: 0;
-}
-
-.legal a {
-    color: #e0e0e0;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.legal a:hover {
-    color: #ffa500;
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer-section {
-        width: 100%;
-        text-align: center;
-    }
-
-    .social .social-links {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .footer-section h3,
-    .footer-section h4 {
-        font-size: 1em;
-    }
-}
+  
+  

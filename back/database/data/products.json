@@ -1,43 +1,402 @@
 [
-    {
-      "id": 1,
-      "title": "Catan",
-      "price": 35.99,
-      "description": "Un juego de estrategia donde los jugadores colonizan una isla, comercian recursos y construyen asentamientos.",
-      "categories": ["Estrategia", "Comercio", "Construcción"],
-      "stock": 12
-    },
-    {
-      "id": 2,
-      "title": "Dixit",
-      "price": 29.99,
-      "description": "Un juego narrativo donde los jugadores interpretan imágenes surrealistas para contar historias y adivinar cartas.",
-      "categories": ["Creatividad", "Narrativo", "Party"],
-      "stock": 20
-    },
-    {
-      "id": 3,
-      "title": "Carcassonne",
-      "price": 24.99,
-      "description": "Los jugadores construyen ciudades medievales y caminos en este clásico juego de colocación de losetas.",
-      "categories": ["Colocación de losetas", "Estrategia", "Medieval"],
-      "stock": 15
-    },
-    {
-      "id": 4,
-      "title": "Pandemic",
-      "price": 39.99,
-      "description": "Un juego cooperativo donde los jugadores deben trabajar juntos para detener la propagación de enfermedades por todo el mundo.",
-      "categories": ["Cooperativo", "Estrategia", "Salud"],
-      "stock": 8
-    },
-    {
-      "id": 5,
-      "title": "Azul",
-      "price": 31.99,
-      "description": "Un juego abstracto de colocación de azulejos en el que los jugadores compiten para decorar un palacio portugués.",
-      "categories": ["Abstracto", "Colocación de losetas", "Diseño"],
-      "stock": 10
-    }
-  ]
-  
+  {
+    "id": 1,
+    "title": "Catan",
+    "price": 35.99,
+    "description": "Un joc d'estratègia on els jugadors colonitzen una illa, comercien recursos i construeixen assentaments.", 
+    "categories": ["Estratègia", "Comerç", "Construcció"],
+    "stock": 12
+  },
+  {
+    "id": 2,
+    "title": "Dixit",
+    "price": 29.99,
+    "description": "Un joc narratiu on els jugadors interpreten imatges surrealistes per explicar històries i endevinar cartes.",
+    "categories": ["Creativitat", "Narratiu", "Party"],
+    "stock": 20
+  },
+  {
+    "id": 3,
+    "title": "Carcassonne",
+    "price": 24.99,
+    "description": "Els jugadors construeixen ciutats medievals i camins en aquest clàssic joc de col·locació de llosetes.",
+    "categories": ["Col·locació de llosetes", "Estratègia", "Medieval"],
+    "stock": 15
+  },
+  {
+    "id": 4,
+    "title": "Pandemic",
+    "price": 39.99,
+    "description": "Un joc cooperatiu on els jugadors han de treballar junts per aturar la propagació de malalties a tot el món.",
+    "categories": ["Cooperatiu", "Estratègia", "Salut"],
+    "stock": 8
+  },
+  {
+    "id": 5,
+    "title": "Azul",
+    "price": 31.99,
+    "description": "Un joc abstracte de col·locació de rajoles en què els jugadors competeixen per decorar un palau portuguès.",
+    "categories": ["Abstracte", "Col·locació de llosetes", "Disseny"],
+    "stock": 10
+  },
+  {
+    "id": 6,
+    "title": "7 Wonders",
+    "price": 34.99,
+    "description": "Un joc de civilitzacions en el qual els jugadors competeixen per construir la meravella més impressionant de l'antiguitat.",
+    "categories": ["Estratègia", "Civilització", "Construcció"],
+    "stock": 18
+  },
+  {
+    "id": 7,
+    "title": "Ticket to Ride",
+    "price": 44.99,
+    "description": "Un joc d'aventures en tren on els jugadors competeixen per construir rutes i connectar ciutats.",
+    "categories": ["Aventura", "Estratègia", "Viatges"],
+    "stock": 14
+  },
+  {
+    "id": 8,
+    "title": "Scythe",
+    "price": 59.99,
+    "description": "En una Europa alternativa, els jugadors controlen faccions i màquines de guerra en un joc de conquesta i economia.",
+    "categories": ["Estratègia", "Conquesta", "Economia"],
+    "stock": 7
+  },
+  {
+    "id": 9,
+    "title": "Splendor",
+    "price": 24.99,
+    "description": "Un joc d'estratègia ràpida on els jugadors es converteixen en mercaders renaixentistes competint per gemmes i prestigi.",
+    "categories": ["Estratègia", "Economia", "Col·lecció"],
+    "stock": 16
+  },
+  {
+    "id": 10,
+    "title": "Terraforming Mars",
+    "price": 49.99,
+    "description": "Els jugadors competeixen per terraformar Mart, gestionant recursos i col·laborant per fer el planeta habitable.",
+    "categories": ["Ciència-ficció", "Estratègia", "Construcció"],
+    "stock": 9
+  },
+  {
+    "id": 11,
+    "title": "Codenames",
+    "price": 19.99,
+    "description": "Un joc de paraules on els jugadors han de trobar els seus agents secrets basant-se en pistes donades per un company.",
+    "categories": ["Party", "Paraules", "Estratègia"],
+    "stock": 22
+  },
+  {
+    "id": 12,
+    "title": "Kingdomino",
+    "price": 17.99,
+    "description": "Un joc de col·locació de llosetes on els jugadors construeixen el seu regne mitjançant la col·locació estratègica de dominis.",
+    "categories": ["Col·locació de llosetes", "Estratègia", "Regnes"],
+    "stock": 25
+  },
+  {
+    "id": 13,
+    "title": "Gloomhaven",
+    "price": 129.99,
+    "description": "Un joc d'exploració i combat en masmorres, on els jugadors s'embarquen en una èpica aventura cooperativa.",
+    "categories": ["Aventura", "Cooperatiu", "Exploració"],
+    "stock": 5
+  },
+  {
+    "id": 14,
+    "title": "Root",
+    "price": 54.99,
+    "description": "Un joc d'estratègia asimètrica on diferents faccions lluiten pel control d'un bosc.",
+    "categories": ["Estratègia", "Asimètric", "Conquesta"],
+    "stock": 10
+  },
+  {
+    "id": 15,
+    "title": "Patchwork",
+    "price": 19.99,
+    "description": "Un joc per a dos jugadors on competeixen per completar la flassada perfecta utilitzant peces de diferents mides i formes.",
+    "categories": ["Abstracte", "Disseny", "Col·locació de peces"],
+    "stock": 12
+  },
+  {
+    "id": 16,
+    "title": "Agricola",
+    "price": 49.99,
+    "description": "Un joc de gestió de recursos en què els jugadors desenvolupen una granja, cultiven i crien animals.",
+    "categories": ["Estratègia", "Recursos", "Agricultura"],
+    "stock": 6
+  },
+  {
+    "id": 17,
+    "title": "Blood Rage",
+    "price": 74.99,
+    "description": "Un joc d'estratègia i combat on els jugadors lideren clans víkings a la recerca de la glòria al Ragnarok.",
+    "categories": ["Estratègia", "Mitologia", "Combat"],
+    "stock": 8
+  },
+  {
+    "id": 18,
+    "title": "Wingspan",
+    "price": 52.99,
+    "description": "Un joc de col·lecció d'ocells on els jugadors busquen atraure diverses espècies a les seves reserves naturals.",
+    "categories": ["Natura", "Col·lecció", "Estratègia"],
+    "stock": 15
+  },
+  {
+    "id": 19,
+    "title": "The Crew",
+    "price": 14.99,
+    "description": "Un joc cooperatiu de cartes on els jugadors treballen junts per completar missions espacials.",
+    "categories": ["Cooperatiu", "Cartes", "Espai"],
+    "stock": 20
+  },
+  {
+    "id": 20,
+    "title": "Spirit Island",
+    "price": 69.99,
+    "description": "Els jugadors encarnen esperits naturals que defensen la seva illa d'invasors colonials.",
+    "categories": ["Cooperatiu", "Estratègia", "Defensa"],
+    "stock": 7
+  },
+  {
+    "id": 21,
+    "title": "Mysterium",
+    "price": 39.99,
+    "description": "Un joc de misteri on un jugador és un fantasma que dóna pistes per resoldre el seu propi assassinat.",
+    "categories": ["Misteri", "Cooperatiu", "Deductiu"],
+    "stock": 10
+  },
+  {
+    "id": 22,
+    "title": "The Quacks of Quedlinburg",
+    "price": 44.99,
+    "description": "Un joc de construcció de pocions on els jugadors arrisquen els seus ingredients per crear la millor barreja.",
+    "categories": ["Sort", "Estratègia", "Construcció"],
+    "stock": 9
+  },
+  {
+    "id": 23,
+    "title": "Clank!",
+    "price": 54.99,
+    "description": "Un joc d'aventura i exploració on els jugadors roben tresors mentre eviten un drac enfadat.",
+    "categories": ["Aventura", "Exploració", "Sort"],
+    "stock": 11
+  },
+  {
+    "id": 24,
+    "title": "Sheriff of Nottingham",
+    "price": 29.99,
+    "description": "Un joc de fanfarroneria en el qual els jugadors intenten contrabandear mercaderies sota la vigilància del xèrif.",
+    "categories": ["Estratègia", "Fanfarroneria", "Històric"],
+    "stock": 13
+  },
+  {
+    "id": 25,
+    "title": "Everdell",
+    "price": 59.99,
+    "description": "Un joc de col·locació de treballadors on els jugadors desenvolupen una aldea en un bosc encantat.",
+    "categories": ["Col·locació de treballadors", "Estratègia", "Fantasia"],
+    "stock": 8
+  },
+  {
+    "id": 26,
+    "title": "Tokaido",
+    "price": 24.99,
+    "description": "Un joc de viatge i exploració on els jugadors experimenten la ruta de Tokaido al Japó.",
+    "categories": ["Aventura", "Exploració", "Cultura"],
+    "stock": 14
+  },
+  {
+    "id": 27,
+    "title": "Decrypto",
+    "price": 19.99,
+    "description": "Un joc de paraules i comunicació on els equips intenten desxifrar codis secrets.",
+    "categories": ["Party", "Comunicació", "Estratègia"],
+    "stock": 18
+  },
+  {
+    "id": 28,
+    "title": "Raiders of the North Sea",
+    "price": 49.99,
+    "description": "Un joc de col·locació de treballadors on els jugadors lideren un clan víking per saquejar terres.",
+    "categories": ["Aventura", "Col·locació de treballadors", "Conquesta"],
+    "stock": 9
+  },
+  {
+    "id": 29,
+    "title": "Jaipur",
+    "price": 17.99,
+    "description": "Un joc de comerç per a dos jugadors, on els comerciants busquen ser els millors al mercat.",
+    "categories": ["Estratègia", "Comerç", "Cartes"],
+    "stock": 16
+  },
+  {
+    "id": 30,
+    "title": "King of Tokyo",
+    "price": 34.99,
+    "description": "Un joc de daus on monstres lluiten per dominar Tòquio i convertir-se en el rei de la ciutat.",
+    "categories": ["Sort", "Estratègia", "Combat"],
+    "stock": 12
+  },
+  {
+    "id": 31,
+    "title": "El Dorado",
+    "price": 39.99,
+    "description": "Un joc de construcció de baralles on els jugadors competeixen per trobar la llegendària ciutat d'El Dorado.",
+    "categories": ["Aventura", "Construcció de baralles", "Exploració"],
+    "stock": 10
+  },
+  {
+    "id": 32,
+    "title": "Robinson Crusoe",
+    "price": 59.99,
+    "description": "Un joc cooperatiu de supervivència on els jugadors han de treballar junts per sobreviure en una illa deserta.",
+    "categories": ["Cooperatiu", "Aventura", "Supervivència"],
+    "stock": 7
+  },
+  {
+    "id": 33,
+    "title": "Caverna",
+    "price": 89.99,
+    "description": "Un joc de col·locació de treballadors i gestió de recursos on els jugadors desenvolupen una cova agrícola.",
+    "categories": ["Estratègia", "Recursos", "Col·locació de treballadors"],
+    "stock": 6
+  },
+  {
+    "id": 34,
+    "title": "Lost Cities",
+    "price": 24.99,
+    "description": "Un joc de cartes per a dos jugadors que simula expedicions arqueològiques a llocs remots.",
+    "categories": ["Aventura", "Cartes", "Exploració"],
+    "stock": 15
+  },
+  {
+    "id": 35,
+    "title": "Res Arcana",
+    "price": 34.99,
+    "description": "Un joc d'estratègia de construcció de baralles on els jugadors busquen dominar la màgia antiga.",
+    "categories": ["Estratègia", "Màgia", "Construcció de baralles"],
+    "stock": 10
+  },
+  {
+    "id": 36,
+    "title": "Cartographers",
+    "price": 24.99,
+    "description": "Un joc de dibuix de mapes on els jugadors creen els seus propis territoris en un regne de fantasia.",
+    "categories": ["Creativitat", "Estratègia", "Dibuix"],
+    "stock": 18
+  },
+  {
+    "id": 37,
+    "title": "Architects of the West Kingdom",
+    "price": 54.99,
+    "description": "Un joc de col·locació de treballadors on els jugadors construeixen edificis en el regne medieval.",
+    "categories": ["Estratègia", "Construcció", "Col·locació de treballadors"],
+    "stock": 8
+  },
+  {
+    "id": 38,
+    "title": "Isle of Skye",
+    "price": 29.99,
+    "description": "Un joc de col·locació de llosetes on els jugadors construeixen el seu regne a la mítica illa de Skye.",
+    "categories": ["Estratègia", "Col·locació de llosetes", "Construcció"],
+    "stock": 12
+  },
+  {
+    "id": 39,
+    "title": "Viticulture",
+    "price": 49.99,
+    "description": "Un joc de gestió de vinyes on els jugadors competeixen per produir el millor vi.",
+    "categories": ["Estratègia", "Recursos", "Gestió"],
+    "stock": 9
+  },
+  {
+    "id": 40,
+    "title": "Cosmic Encounter",
+    "price": 59.99,
+    "description": "Un joc de negociació i conquesta espacial on cada jugador lidera una raça alienígena amb poders únics.",
+    "categories": ["Estratègia", "Espai", "Conquesta"],
+    "stock": 6
+  },
+  {
+    "id": 41,
+    "title": "Small World",
+    "price": 44.99,
+    "description": "Un joc de conquesta en un món de fantasia on els jugadors controlen races en expansió i declivi.",
+    "categories": ["Estratègia", "Conquesta", "Fantasia"],
+    "stock": 10
+  },
+  {
+    "id": 42,
+    "title": "Descent: Journeys in the Dark",
+    "price": 89.99,
+    "description": "Un joc d'exploració de masmorres i combat cooperatiu, on els jugadors assumeixen el paper d'herois que exploren un món de fantasia, enfrontant-se a monstres i completant missions.",
+    "categories": ["Aventura", "Exploració", "Fantasia"],
+    "stock": 20
+  },
+  {
+    "id": 43,
+    "title": "Mystic Vale",
+    "price": 44.99,
+    "description": "Un joc de construcció de baralles on els jugadors són druides que busquen salvar el seu vall de la corrupció.",
+    "categories": ["Estratègia", "Construcció de baralles", "Natura"],
+    "stock": 8
+  },
+  {
+    "id": 44,
+    "title": "Anachrony",
+    "price": 69.99,
+    "description": "Un joc de gestió de recursos i viatges en el temps en una Terra postapocalíptica.",
+    "categories": ["Estratègia", "Ciència-ficció", "Recursos"],
+    "stock": 7
+  },
+  {
+    "id": 45,
+    "title": "Barrage",
+    "price": 59.99,
+    "description": "Un joc d'estratègia i gestió de recursos ambientat en una època industrial fictícia, on els jugadors competeixen per construir preses hidroelèctriques, canals i centrals per produir energia i dominar el mercat.",
+    "categories": ["Estratègia", "Recursos", "Construcció"],
+    "stock": 13
+  },
+  {
+    "id": 46,
+    "title": "On Mars",
+    "price": 99.99,
+    "description": "Un joc de gestió de recursos on els jugadors treballen per colonitzar Mart.",
+    "categories": ["Ciència-ficció", "Recursos", "Estratègia"],
+    "stock": 5
+  },
+  {
+    "id": 47,
+    "title": "The Isle of Cats",
+    "price": 49.99,
+    "description": "Un joc de rescat de gats on els jugadors els salven i els col·loquen en els seus vaixells per obtenir punts de victòria.",
+    "categories": ["Estratègia", "Animals", "Col·locació de llosetes"],
+    "stock": 14
+  },
+  {
+    "id": 48,
+    "title": "Paladins of the West Kingdom",
+    "price": 59.99,
+    "description": "Un joc d'estratègia i col·locació de treballadors on els jugadors defensen el seu regne d'invasors.",
+    "categories": ["Estratègia", "Col·locació de treballadors", "Medieval"],
+    "stock": 8
+  },
+  {
+    "id": 49,
+    "title": "Rising Sun",
+    "price": 79.99,
+    "description": "Un joc de negociació i combat al Japó feudal, on els jugadors lideren clans a la recerca d'honor.",
+    "categories": ["Estratègia", "Negociació", "Combat"],
+    "stock": 6
+  },
+  {
+    "id": 50,
+    "title": "Calico",
+    "price": 29.99,
+    "description": "Un joc de col·locació de llosetes on els jugadors creen la colxa perfecta per atreure gats adorables.",
+    "categories": ["Disseny", "Animals", "Col·locació de llosetes"],
+    "stock": 15
+  }
+]

@@ -17,13 +17,13 @@ class ProductController extends Controller
         $products = Product::all();
 
        
-        $products->transform(function ($product) {
-            if ($product->fotoURL) {
+        // $products->transform(function ($product) {
+        //     if ($product->fotoURL) {
                 
-                $product->fotoURL = asset('storage/products/' . $product->fotoURL);
-            }
-            return $product;
-        });
+        //         $product->fotoURL = asset('storage/products/' . $product->fotoURL);
+        //     }
+        //     return $product;
+        // });
 
         if (request()->is('api/*')) {
             return response()->json($products); 

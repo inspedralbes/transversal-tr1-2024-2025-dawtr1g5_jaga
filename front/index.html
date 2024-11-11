@@ -40,7 +40,7 @@
                   <li><a href="#" @click="toggleCategories">Categories</a></li>
                   <li><a href="#" @click="toggleQuiSom">On som</a></li>
                   <li><a href="#" @click="toggleAdmin">Admin</a></li>
-                  <li v-if="isLogged"><a href="#" @click="toggleMyOrders">My orders</a></li>
+                  <li v-if="isLogged"><a href="#" @click="toggleMyOrders">Comandes</a></li>
                   <li v-if="isLogged" style="margin-top: 10px;"><a href="#" @click="toggleLogout"><b>Logout</b></a></li>
                 </ul>
               </div>
@@ -90,29 +90,25 @@
         style="z-index: 1000;">
         <div class="d-flex align-center w-full header" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
           <img src="./img/svg/arrow.svg" alt="cart" @click="toggleMyOrders" width="25px" height="25px">
-          <p class="no-margin p-absolute">My orders</p>
+          <p class="no-margin p-absolute">Comandes</p>
         </div>
         <div class="w-full"
           style="margin-top: 50px; height: 100vh; background-color: white; padding: 10px; box-sizing: border-box;">
           <div v-for="order in myOrders.datos" :key="order.id" class="d-flex j-center w-full containerItem">
             <div class="w-full" style="padding: 10px;">
-              <p class="no-margin">Order ID: #{{order.uuid}}</p>
+              <p class="no-margin">Comanda ID: #{{order.uuid}}</p>
               <p class="no-margin" style="font-size: 12px;">
-                Status:
-                <span v-if="order.status == 'pendent'"
-                  style="background-color: rgb(255, 244, 145); padding: 0px 2px;">
+                Estat:
+                <span v-if="order.status == 'pendent'" style="background-color: rgb(255, 244, 145); padding: 0px 2px;">
                   Pendent
                 </span>
-                <span v-if="order.status == 'preparat'"
-                  style="background-color: rgb(204, 255, 145); padding: 0px 2px;">
+                <span v-if="order.status == 'preparat'" style="background-color: rgb(204, 255, 145); padding: 0px 2px;">
                   Preparat
                 </span>
-                <span v-if="order.status == 'rebutjat'"
-                  style="background-color: rgb(255, 167, 145); padding: 0px 2px;">
+                <span v-if="order.status == 'rebutjat'" style="background-color: rgb(255, 167, 145); padding: 0px 2px;">
                   Rebutjat
                 </span>
-                <span v-if="order.status == 'entregat'"
-                  style="background-color: rgb(255, 198, 145); padding: 0px 2px;">
+                <span v-if="order.status == 'entregat'" style="background-color: rgb(255, 198, 145); padding: 0px 2px;">
                   Entregat
                 </span>
               </p>
@@ -141,7 +137,7 @@
           <div class="prods d-flex">
             <div class="prod" v-for="producto in productosFiltrados" :key="producto.id">
               <div class="d-flex j-center" @click="mostrarProd(producto.id)">
-                <img :src="producto.fotoURL" alt="imageProd" height="70px">
+                <img src="./img/svg/image.svg" alt="imageProd" height="70px">
               </div>
               <div class="d-flex" style="flex-direction: column; margin-top: -15px;">
                 <div style="padding: 3px;" @click="mostrarProd(producto.id)">
@@ -175,13 +171,13 @@
         <!--Products desktop-->
 
         <div class="d-flex j-center align-center mobile-none products" style="flex-direction: column;">
-          <div class="filter d-flex" style="margin-top: 5%;">
-            [FILTRES DE CERCA]
+          <div class="filter d-flex" style="margin-top: 20px;">
+            ELS NOSTRES PRODUCTES
           </div>
           <div class="d-grid containProducts">
             <div class="contItem p-relative" v-for="producto in infoTotal.datos" :key="producto.id">
               <div class="d-flex j-center" @click="mostrarProd(producto.id)">
-                <img :src="producto.fotoURL" alt="imageProd" height="110px">
+                <img src="./img/svg/image.svg" alt="imageProd" height="110px">
               </div>
               <div class="d-flex infProd" style="flex-direction: column; margin-top: -15px;">
                 <div style="padding: 3px; margin-top: 20px;" @click="mostrarProd(producto.id)">
@@ -198,8 +194,8 @@
         <!--Products mobile-->
 
         <div class="d-flex j-center align-center desk-none" style="flex-direction: column;">
-          <div class="filter d-flex">
-            [FILTRES DE CERCA]
+          <div class="filter d-flex" style="margin-top: 15px">
+            ELS NOSTRES PRODUCTES
           </div>
           <div class="d-grid containProducts">
             <div class="contItem p-relative" v-for="producto in paginatedProducts()" :key="producto.id">
@@ -242,7 +238,7 @@
 
       <div class="bodyProd" style="padding: 20px;">
         <div class="containImage d-flex j-center">
-          <img :src="prodActual.fotoURL" alt="imageProd">
+          <img src="./img/svg/image.svg" alt="imageProd">
         </div>
         <div class="infoDet">
           <p v-if="prodActual.stock >= 10">Disponible</p>
@@ -427,7 +423,7 @@
           </iframe>
           <p class="adreca-text">Av. d'Esplugues, 40, Les Corts, 08034 Barcelona</p>
         </div>
-        <button @click="toggleQuiSom" class="btn-close">Tornar a l'inici</button>
+        <button @click="toggleInici" class="btn-close">Tornar a l'inici</button>
       </div>
     </div>
 
@@ -445,10 +441,11 @@
           <input type="text" id="fullnameCustomer" class="px-10" v-model="fullnameCustomer"
             placeholder="El teu nom complet">
           <label for="emailCustomer">Correu electrònic</label>
-          <input type="email" id="emailCustomer" class="px-10" v-model="emailCustomer" placeholder="Introdueix el teu correu electrònic">
+          <input type="email" id="emailCustomer" class="px-10" v-model="emailCustomer"
+            placeholder="Introdueix el teu correu electrònic">
           <label for="phoneCustomer">Número de telèfon</label>
           <input type="number" id="phoneCustomer" class="px-10" v-model="phoneCustomer"
-            placeholder="Número de telèfon">
+            placeholder="Introdueix el teu correu electrònic">
           <label class="d-flex align-center w-33" style="margin-top: -10px;">
             <input type="checkbox" v-model="isGift" name="isGift" id="isGift">
             <p>És un regal?</p>
@@ -483,7 +480,8 @@
         <div class="w-full">
           <p style="margin-top: 0px;"><span style="font-weight: 500;">Nom: </span><span
               style="font-weight: 200;">{{user.datos.name}}</span></p>
-          <p><span style="font-weight: 500;">Correu electrònic: </span><span style="font-weight: 200;">{{user.datos.email}}</span>
+          <p><span style="font-weight: 500;">Correu electrònic: </span><span
+              style="font-weight: 200;">{{user.datos.email}}</span>
           </p>
           <p><span style="font-weight: 500;">Telèfon: </span><span style="font-weight: 200;">{{user.datos.phone}}</span>
           </p>
@@ -567,17 +565,20 @@
 
     <!-- Footer -->
     <footer v-if="landingVisible" class="footer-container">
-      
+
       <div class="footer-section social">
         <img src="./img/lettermark.png" alt="Logo de la marca" class="footer-logo">
         <h4>Segueix-nos</h4>
         <div class="social-links">
-          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><img src="img/svg/facebook.svg" alt="Facebook" width="20px"></a>
-          <a href="https://instagram.com" target="_blank" aria-label="Instagram"><img src="img/svg/instagram.svg" alt="Instagram" width="20px"></a>
-          <a href="https://twitter.com" target="_blank" aria-label="Twitter"><img src="img/svg/twitter.svg" alt="Twitter" width="20px"></a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><img src="img/svg/facebook.svg"
+              alt="Facebook" width="20px"></a>
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram"><img src="img/svg/instagram.svg"
+              alt="Instagram" width="20px"></a>
+          <a href="https://twitter.com" target="_blank" aria-label="Twitter"><img src="img/svg/twitter.svg"
+              alt="Twitter" width="20px"></a>
         </div>
       </div>
-      
+
       <div class="footer-section contact">
         <h4>Contacte</h4>
         <p>Telèfon: +34 610 456 579</p>

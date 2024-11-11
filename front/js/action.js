@@ -81,7 +81,7 @@ createApp({
             }
             // calcularTotal();
         });
-
+        
         const startFetchingOrders = () => {
             setInterval(async () => {
                 if (localStorage.getItem('token')) {
@@ -174,6 +174,7 @@ createApp({
             productsCategVisible.value = false;
             juegosSimilaresVisible.value = false;
             categVisible.value = false;
+            adminLoginVisible.value = false;
         }
 
         function productosMasVendidos() {
@@ -184,6 +185,7 @@ createApp({
 
         function productosRandom() {
             let aux = JSON.parse(JSON.stringify(infoTotal.datos));
+            console.log(aux);
             return aux.sort(() => Math.random() - 0.5).slice(0, 15);
         };
 
@@ -222,8 +224,10 @@ createApp({
         }
 
         function toggleQuiSom() {
-            quiSomVisible.value = !quiSomVisible.value;
-            landingVisible.value = !landingVisible.value;
+            quiSomVisible.value = true;
+            landingVisible.value = false;
+            adminLoginVisible.value = false;
+            categoriesVisible.value = false;
             document.getElementById('menu_burger').checked = false;
         }
 
@@ -232,6 +236,7 @@ createApp({
             landingVisible.value = false;
             products.value = false;
             categoriesVisible.value = false;
+            quiSomVisible.value = false;
             document.getElementById('menu_burger').checked = false;
         }
 

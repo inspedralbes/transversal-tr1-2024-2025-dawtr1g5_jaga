@@ -33,14 +33,14 @@ El projecte Botiga "Racó del Joc" que som el GRUP05 té com a objectiu crear un
 
 | Mètode  |	Endpoint	          | Descripció                            |
 |---------|-----------------------|---------------------------------------|
-| GET	  | `/api/products`  	      | Retorna tots els productes            |
-| GET	  | `/api/products/{id}`	  | Retorna un producte específic         |
+| GET	  | `/api/products`  	  | Retorna tots els productes            |
+| GET	  | `/api/products/{id}`  | Retorna un producte específic         |
 | POST	  | `/api/products`	      | Crea un nou producte (admin)          |
-| PUT	  | `/api/products/{id}`	  | Actualitza un producte existent       |
-| DELETE  |	`/api/products/{id}`	  | Elimina un producte (admin)           |
-| POST	  | `/api/orders`	          | Crea una nova comanda                 |
+| PUT	  | `/api/products/{id}`  | Actualitza un producte existent       |
+| DELETE  |	`/api/products/{id}`  | Elimina un producte (admin)           |
+| POST	  | `/api/orders`	      | Crea una nova comanda                 |
 | GET	  | `/api/orders/{id}`	  | Retorna els detalls d'una comanda     |
-| POST	  | `/api/users/register`   |	Registra un nou usuari                |
+| POST	  | `/api/users/register` |	Registra un nou usuari                |
 | POST	  | `/api/users/login`	  | Autentica un usuari                   |
 
 ## 📋Pre-requisits 
@@ -48,7 +48,6 @@ Abans de començar, ens assegurem de tenir instal·lades les eines següents:
 
 - XAMPP (última versió): Inclou PHP, MySQL i Apache en un sol paquet, per fer que el projecte funcioni en un servidor local.
 - Composer: Gestor de dependències de PHP, essencial per instal·lar Laravel i els seus paquets.
-Node.js i NPM: Necessaris per instal·lar dependències i compilar el frontend en Vue 3.
 
 ## 🔧Instalacions 
 
